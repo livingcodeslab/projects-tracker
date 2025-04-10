@@ -65,4 +65,5 @@
  :PROPERTIES:
  :LINK: https://tipsnano.com/catalog/calibration/calibr/tgq1/
  :END:
- [[file:~/livingcodeslab/graphene_fet_microfluidics/g_fet_device/measurements_requirements.org::*AFM][AFM]]
+
+** TODO Soak GFET chip in acetone for 12 hours :livingcodeslabs:gfet:important:
