@@ -1,0 +1,14 @@
+#+STARTUP: content
+#+TITLE: Living Codes Lab: Project Tracking
+#+AUTHOR: Frederick M. Muriithi, …
+
+* Introduction
+
+This repository provides a place to track various projects being undertaken by
+the Living Codes Lab and to collect documentation and links on those projects.
+
+* Projects
+
+- GFET Microfluidics project
+- Yeast-intercross project
+ ⋮
