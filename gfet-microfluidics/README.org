@@ -9,3 +9,60 @@
 
 ** TODO Add nice introduction in the repository :livingcodeslab:gfet:
 ** TODO Order materials and tools :livingcodeslab:gfet:
+
+*** ORDERED Air Nozzle Blow Gun                   :livingcodes:gfet:orders:
+ :PROPERTIES:
+ :Link: https://www.amazon.com/Connection-Compressor-Accessories-Inflation-Dedusting/dp/B09BMXFV3L/
+ :END:
+ [[file:~/livingcodeslab/graphene_fet_microfluidics/g_fet_device/measurements_requirements.org::*Nitrogen Tank Couplings and Materials][Nitrogen Tank Couplings and Materials]]
+
+*** ORDERED 1/4 inch hose barb                 :livingcodeslab:gfet:orders:
+ :PROPERTIES:
+ :Link: https://www.amazon.com/gp/aw/d/B09JNM3Q9X/
+ :END:
+ [[file:~/livingcodeslab/graphene_fet_microfluidics/g_fet_device/measurements_requirements.org::*Nitrogen Tank Couplings and Materials][Nitrogen Tank Couplings and Materials]]
+*** ORDERED 1/4 inch tygon tubing              :livingcodeslab:gfet:orders:
+ :PROPERTIES:
+ :Link: https://www.amazon.com/Tygon-F-4040-Lubricant-Tubing-Length/dp/B000PHF06C/
+ :END:
+ [[file:~/livingcodeslab/graphene_fet_microfluidics/g_fet_device/measurements_requirements.org::*Nitrogen Tank Couplings and Materials][Nitrogen Tank Couplings and Materials]]
+*** ORDERED Vacuum storage container              :livingcodes:gfet:orders:
+ :PROPERTIES:
+ :Link: https://www.tedpella.com/desiccat_html/2275.aspx#6086
+ :END:
+ [[file:~/livingcodeslab/graphene_fet_microfluidics/g_fet_device/measurements_requirements.org::*Vacuum Storage][Vacuum Storage]]
+*** ORDERED 1 litre isopropyl alcohol         :livingcodeslabs:orders:gfet:
+ :PROPERTIES:
+ :Link: https://www.fishersci.com/shop/products/isopropyl-alcohol-reagent-acs-99-5-spectrum-chemical/18603543#?keyword=isopropyl%20alcohol%2099%
+ :END:
+ [[file:~/livingcodeslab/graphene_fet_microfluidics/g_fet_device/measurements_requirements.org::*Chemicals][Chemicals]]
+*** ORDERED 1 litre acetone, 99.5%            :livingcodeslabs:orders:gfet:
+ :PROPERTIES:
+ :LINK: https://www.fishersci.com/shop/products/acetone-acs-99-5-thermo-scientific/AA30698K2#?keyword=acetone
+ :END:
+ [[file:~/livingcodeslab/graphene_fet_microfluidics/g_fet_device/measurements_requirements.org::*Chemicals][Chemicals]]
+*** ORDERED GFET S-20 Chip — Pack of 4        :livingcodeslabs:orders:gfet:
+ :PROPERTIES:
+ :LINK: https://www.graphenea.com/collections/buy-gfet-models-for-sensing-applications/products/gfet-s20-for-sensing-applications
+ :END:
+ [[file:~/livingcodeslab/graphene_fet_microfluidics/g_fet_device/measurements_requirements.org::*GFET][GFET]]
+*** ORDERED Reservoirs for Catridge S2X       :livingcodeslabs:orders:gfet:
+ :PROPERTIES:
+ :LINK: 
+ :END:
+ [[file:~/livingcodeslab/graphene_fet_microfluidics/g_fet_device/measurements_requirements.org::*GFET][GFET]]
+*** ORDERED 2" 3-ring binder — 4 pack         :livingcodeslabs:orders:misc:
+ :PROPERTIES:
+ :LINK: https://www.amazon.com/Samsill-Economy-Ring-Binder-Round/dp/B07FL21L7G/
+ :END:
+ [[file:~/livingcodeslab/graphene_fet_microfluidics/g_fet_device/measurements_requirements.org::*Others][Others]]
+*** ORDERED 3-hole paper punch — 1 piece      :livingcodeslabs:orders:misc:
+ :PROPERTIES:
+ :LINK: https://www.amazon.com/Officemate-Medium-Ergonomic-Capacity-90088/dp/B0006BAWUQ/
+ :END:
+ [[file:~/livingcodeslab/graphene_fet_microfluidics/g_fet_device/measurements_requirements.org::*Others][Others]]
+*** ORDERED TGQ1 Calibration Grating          :livingcodeslabs:orders:gfet:
+ :PROPERTIES:
+ :LINK: https://tipsnano.com/catalog/calibration/calibr/tgq1/
+ :END:
+ [[file:~/livingcodeslab/graphene_fet_microfluidics/g_fet_device/measurements_requirements.org::*AFM][AFM]]
