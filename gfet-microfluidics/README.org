@@ -1,0 +1,11 @@
+#+STARTUP: content
+#+TITLE: Graphene FET Microfluidics Project
+#+AUTHOR: Frederick M. Muriithi, …
+#+OPTIONS: ^:{} _:{}
+
+* Introductions
+
+* Tasks
+
+** TODO Add nice introduction in the repository :livingcodeslab:gfet:
+** TODO Order materials and tools :livingcodeslab:gfet:
