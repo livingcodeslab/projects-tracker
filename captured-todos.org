@@ -1,0 +1,16 @@
+* Introduction
+
+The section named "Captured" below, holds a list of todos that have been quickly
+captured but not organised yet.
+These should be moved under the appropriate projects periodically. This can be
+done with the =org-refile= (~C-c C-w~) command in emacs, or you can manually
+move them over to the appropriate project.
+
+* Captured
+
+The captured tasks go here before being refiled.
+
+* Orders
+
+The captured orders go here before being refiled.
+
