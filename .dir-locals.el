@@ -2,9 +2,9 @@
   . ((eval
       . (let* ((project-dir (file-truename "."))
                (capture-file (concat project-dir "/captured-todos.org")))
-          (dolist (element
-                   (directory-files-recursively (file-truename ".") "^.*\.org$")
-                   nil)
+          (setq living-codes-lab-agenda-files
+                (directory-files-recursively project-dir "^.*\.org$"))
+          (dolist (element living-codes-lab-agenda-files nil)
             ;; update the org-agenda-files:
             ;; - Add any orgmode file in the repo to list of agenda files
             (unless (member element org-agenda-files)
@@ -12,6 +12,9 @@
 
           (unless (and (boundp 'living-codes-lab-settings-loaded)
                        living-codes-lab-settings-loaded)
+            (setq
+             org-refile-targets
+             (append org-refile-targets '((living-codes-lab-agenda-files :maxlevel . 9))))
             (setq
              ;; update the org capture templates
              org-capture-templates
