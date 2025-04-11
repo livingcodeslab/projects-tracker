@@ -3,7 +3,31 @@
 #+AUTHOR: Frederick M. Muriithi, …
 #+OPTIONS: ^:{} _:{}
 
-* Introductions
+* Introduction
+
+* TODO Measure Flow Changes          :livingcodeslabs:dnasynthesis:majorgoal:
+
+This relies of the following tasks and/or orders
+⋮
+
+
+* TODO Block Hybridisation           :livingcodeslabs:dnasynthesis:majorgoal:
+
+** TODO Temperature control
+- Maybe acquire temperature control devices, e.g. Peltier, etc
+
+* TODO Guided DNA Synthesis          :livingcodeslabs:dnasynthesis:majorgoal:
+
+- Reagents: enzymes, DNA, oligos — verify oligos are  okay
+- Microfluidics — reassembly of manifold,
+- GFET measurements: acquire GFETs, SMU, cleaning GFETS
+- Functionalization of GFET: reagents, AFM, PBASE DNA, tests/calibration
+- Integration: hardware, software, OPS, tests/calibration
+- 
+
+* TODO Validation of Synthesis       :livingcodeslabs:dnasynthesis:majorgoal:
+ [[file:~/genenetwork/gn-uploader/uploader/files/functions.py]]
+
 
 * Tasks
 
@@ -67,3 +91,4 @@
  :END:
 
 ** TODO Soak GFET chip in acetone for 12 hours :livingcodeslabs:gfet:important:
+
