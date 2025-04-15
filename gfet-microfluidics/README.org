@@ -18,6 +18,8 @@ This relies of the following tasks and/or orders
 
 * TODO Guided DNA Synthesis          :livingcodeslabs:dnasynthesis:majorgoal:
 
+This is waiting on the completion of the following:
+- [[*Order materials and tools][Order materials and tools]]
 - Reagents: enzymes, DNA, oligos — verify oligos are  okay
 - Microfluidics — reassembly of manifold,
 - GFET measurements: acquire GFETs, SMU, cleaning GFETS
