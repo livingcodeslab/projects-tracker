@@ -1,9 +1,17 @@
 #+STARTUP: content
-#+TITLE: Graphene FET Microfluidics Project
+#+TITLE: Guided DNA Synthesis
 #+AUTHOR: Frederick M. Muriithi, …
 #+OPTIONS: ^:{} _:{}
 
 * Introduction
+
+The *Guided DNA Synthesis* project seeks to investigate and perform DNA
+synthesis, guided by electronics and performed in (a) microfluidics
+environment(s).
+
+The sections below list the major topics of investigation, and the various
+dependencies they have. They also serve as a roadmap, and progress indicator for
+the work we are doing here.
 
 * TODO Measure Flow Changes          :livingcodeslabs:dnasynthesis:majorgoal:
 
