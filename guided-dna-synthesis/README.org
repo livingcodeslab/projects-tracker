@@ -80,11 +80,13 @@ This is waiting on the completion of the following:
  :LINK: https://www.graphenea.com/collections/buy-gfet-models-for-sensing-applications/products/gfet-s20-for-sensing-applications
  :END:
  [[file:~/livingcodeslab/graphene_fet_microfluidics/g_fet_device/measurements_requirements.org::*GFET][GFET]]
-*** ORDERED Reservoirs for Catridge S2X       :livingcodeslabs:orders:gfet:
+*** TOBUY Reservoirs for Catridge S2X         :livingcodeslab:orders:gfet:
  :PROPERTIES:
  :LINK: 
  :END:
- [[file:~/livingcodeslab/graphene_fet_microfluidics/g_fet_device/measurements_requirements.org::*GFET][GFET]]
+
+ - Send an email to Graphenea to request an order for the reservoirs
+
 *** RECEIVED 2" 3-ring binder — 4 pack        :livingcodeslabs:orders:misc:
  :PROPERTIES:
  :LINK: https://www.amazon.com/Samsill-Economy-Ring-Binder-Round/dp/B07FL21L7G/
