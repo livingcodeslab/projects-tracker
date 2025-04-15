@@ -13,18 +13,18 @@ The sections below list the major topics of investigation, and the various
 dependencies they have. They also serve as a roadmap, and progress indicator for
 the work we are doing here.
 
-* TODO Measure Flow Changes          :livingcodeslabs:dnasynthesis:majorgoal:
+* TODO Measure Flow Changes          :livingcodeslab:dnasynthesis:majorgoal:
 
 This relies of the following tasks and/or orders
 ⋮
 
 
-* TODO Block Hybridisation           :livingcodeslabs:dnasynthesis:majorgoal:
+* TODO Block Hybridisation           :livingcodeslab:dnasynthesis:majorgoal:
 
 ** TODO Temperature control
 - Maybe acquire temperature control devices, e.g. Peltier, etc
 
-* TODO Guided DNA Synthesis          :livingcodeslabs:dnasynthesis:majorgoal:
+* TODO Guided DNA Synthesis          :livingcodeslab:dnasynthesis:majorgoal:
 
 This is waiting on the completion of the following:
 - [[*Order materials and tools][Order materials and tools]]
@@ -35,7 +35,7 @@ This is waiting on the completion of the following:
 - Integration: hardware, software, OPS, tests/calibration
 - 
 
-* TODO Validation of Synthesis       :livingcodeslabs:dnasynthesis:majorgoal:
+* TODO Validation of Synthesis       :livingcodeslab:dnasynthesis:majorgoal:
  [[file:~/genenetwork/gn-uploader/uploader/files/functions.py]]
 
 
@@ -65,17 +65,17 @@ This is waiting on the completion of the following:
  :Link: https://www.tedpella.com/desiccat_html/2275.aspx#6086
  :END:
  [[file:~/livingcodeslab/graphene_fet_microfluidics/g_fet_device/measurements_requirements.org::*Vacuum Storage][Vacuum Storage]]
-*** SHIPPING 1 litre isopropyl alcohol        :livingcodeslabs:orders:gfet:
+*** SHIPPING 1 litre isopropyl alcohol        :livingcodeslab:orders:gfet:
  :PROPERTIES:
  :Link: https://www.fishersci.com/shop/products/isopropyl-alcohol-reagent-acs-99-5-spectrum-chemical/18603543#?keyword=isopropyl%20alcohol%2099%
  :END:
  [[file:~/livingcodeslab/graphene_fet_microfluidics/g_fet_device/measurements_requirements.org::*Chemicals][Chemicals]]
-*** SHIPPING 1 litre acetone, 99.5%           :livingcodeslabs:orders:gfet:
+*** SHIPPING 1 litre acetone, 99.5%           :livingcodeslab:orders:gfet:
  :PROPERTIES:
  :LINK: https://www.fishersci.com/shop/products/acetone-acs-99-5-thermo-scientific/AA30698K2#?keyword=acetone
  :END:
  [[file:~/livingcodeslab/graphene_fet_microfluidics/g_fet_device/measurements_requirements.org::*Chemicals][Chemicals]]
-*** RECEIVED GFET S-20 Chip — Pack of 4       :livingcodeslabs:orders:gfet:
+*** RECEIVED GFET S-20 Chip — Pack of 4       :livingcodeslab:orders:gfet:
  :PROPERTIES:
  :LINK: https://www.graphenea.com/collections/buy-gfet-models-for-sensing-applications/products/gfet-s20-for-sensing-applications
  :END:
@@ -87,24 +87,24 @@ This is waiting on the completion of the following:
 
  - Send an email to Graphenea to request an order for the reservoirs
 
-*** RECEIVED 2" 3-ring binder — 4 pack        :livingcodeslabs:orders:misc:
+*** RECEIVED 2" 3-ring binder — 4 pack        :livingcodeslab:orders:misc:
  :PROPERTIES:
  :LINK: https://www.amazon.com/Samsill-Economy-Ring-Binder-Round/dp/B07FL21L7G/
  :END:
  [[file:~/livingcodeslab/graphene_fet_microfluidics/g_fet_device/measurements_requirements.org::*Others][Others]]
-*** RECEIVED 3-hole paper punch — 1 piece     :livingcodeslabs:orders:misc:
+*** RECEIVED 3-hole paper punch — 1 piece     :livingcodeslab:orders:misc:
  :PROPERTIES:
  :LINK: https://www.amazon.com/Officemate-Medium-Ergonomic-Capacity-90088/dp/B0006BAWUQ/
  :END:
  [[file:~/livingcodeslab/graphene_fet_microfluidics/g_fet_device/measurements_requirements.org::*Others][Others]]
-*** ORDERED TGQ1 Calibration Grating          :livingcodeslabs:orders:gfet:
+*** ORDERED TGQ1 Calibration Grating          :livingcodeslab:orders:gfet:
  :PROPERTIES:
  :LINK: https://tipsnano.com/catalog/calibration/calibr/tgq1/
  :END:
 
-** TODO Soak GFET chip in acetone for 12 hours :livingcodeslabs:gfet:important:
+** TODO Soak GFET chip in acetone for 12 hours :livingcodeslab:gfet:important:
 
 ** TODO Reassemble the microfluidics device manifold  :livingcodeslab::gfet:
 ** TODO Review vacuum pump operating procedures with @erikg :livingcodeslab:vacuumstorage:microfluidics:
-** TODO Collect device characteristics data with different chemicals :livingcodeslabs:gfet:
+** TODO Collect device characteristics data with different chemicals :livingcodeslab:gfet:
  [[file:~/work-documents/uthsc/daily_work_report_202504.org::*2025-04-11][2025-04-11]]
