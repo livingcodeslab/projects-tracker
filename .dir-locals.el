@@ -1,6 +1,9 @@
 ((nil
   . ((eval
-      . (let* ((project-dir (file-truename "."))
+      . (let* ((project-dir
+                (directory-file-name
+                 (or (locate-dominating-file default-directory ".git")
+                     default-directory)))
                (capture-file (concat project-dir "/captured-todos.org")))
           (setq living-codes-lab-agenda-files
                 (directory-files-recursively project-dir "^.*\.org$"))
