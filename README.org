@@ -9,6 +9,6 @@ the Living Codes Lab and to collect documentation and links on those projects.
 
 * Projects
 
-- GFET Microfluidics project
+- [[file:guided-dna-synthesis/README.org::*Introduction][Guided DNA Synthesis]]
 - Yeast-intercross project
  ⋮
