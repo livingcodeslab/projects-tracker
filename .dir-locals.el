@@ -28,7 +28,7 @@
                         "**** TODO %^{TASKNAME} :livingcodeslab:%^G\n %a\n\n")
                        ("lo" "Living Codes Labs: Orders"
                         entry (file+headline ,capture-file "Orders")
-                        "**** ORDER %^{ORDERNAME} :livingcodeslab:orders:%^G\n :PROPERTIES:\n :LINK: %^{LINK}\n :QUANTITY: %^{QUANTITY}\n :UNITS: %^{UNITS}\n :END:\n %a\n\n"))))
+                        "**** ORDER %^{ORDERNAME} :livingcodeslab:orders:%^G\n :PROPERTIES:\n :LINK: %^{LINK}\n :QUANTITY: %^{QUANTITY}\n :UNITS: %^{UNITS}\n :END:\n\n"))))
             (setq
              ;; update the org TODO keywords
              org-todo-keywords
