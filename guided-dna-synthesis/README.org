@@ -44,20 +44,21 @@ This is waiting on the completion of the following:
 ** TODO Add nice introduction in the repository :livingcodeslab:gfet:
 ** TODO Order materials and tools :livingcodeslab:gfet:
 
-*** ORDERED Air Nozzle Blow Gun                   :livingcodes:gfet:orders:
+*** RECEIVED Air Nozzle Blow Gun                  :livingcodes:gfet:orders:
  :PROPERTIES:
  :Link: https://www.amazon.com/Connection-Compressor-Accessories-Inflation-Dedusting/dp/B09BMXFV3L/
  :END:
  [[file:~/livingcodeslab/graphene_fet_microfluidics/g_fet_device/measurements_requirements.org::*Nitrogen Tank Couplings and Materials][Nitrogen Tank Couplings and Materials]]
 
-*** ORDERED 1/4 inch hose barb                 :livingcodeslab:gfet:orders:
+*** RECEIVED 1/4 inch hose barb                :livingcodeslab:gfet:orders:
  :PROPERTIES:
  :Link: https://www.amazon.com/gp/aw/d/B09JNM3Q9X/
  :END:
  [[file:~/livingcodeslab/graphene_fet_microfluidics/g_fet_device/measurements_requirements.org::*Nitrogen Tank Couplings and Materials][Nitrogen Tank Couplings and Materials]]
 *** ORDERED 1/4 inch tygon tubing              :livingcodeslab:gfet:orders:
  :PROPERTIES:
- :Link: https://www.amazon.com/Tygon-F-4040-Lubricant-Tubing-Length/dp/B000PHF06C/
+  :Link: https://www.amazon.com/Beduan-Pneumatic-Compressor-Transfer-10Meter/dp/B07QPRKTZQ/
+ :Wrong-Link: https://www.amazon.com/Tygon-F-4040-Lubricant-Tubing-Length/dp/B000PHF06C/
  :END:
  [[file:~/livingcodeslab/graphene_fet_microfluidics/g_fet_device/measurements_requirements.org::*Nitrogen Tank Couplings and Materials][Nitrogen Tank Couplings and Materials]]
 *** RECEIVED Vacuum storage container             :livingcodes:gfet:orders:
@@ -65,7 +66,7 @@ This is waiting on the completion of the following:
  :Link: https://www.tedpella.com/desiccat_html/2275.aspx#6086
  :END:
  [[file:~/livingcodeslab/graphene_fet_microfluidics/g_fet_device/measurements_requirements.org::*Vacuum Storage][Vacuum Storage]]
-*** SHIPPING 1 litre isopropyl alcohol        :livingcodeslab:orders:gfet:
+*** RECEIVED 1 litre isopropyl alcohol         :livingcodeslab:orders:gfet:
  :PROPERTIES:
  :Link: https://www.fishersci.com/shop/products/isopropyl-alcohol-reagent-acs-99-5-spectrum-chemical/18603543#?keyword=isopropyl%20alcohol%2099%
  :END:
@@ -100,6 +101,11 @@ This is waiting on the completion of the following:
 *** ORDERED TGQ1 Calibration Grating          :livingcodeslab:orders:gfet:
  :PROPERTIES:
  :LINK: https://tipsnano.com/catalog/calibration/calibr/tgq1/
+ :END:
+
+*** ORDER DRI-BOX® Reusable Sorbent Box :livingcodeslab:orders:desiccant:gfet:
+ :PROPERTIES:
+ :LINK: https://www.tedpella.com/desiccat_html/descant.aspx#DRI-BOX
  :END:
 
 ** TODO Soak GFET chip in acetone for 12 hours :livingcodeslab:gfet:important:
