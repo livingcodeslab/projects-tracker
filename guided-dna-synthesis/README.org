@@ -111,6 +111,6 @@ This is waiting on the completion of the following:
 ** TODO Soak GFET chip in acetone for 12 hours :livingcodeslab:gfet:important:
 
 ** TODO Reassemble the microfluidics device manifold  :livingcodeslab::gfet:
-** TODO Review vacuum pump operating procedures with @erikg :livingcodeslab:vacuumstorage:microfluidics:
+** DONE Review vacuum pump operating procedures with @erikg :livingcodeslab:vacuumstorage:microfluidics:
 ** TODO Collect device characteristics data with different chemicals :livingcodeslab:gfet:
  [[file:~/work-documents/uthsc/daily_work_report_202504.org::*2025-04-11][2025-04-11]]
