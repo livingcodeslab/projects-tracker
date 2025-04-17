@@ -91,7 +91,7 @@ open-air and distilled water are as follows, after using the 1X PBS:
 
 
 The new curves indicate that the new chip, chip01, had its characteristics
-cha by the high concentration of PBS (for reference, Graphenea
+drastically altered by the high concentration of PBS (for reference, Graphenea
 used 0.001X PBS[fn:gfet-measurement-protocols])
 
 This is, probably the reason why the chips, seemingly, broke.
