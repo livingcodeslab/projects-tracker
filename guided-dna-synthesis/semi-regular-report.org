@@ -1,0 +1,82 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates
+
+* Introduction
+
+The idea of this page is to provide a semi-regular report on the results from
+the work done.
+
+* Rough notes
+
+** Before 2025-04-18
+
+Used a Graphenea GFET S-20[fn:gfet-s-20] chip and attempted to get device
+characteristics. This was the very first chip, and we'll refer to it as *chip00*.
+
+We got acceptable curves for open-air and water attempts
+
+- [ ] *TODO*: attach images for the curves here, perhaps?
+
+as soon as we attempted to use 1X PBS, the device no longer provided sensible
+characteristic curves — we simply got noise.
+
+** 2025-04-18
+
+Started off with a new Graphenea GFET S-20[fn:gfet-s-20] chip, *chip01* and
+attempted to get its characteristics.
+
+The characteristics curve I got for the open-air iteration was:
+
+#+CAPTION: Current Characteristics of Chip01: I_{D} vs. V_{G}: Open-Air
+#+NAME: chip01-open-air-current-xristics-01
+[[file:images/2025-04-16/chip01/open_air_current_characteristics.svg]]
+
+and with distilled water, I got:
+
+#+CAPTION: Current Characteristics of Chip01: I_{D} vs. V_{G}: Distilled Water
+#+NAME: chip01-dwater-current-xristics-01
+[[file:images/2025-04-16/chip01/distilled-water-current-characteristics.svg]]
+
+#+CAPTION: Resistance Characteristics of Chip01: R_{D} vs. V_{G}: Distilled Water
+#+NAME: chip01-dwater-resist-xristics-01
+[[file:images/2025-04-16/chip01/distilled-water-resistance-characteristics.svg]]
+
+The current characteristics curves are nice and clear.
+
+The resistance characteristics curves are ruined (mostly) by the 50kΩ spike,
+which probably occurs at the 4.16×10^{-16}V Gate voltage.
+
+- [ ] *TODO*: Remove suspect values and regenerate the plot for comparison
+
+  At this point, we used a 1X PBS (Phosphate Buffered Saline) solution for testing.
+  As in *chip00* mentioned previously, this broke the new chip — the
+  characteristics for the 1X PBS solution is as follows
+
+#+CAPTION: Current Characteristics of Chip01: I_{D} vs. V_{G}: 1X PBS
+#+NAME: chip01-pbs-current-xristics-01
+[[file:images/2025-04-16/chip01/pbs-solution-current-characteristics.svg]]
+
+#+CAPTION: Resistance Characteristics of Chip01: R_{D} vs. V_{G}: 1X PBS
+#+NAME: chip01-pbs-resist-xristics-01
+[[file:images/2025-04-16/chip01/pbs-solution-resistance-characteristics.svg]]
+
+These curves are very weird, and to verify whether the chip was still
+functioning as expected, we attempted to get new characteristics curves for the
+chip for both open-air and with distilled water. The results are as follows:
+
+- [ ] Add verification curves for open-air
+- [ ] Add verification curves for distilled water
+
+The new curves indicate that the new chip, chip01, had its characteristics
+changed completely by the high concentration of PBS (for reference, Graphenea
+used 0.001X PBS https://cdn.shopify.com/s/files/1/0191/2296/files/2025_Measurement_Protocols_GFET-S2X_v5.pdf?v=1736951757)
+
+This is, probably the reason why the chips broke.
+
+
+
+
+
+* Footnotes
+
+[fn:gfet-s-20] Graphenea's GFET S-20 chip https://www.graphenea.com/products/gfet-s20-for-sensing-applications
