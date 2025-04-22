@@ -46,7 +46,16 @@ The current characteristics curves are nice and clear.
 The resistance characteristics curves are ruined (mostly) by the 50kΩ spike,
 which probably occurs at the 4.16×10^{-16}V Gate voltage.
 
-- [ ] *TODO*: Remove suspect values and regenerate the plot for comparison
+After removing the 4.16×10^{-16}V gate voltage data, the resistance
+characteristics graphs become:
+
+#+CAPTION: Resistance Characteristics of Chip01: R_{D} vs. V_{G}: Distilled Water
+#+NAME: chip01-dwater-resist-xristics-no-zero-vg
+[[file:images/2025-04-16/chip01/distilled-water-resistance-characteristics-no-zero-vg.svg]]
+
+which is much nicer. This also demonstrates that we probably do not want to run
+with a gate voltage of near zero, since the characteristics at that point might
+be a tad unstable.
 
   At this point, we used a 1X PBS (Phosphate Buffered Saline) solution for testing.
   As in *chip00* mentioned previously, this broke the new chip — the
