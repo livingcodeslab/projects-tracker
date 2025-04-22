@@ -108,6 +108,12 @@ This is waiting on the completion of the following:
  :LINK: https://www.tedpella.com/desiccat_html/descant.aspx#DRI-BOX
  :END:
 
+*** ORDER Allen Key Wrench Set                :livingcodeslab:orders:tools:
+ :PROPERTIES:
+ :LINK: https://www.amazon.com/LEXIVON-Master-35-Piece-Industrial-LX-131/dp/B07MR7SDF7
+ :QUANTITY: 1
+ :UNITS: pieces
+ :END:
 ** DONE Soak GFET chip in acetone for 12 hours :livingcodeslab:gfet:important:
 
 ** TODO Reassemble the microfluidics device manifold  :livingcodeslab::gfet:
