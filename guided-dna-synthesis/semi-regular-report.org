@@ -13,12 +13,55 @@ the work done.
 Used a Graphenea GFET S-20[fn:gfet-s-20] chip and attempted to get device
 characteristics. This was the very first chip, and we'll refer to it as *chip00*.
 
-We got acceptable curves for open-air and water attempts
+We ran the device in three "modes":
+- open-air
+- with distilled water
+- with 1X PBS solution
 
-- [ ] *TODO*: attach images for the curves here, perhaps?
+The characteristics curves are shown below:
 
-as soon as we attempted to use 1X PBS, the device no longer provided sensible
-characteristic curves — we simply got noise.
+*** Open-Air
+
+The current characteristics curves with the chip in the open-air mode was as follows
+
+[[file:images/Before-2025-04-16/chip00/open_air_current_characteristics.svg]]
+
+while the resistance characteristics were as follows
+
+[[file:images/Before-2025-04-16/chip00/open_air_resistance_characteristics.svg]]
+
+*** Distilled-Water
+
+The current characteristics were
+
+[[file:images/Before-2025-04-16/chip00/distilled_water_current_characteristics.svg]]
+
+and the resistance characteristics were
+
+[[file:images/Before-2025-04-16/chip00/distilled_water_resistance_characteristics.svg]]
+
+*** 1X Phosphate Buffered Saline (PBS) Solution
+
+The current characteristics were
+
+[[file:images/Before-2025-04-16/chip00/1xpbs_current_characteristics.svg]]
+
+and the resistance characteristics were
+
+[[file:images/Before-2025-04-16/chip00/1xpbs_resistance_characteristics.svg]]
+
+*** Conclusion
+
+The open-air configuration is not a useful configuration for use, but it does
+give us a baseline, and a way to verify operation of the device.
+
+The characteristics curves for distilled water were as expected.
+
+The characteristics curves for 1X PBS were very different from expectations.
+
+The characteristics of the device seem to have been altered significantly after
+the 1X PBS round — we no longer got expected curves for any of the other two
+configurations.
 
 ** 2025-04-18
 

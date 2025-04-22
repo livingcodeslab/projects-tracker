@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="utf-8"  standalone="no"?>
+<svg 
+ viewBox="0 0 1200 1000"
+ xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+>
+
+<title>Gnuplot</title>
+<desc>Produced by GNUPLOT 5.4 patchlevel 9 </desc>
+
+<g id="gnuplot_canvas">
+
+<rect x="0" y="0" width="1200" height="1000" fill="#ffffff"/>
+<defs>
+
+	<circle id='gpDot' r='0.5' stroke-width='0.5' stroke='currentColor'/>
+	<path id='gpPt0' stroke-width='0.267' stroke='currentColor' d='M-1,0 h2 M0,-1 v2'/>
+	<path id='gpPt1' stroke-width='0.267' stroke='currentColor' d='M-1,-1 L1,1 M1,-1 L-1,1'/>
+	<path id='gpPt2' stroke-width='0.267' stroke='currentColor' d='M-1,0 L1,0 M0,-1 L0,1 M-1,-1 L1,1 M-1,1 L1,-1'/>
+	<rect id='gpPt3' stroke-width='0.267' stroke='currentColor' x='-1' y='-1' width='2' height='2'/>
+	<rect id='gpPt4' stroke-width='0.267' stroke='currentColor' fill='currentColor' x='-1' y='-1' width='2' height='2'/>
+	<circle id='gpPt5' stroke-width='0.267' stroke='currentColor' cx='0' cy='0' r='1'/>
+	<use xlink:href='#gpPt5' id='gpPt6' fill='currentColor' stroke='none'/>
+	<path id='gpPt7' stroke-width='0.267' stroke='currentColor' d='M0,-1.33 L-1.33,0.67 L1.33,0.67 z'/>
+	<use xlink:href='#gpPt7' id='gpPt8' fill='currentColor' stroke='none'/>
+	<use xlink:href='#gpPt7' id='gpPt9' stroke='currentColor' transform='rotate(180)'/>
+	<use xlink:href='#gpPt9' id='gpPt10' fill='currentColor' stroke='none'/>
+	<use xlink:href='#gpPt3' id='gpPt11' stroke='currentColor' transform='rotate(45)'/>
+	<use xlink:href='#gpPt11' id='gpPt12' fill='currentColor' stroke='none'/>
+	<path id='gpPt13' stroke-width='0.267' stroke='currentColor' d='M0,1.330 L1.265,0.411 L0.782,-1.067 L-0.782,-1.076 L-1.265,0.411 z'/>
+	<use xlink:href='#gpPt13' id='gpPt14' fill='currentColor' stroke='none'/>
+	<filter id='textbox' filterUnits='objectBoundingBox' x='0' y='0' height='1' width='1'>
+	  <feFlood flood-color='#FFFFFF' flood-opacity='1' result='bgnd'/>
+	  <feComposite in='SourceGraphic' in2='bgnd' operator='atop'/>
+	</filter>
+	<filter id='greybox' filterUnits='objectBoundingBox' x='0' y='0' height='1' width='1'>
+	  <feFlood flood-color='lightgrey' flood-opacity='1' result='grey'/>
+	  <feComposite in='SourceGraphic' in2='grey' operator='atop'/>
+	</filter>
+</defs>
+<g fill="none" color="#FFFFFF" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M88.50,937.00 L96.00,937.00 M1178.99,937.00 L1171.49,937.00  '/>	<g transform="translate(81.50,940.25)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >-1.4x10</tspan><tspan font-family="arial"  font-size="8.0" dy="-5.00px">8</tspan><tspan font-size="10.0" dy="5.00"></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M88.50,839.56 L96.00,839.56 M1178.99,839.56 L1171.49,839.56  '/>	<g transform="translate(81.50,842.81)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >-1.2x10</tspan><tspan font-family="arial"  font-size="8.0" dy="-5.00px">8</tspan><tspan font-size="10.0" dy="5.00"></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M88.50,742.11 L96.00,742.11 M1178.99,742.11 L1171.49,742.11  '/>	<g transform="translate(81.50,745.36)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >-1x10</tspan><tspan font-family="arial"  font-size="8.0" dy="-5.00px">8</tspan><tspan font-size="10.0" dy="5.00"></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M88.50,644.67 L96.00,644.67 M1178.99,644.67 L1171.49,644.67  '/>	<g transform="translate(81.50,647.92)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >-8x10</tspan><tspan font-family="arial"  font-size="8.0" dy="-5.00px">7</tspan><tspan font-size="10.0" dy="5.00"></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M88.50,547.23 L96.00,547.23 M1178.99,547.23 L1171.49,547.23  '/>	<g transform="translate(81.50,550.48)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >-6x10</tspan><tspan font-family="arial"  font-size="8.0" dy="-5.00px">7</tspan><tspan font-size="10.0" dy="5.00"></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M88.50,449.78 L96.00,449.78 M1178.99,449.78 L1171.49,449.78  '/>	<g transform="translate(81.50,453.03)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >-4x10</tspan><tspan font-family="arial"  font-size="8.0" dy="-5.00px">7</tspan><tspan font-size="10.0" dy="5.00"></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M88.50,352.34 L96.00,352.34 M1178.99,352.34 L1171.49,352.34  '/>	<g transform="translate(81.50,355.59)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >-2x10</tspan><tspan font-family="arial"  font-size="8.0" dy="-5.00px">7</tspan><tspan font-size="10.0" dy="5.00"></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M88.50,254.90 L96.00,254.90 M1178.99,254.90 L1171.49,254.90  '/>	<g transform="translate(81.50,258.15)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" > 0</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M88.50,157.45 L96.00,157.45 M1178.99,157.45 L1171.49,157.45  '/>	<g transform="translate(81.50,160.70)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" > 2x10</tspan><tspan font-family="arial"  font-size="8.0" dy="-5.00px">7</tspan><tspan font-size="10.0" dy="5.00"></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M88.50,60.01 L96.00,60.01 M1178.99,60.01 L1171.49,60.01  '/>	<g transform="translate(81.50,63.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" > 4x10</tspan><tspan font-family="arial"  font-size="8.0" dy="-5.00px">7</tspan><tspan font-size="10.0" dy="5.00"></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M88.50,937.00 L88.50,929.50 M88.50,60.01 L88.50,67.51  '/>	<g transform="translate(88.50,955.25)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >-2</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M224.81,937.00 L224.81,929.50 M224.81,60.01 L224.81,67.51  '/>	<g transform="translate(224.81,955.25)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >-1.5</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M361.12,937.00 L361.12,929.50 M361.12,60.01 L361.12,67.51  '/>	<g transform="translate(361.12,955.25)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >-1</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M497.43,937.00 L497.43,929.50 M497.43,60.01 L497.43,67.51  '/>	<g transform="translate(497.43,955.25)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >-0.5</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M633.75,937.00 L633.75,929.50 M633.75,60.01 L633.75,67.51  '/>	<g transform="translate(633.75,955.25)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="middle">
+		<text><tspan font-family="arial" > 0</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M770.06,937.00 L770.06,929.50 M770.06,60.01 L770.06,67.51  '/>	<g transform="translate(770.06,955.25)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="middle">
+		<text><tspan font-family="arial" > 0.5</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M906.37,937.00 L906.37,929.50 M906.37,60.01 L906.37,67.51  '/>	<g transform="translate(906.37,955.25)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="middle">
+		<text><tspan font-family="arial" > 1</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1042.68,937.00 L1042.68,929.50 M1042.68,60.01 L1042.68,67.51  '/>	<g transform="translate(1042.68,955.25)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="middle">
+		<text><tspan font-family="arial" > 1.5</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1178.99,937.00 L1178.99,929.50 M1178.99,60.01 L1178.99,67.51  '/>	<g transform="translate(1178.99,955.25)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="middle">
+		<text><tspan font-family="arial" > 2</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M88.50,60.01 L88.50,937.00 L1178.99,937.00 L1178.99,60.01 L88.50,60.01 Z  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(16.00,498.51) rotate(270)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >R (KΩ)</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(633.74,977.75)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >V</tspan><tspan font-family="arial"  font-size="8.0" dy="3.00px">G</tspan><tspan font-family="arial"  font-size="10.0" dy="-3.00px"> (V)</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M95.50,172.51 L95.50,67.51 L1113.00,67.51 L1113.00,172.51 L95.50,172.51 Z  '/></g>
+	<g id="gnuplot_plot_1" ><title>Gate Voltage -1.7V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(249.50,78.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage -1.7V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(148,   0, 211)'  d='M256.50,75.01 L292.00,75.01 M170.29,255.92 L197.55,257.87 L224.81,207.53 L252.07,253.16 L279.34,252.14 L306.60,248.03
+		L333.86,253.73 L361.12,253.66 L388.38,249.65 L415.65,252.88 L442.91,253.91 L470.17,254.11 L497.43,253.45 L524.70,254.38
+		L551.96,254.55 L579.22,254.63 L606.48,254.78 L633.75,254.79 L661.01,254.84 L688.27,254.85 L715.53,254.84 L742.79,254.86
+		L770.06,254.85 L797.32,254.86 L824.58,254.87 L851.84,254.87 L879.11,254.87 L906.37,254.88 L933.63,254.88 L960.89,254.89
+		L988.15,254.89 L1015.42,254.89 L1042.68,254.89 L1069.94,254.89  '/></g>
+	</g>
+	<g id="gnuplot_plot_2" ><title>Gate Voltage -1.6V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(249.50,93.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage -1.6V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(  0, 158, 115)'  d='M256.50,90.01 L292.00,90.01 M170.29,255.07 L197.55,257.27 L224.81,255.94 L252.07,259.44 L279.34,253.19 L306.60,267.87
+		L333.86,242.43 L361.12,253.75 L388.38,214.79 L415.65,251.79 L442.91,254.30 L470.17,253.35 L497.43,253.64 L524.70,254.48
+		L551.96,253.95 L579.22,254.43 L606.48,254.59 L633.75,254.51 L661.01,254.69 L688.27,254.78 L715.53,254.81 L742.79,254.83
+		L770.06,254.85 L797.32,254.84 L824.58,254.85 L851.84,254.86 L879.11,254.86 L906.37,254.87 L933.63,254.88 L960.89,254.88
+		L988.15,254.89 L1015.42,254.89 L1042.68,254.89 L1069.94,254.89  '/></g>
+	</g>
+	<g id="gnuplot_plot_3" ><title>Gate Voltage -1.5V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(249.50,108.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage -1.5V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 86, 180, 233)'  d='M256.50,105.01 L292.00,105.01 M170.29,254.96 L197.55,255.24 L224.81,259.21 L252.07,258.40 L279.34,252.02 L306.60,274.75
+		L333.86,258.05 L361.12,250.91 L388.38,253.69 L415.65,91.19 L442.91,253.92 L470.17,253.42 L497.43,253.74 L524.70,254.51
+		L551.96,253.64 L579.22,254.15 L606.48,254.49 L633.75,254.32 L661.01,254.65 L688.27,254.69 L715.53,254.74 L742.79,254.82
+		L770.06,254.82 L797.32,254.84 L824.58,254.84 L851.84,254.85 L879.11,254.86 L906.37,254.86 L933.63,254.87 L960.89,254.88
+		L988.15,254.88 L1015.42,254.89 L1042.68,254.89 L1069.94,254.89  '/></g>
+	</g>
+	<g id="gnuplot_plot_4" ><title>Gate Voltage -1.4V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(249.50,123.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage -1.4V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(230, 159,   0)'  d='M256.50,120.01 L292.00,120.01 M170.29,255.05 L197.55,255.37 L224.81,255.42 L252.07,248.31 L279.34,256.78 L306.60,258.26
+		L333.86,252.28 L361.12,251.21 L388.38,249.68 L415.65,263.74 L442.91,253.96 L470.17,249.67 L497.43,253.92 L524.70,254.32
+		L551.96,253.60 L579.22,254.41 L606.48,254.56 L633.75,254.34 L661.01,254.39 L688.27,254.59 L715.53,254.72 L742.79,254.76
+		L770.06,254.82 L797.32,254.82 L824.58,254.85 L851.84,254.84 L879.11,254.85 L906.37,254.86 L933.63,254.87 L960.89,254.87
+		L988.15,254.88 L1015.42,254.88 L1042.68,254.89 L1069.94,254.89  '/></g>
+	</g>
+	<g id="gnuplot_plot_5" ><title>Gate Voltage -1.3V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(249.50,138.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage -1.3V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(240, 228,  66)'  d='M256.50,135.01 L292.00,135.01 M170.29,254.95 L197.55,255.42 L224.81,255.72 L252.07,255.84 L279.34,216.91 L306.60,256.56
+		L333.86,257.25 L361.12,253.51 L388.38,253.39 L415.65,253.53 L442.91,253.16 L470.17,253.70 L497.43,233.96 L524.70,254.22
+		L551.96,254.32 L579.22,254.01 L606.48,254.50 L633.75,253.35 L661.01,254.45 L688.27,254.62 L715.53,254.42 L742.79,254.68
+		L770.06,254.74 L797.32,254.81 L824.58,254.84 L851.84,254.85 L879.11,254.86 L906.37,254.85 L933.63,254.87 L960.89,254.87
+		L988.15,254.88 L1015.42,254.88 L1042.68,254.88 L1069.94,254.89  '/></g>
+	</g>
+	<g id="gnuplot_plot_6" ><title>Gate Voltage -1.2V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(249.50,153.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage -1.2V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(  0, 114, 178)'  d='M256.50,150.01 L292.00,150.01 M170.29,254.93 L197.55,255.12 L224.81,255.35 L252.07,263.85 L279.34,251.94 L306.60,256.41
+		L333.86,257.22 L361.12,253.50 L388.38,257.82 L415.65,231.50 L442.91,253.79 L470.17,221.78 L497.43,262.58 L524.70,251.67
+		L551.96,253.80 L579.22,254.52 L606.48,254.58 L633.75,254.30 L661.01,254.64 L688.27,254.67 L715.53,254.37 L742.79,254.55
+		L770.06,254.74 L797.32,254.79 L824.58,254.81 L851.84,254.85 L879.11,254.86 L906.37,254.85 L933.63,254.85 L960.89,254.87
+		L988.15,254.87 L1015.42,254.88 L1042.68,254.88 L1069.94,254.88  '/></g>
+	</g>
+	<g id="gnuplot_plot_7" ><title>Gate Voltage -1.1V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(249.50,168.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage -1.1V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(229,  30,  16)'  d='M256.50,165.01 L292.00,165.01 M170.29,254.93 L197.55,255.03 L224.81,255.23 L252.07,259.44 L279.34,255.55 L306.60,249.98
+		L333.86,256.47 L361.12,256.50 L388.38,252.39 L415.65,253.79 L442.91,249.76 L470.17,258.55 L497.43,250.66 L524.70,254.23
+		L551.96,252.54 L579.22,253.24 L606.48,254.54 L633.75,254.34 L661.01,254.58 L688.27,254.32 L715.53,254.61 L742.79,254.49
+		L770.06,254.59 L797.32,254.76 L824.58,254.78 L851.84,254.82 L879.11,254.85 L906.37,254.86 L933.63,254.86 L960.89,254.86
+		L988.15,254.87 L1015.42,254.87 L1042.68,254.88 L1069.94,254.88  '/></g>
+	</g>
+	<g id="gnuplot_plot_8" ><title>Gate Voltage -1.0V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(453.00,78.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage -1.0V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(  0,   0,   0)'  d='M460.00,75.01 L495.50,75.01 M170.29,254.93 L197.55,255.01 L224.81,255.14 L252.07,256.70 L279.34,257.29 L306.60,255.72
+		L333.86,256.40 L361.12,253.27 L388.38,252.95 L415.65,252.17 L442.91,234.59 L470.17,280.03 L497.43,254.14 L524.70,253.72
+		L551.96,241.80 L579.22,254.39 L606.48,254.39 L633.75,254.07 L661.01,254.64 L688.27,254.52 L715.53,254.54 L742.79,254.35
+		L770.06,254.70 L797.32,254.68 L824.58,254.69 L851.84,254.81 L879.11,254.84 L906.37,254.85 L933.63,254.86 L960.89,254.86
+		L988.15,254.87 L1015.42,254.87 L1042.68,254.87 L1069.94,254.88  '/></g>
+	</g>
+	<g id="gnuplot_plot_9" ><title>Gate Voltage -0.9V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(453.00,93.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage -0.9V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(148,   0, 211)'  d='M460.00,90.01 L495.50,90.01 M170.29,254.92 L197.55,254.98 L224.81,255.32 L252.07,255.48 L279.34,255.61 L306.60,252.36
+		L333.86,259.54 L361.12,255.89 L388.38,253.68 L415.65,253.42 L442.91,254.05 L470.17,253.23 L497.43,257.62 L524.70,254.15
+		L551.96,254.30 L579.22,221.12 L606.48,254.53 L633.75,254.43 L661.01,254.11 L688.27,254.63 L715.53,254.66 L742.79,254.46
+		L770.06,254.65 L797.32,254.69 L824.58,254.73 L851.84,254.73 L879.11,254.80 L906.37,254.84 L933.63,254.86 L960.89,254.86
+		L988.15,254.87 L1015.42,254.87 L1042.68,254.87 L1069.94,254.88  '/></g>
+	</g>
+	<g id="gnuplot_plot_10" ><title>Gate Voltage -0.8V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(453.00,108.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage -0.8V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(  0, 158, 115)'  d='M460.00,105.01 L495.50,105.01 M170.29,254.91 L197.55,254.99 L224.81,255.08 L252.07,255.22 L279.34,250.92 L306.60,255.67
+		L333.86,256.18 L361.12,253.76 L388.38,256.43 L415.65,247.39 L442.91,254.14 L470.17,256.96 L497.43,254.20 L524.70,254.27
+		L551.96,254.37 L579.22,253.02 L606.48,254.46 L633.75,254.38 L661.01,253.85 L688.27,254.67 L715.53,254.66 L742.79,254.50
+		L770.06,254.73 L797.32,254.70 L824.58,254.76 L851.84,254.78 L879.11,254.78 L906.37,254.83 L933.63,254.85 L960.89,254.87
+		L988.15,254.87 L1015.42,254.87 L1042.68,254.87 L1069.94,254.87  '/></g>
+	</g>
+	<g id="gnuplot_plot_11" ><title>Gate Voltage -0.7V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(453.00,123.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage -0.7V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 86, 180, 233)'  d='M460.00,120.01 L495.50,120.01 M170.29,254.91 L197.55,254.96 L224.81,255.04 L252.07,255.12 L279.34,255.28 L306.60,255.37
+		L333.86,292.04 L361.12,253.90 L388.38,256.80 L415.65,264.11 L442.91,253.98 L470.17,256.91 L497.43,254.05 L524.70,254.23
+		L551.96,259.10 L579.22,220.21 L606.48,246.20 L633.75,254.47 L661.01,254.60 L688.27,254.70 L715.53,254.73 L742.79,254.75
+		L770.06,254.76 L797.32,254.61 L824.58,254.74 L851.84,254.76 L879.11,254.75 L906.37,254.82 L933.63,254.82 L960.89,254.86
+		L988.15,254.87 L1015.42,254.87 L1042.68,254.87 L1069.94,254.88  '/></g>
+	</g>
+	<g id="gnuplot_plot_12" ><title>Gate Voltage -0.6V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(453.00,138.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage -0.6V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(230, 159,   0)'  d='M460.00,135.01 L495.50,135.01 M170.29,254.91 L197.55,254.94 L224.81,254.97 L252.07,255.35 L279.34,255.22 L306.60,255.50
+		L333.86,253.73 L361.12,256.20 L388.38,254.20 L415.65,256.23 L442.91,254.30 L470.17,251.73 L497.43,267.24 L524.70,254.47
+		L551.96,253.53 L579.22,251.31 L606.48,254.03 L633.75,254.12 L661.01,252.38 L688.27,254.65 L715.53,254.34 L742.79,254.72
+		L770.06,254.57 L797.32,254.64 L824.58,254.76 L851.84,254.73 L879.11,254.80 L906.37,254.81 L933.63,254.81 L960.89,254.84
+		L988.15,254.87 L1015.42,254.87 L1042.68,254.88 L1069.94,254.88  '/></g>
+	</g>
+	<g id="gnuplot_plot_13" ><title>Gate Voltage -0.5V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(453.00,153.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage -0.5V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(240, 228,  66)'  d='M460.00,150.01 L495.50,150.01 M170.29,254.91 L197.55,254.93 L224.81,254.96 L252.07,254.97 L279.34,255.40 L306.60,255.18
+		L333.86,253.97 L361.12,248.99 L388.38,255.57 L415.65,254.10 L442.91,257.59 L470.17,254.34 L497.43,254.22 L524.70,254.43
+		L551.96,254.45 L579.22,254.52 L606.48,310.40 L633.75,254.11 L661.01,254.65 L688.27,254.06 L715.53,254.36 L742.79,254.76
+		L770.06,254.63 L797.32,254.76 L824.58,254.78 L851.84,254.74 L879.11,254.75 L906.37,254.79 L933.63,254.82 L960.89,254.85
+		L988.15,254.86 L1015.42,254.87 L1042.68,254.87 L1069.94,254.88  '/></g>
+	</g>
+	<g id="gnuplot_plot_14" ><title>Gate Voltage -0.4V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(453.00,168.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage -0.4V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(  0, 114, 178)'  d='M460.00,165.01 L495.50,165.01 M170.29,254.90 L197.55,254.92 L224.81,254.93 L252.07,254.98 L279.34,255.05 L306.60,255.44
+		L333.86,255.61 L361.12,254.33 L388.38,259.08 L415.65,255.58 L442.91,254.34 L470.17,253.95 L497.43,254.53 L524.70,256.22
+		L551.96,254.66 L579.22,256.98 L606.48,254.61 L633.75,254.69 L661.01,251.76 L688.27,254.67 L715.53,254.71 L742.79,254.56
+		L770.06,254.80 L797.32,254.67 L824.58,254.78 L851.84,254.80 L879.11,254.71 L906.37,254.81 L933.63,254.80 L960.89,254.85
+		L988.15,254.85 L1015.42,254.87 L1042.68,254.87 L1069.94,254.88  '/></g>
+	</g>
+	<g id="gnuplot_plot_15" ><title>Gate Voltage -0.3V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(656.50,78.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage -0.3V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(229,  30,  16)'  d='M663.50,75.01 L699.00,75.01 M170.29,254.90 L197.55,254.91 L224.81,254.92 L252.07,254.96 L279.34,255.11 L306.60,255.03
+		L333.86,253.16 L361.12,254.22 L388.38,255.39 L415.65,256.33 L442.91,254.64 L470.17,254.66 L497.43,254.14 L524.70,256.32
+		L551.96,254.66 L579.22,254.49 L606.48,252.65 L633.75,254.72 L661.01,254.23 L688.27,254.75 L715.53,254.53 L742.79,254.78
+		L770.06,254.67 L797.32,254.82 L824.58,254.83 L851.84,254.79 L879.11,254.81 L906.37,254.84 L933.63,254.84 L960.89,254.82
+		L988.15,254.85 L1015.42,254.87 L1042.68,254.88 L1069.94,254.88  '/></g>
+	</g>
+	<g id="gnuplot_plot_16" ><title>Gate Voltage -0.2V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(656.50,93.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage -0.2V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(  0,   0,   0)'  d='M663.50,90.01 L699.00,90.01 M170.29,254.90 L197.55,254.90 L224.81,254.91 L252.07,254.92 L279.34,255.03 L306.60,255.00
+		L333.86,255.10 L361.12,255.81 L388.38,254.64 L415.65,254.63 L442.91,254.64 L470.17,256.21 L497.43,254.33 L524.70,254.54
+		L551.96,259.98 L579.22,257.58 L606.48,254.66 L633.75,256.24 L661.01,254.76 L688.27,253.67 L715.53,254.80 L742.79,254.79
+		L770.06,254.84 L797.32,254.79 L824.58,254.85 L851.84,254.84 L879.11,254.86 L906.37,254.84 L933.63,254.86 L960.89,254.85
+		L988.15,254.87 L1015.42,254.87 L1042.68,254.88 L1069.94,254.89  '/></g>
+	</g>
+	<g id="gnuplot_plot_17" ><title>Gate Voltage -0.1V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(656.50,108.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage -0.1V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(148,   0, 211)'  d='M663.50,105.01 L699.00,105.01 M170.29,254.90 L197.55,254.90 L224.81,254.90 L252.07,254.91 L279.34,254.92 L306.60,255.02
+		L333.86,255.03 L361.12,254.98 L388.38,254.64 L415.65,254.40 L442.91,243.57 L470.17,254.67 L497.43,254.72 L524.70,254.80
+		L551.96,254.83 L579.22,255.32 L606.48,254.83 L633.75,254.60 L661.01,254.79 L688.27,254.84 L715.53,254.53 L742.79,254.86
+		L770.06,254.84 L797.32,254.83 L824.58,254.88 L851.84,254.87 L879.11,254.88 L906.37,254.87 L933.63,254.88 L960.89,254.87
+		L988.15,254.88 L1015.42,254.88 L1042.68,254.89 L1069.94,254.89  '/></g>
+	</g>
+	<g id="gnuplot_plot_18" ><title>Gate Voltage 4.16e-16V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(656.50,123.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage 4.16e-16V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(  0, 158, 115)'  d='M663.50,120.01 L699.00,120.01 M170.29,254.90 L197.55,254.90 L224.81,254.90 L252.07,254.90 L279.34,254.90 L306.60,254.90
+		L333.86,254.90 L361.12,254.90 L388.38,254.90 L415.65,254.90 L442.91,254.90 L470.17,254.90 L497.43,254.90 L524.70,254.90
+		L551.96,254.90 L579.22,254.90 L606.48,254.90 L633.75,254.90 L661.01,254.90 L688.27,254.90 L715.53,254.90 L742.79,254.90
+		L770.06,254.90 L797.32,254.90 L824.58,254.90 L851.84,254.90 L879.11,254.90 L906.37,254.90 L933.63,254.90 L960.89,254.90
+		L988.15,254.90 L1015.42,254.90 L1042.68,254.90 L1069.94,254.90  '/></g>
+	</g>
+	<g id="gnuplot_plot_19" ><title>Gate Voltage 0.1V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(656.50,138.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage 0.1V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 86, 180, 233)'  d='M663.50,135.01 L699.00,135.01 M170.29,254.90 L197.55,254.90 L224.81,254.89 L252.07,254.89 L279.34,254.88 L306.60,254.88
+		L333.86,254.69 L361.12,254.81 L388.38,255.16 L415.65,254.77 L442.91,255.64 L470.17,255.00 L497.43,254.64 L524.70,254.97
+		L551.96,255.46 L579.22,255.17 L606.48,254.97 L633.75,253.91 L661.01,254.97 L688.27,254.95 L715.53,255.10 L742.79,254.93
+		L770.06,255.00 L797.32,254.92 L824.58,254.92 L851.84,254.92 L879.11,254.91 L906.37,254.91 L933.63,254.90 L960.89,254.90
+		L988.15,254.91 L1015.42,254.91 L1042.68,254.91 L1069.94,254.91  '/></g>
+	</g>
+	<g id="gnuplot_plot_20" ><title>Gate Voltage 0.2V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(656.50,153.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage 0.2V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(230, 159,   0)'  d='M663.50,150.01 L699.00,150.01 M170.29,254.90 L197.55,254.89 L224.81,254.89 L252.07,254.89 L279.34,254.88 L306.60,254.86
+		L333.86,254.84 L361.12,251.98 L388.38,254.74 L415.65,255.28 L442.91,410.91 L470.17,255.30 L497.43,255.21 L524.70,255.44
+		L551.96,254.15 L579.22,255.05 L606.48,255.84 L633.75,255.02 L661.01,255.00 L688.27,254.99 L715.53,255.20 L742.79,255.11
+		L770.06,254.98 L797.32,254.96 L824.58,254.96 L851.84,254.94 L879.11,254.93 L906.37,254.92 L933.63,254.91 L960.89,254.91
+		L988.15,254.91 L1015.42,254.91 L1042.68,254.91 L1069.94,254.92  '/></g>
+	</g>
+	<g id="gnuplot_plot_21" ><title>Gate Voltage 0.3V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(656.50,168.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage 0.3V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(240, 228,  66)'  d='M663.50,165.01 L699.00,165.01 M170.29,254.89 L197.55,254.89 L224.81,254.89 L252.07,254.89 L279.34,254.88 L306.60,254.85
+		L333.86,254.79 L361.12,255.90 L388.38,255.91 L415.65,254.59 L442.91,255.33 L470.17,254.36 L497.43,254.30 L524.70,254.27
+		L551.96,255.96 L579.22,255.30 L606.48,255.54 L633.75,254.27 L661.01,258.30 L688.27,259.27 L715.53,257.05 L742.79,255.14
+		L770.06,255.10 L797.32,256.97 L824.58,255.05 L851.84,255.14 L879.11,255.05 L906.37,255.04 L933.63,254.95 L960.89,254.92
+		L988.15,254.91 L1015.42,254.91 L1042.68,254.92 L1069.94,254.93  '/></g>
+	</g>
+	<g id="gnuplot_plot_22" ><title>Gate Voltage 0.4V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(860.00,78.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage 0.4V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(  0, 114, 178)'  d='M867.00,75.01 L902.50,75.01 M170.29,254.89 L197.55,254.89 L224.81,254.89 L252.07,254.89 L279.34,254.88 L306.60,254.87
+		L333.86,254.85 L361.12,254.82 L388.38,254.82 L415.65,254.79 L442.91,254.81 L470.17,254.15 L497.43,254.38 L524.70,253.39
+		L551.96,254.26 L579.22,255.42 L606.48,254.06 L633.75,253.76 L661.01,255.22 L688.27,270.03 L715.53,255.19 L742.79,255.70
+		L770.06,251.48 L797.32,255.43 L824.58,250.13 L851.84,255.25 L879.11,255.09 L906.37,255.11 L933.63,255.28 L960.89,254.95
+		L988.15,254.92 L1015.42,254.91 L1042.68,254.91 L1069.94,254.92  '/></g>
+	</g>
+	<g id="gnuplot_plot_23" ><title>Gate Voltage 0.5V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(860.00,93.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage 0.5V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(229,  30,  16)'  d='M867.00,90.01 L902.50,90.01 M170.29,254.89 L197.55,254.89 L224.81,254.89 L252.07,254.88 L279.34,254.88 L306.60,254.86
+		L333.86,254.78 L361.12,254.53 L388.38,254.62 L415.65,216.47 L442.91,308.44 L470.17,254.51 L497.43,252.05 L524.70,255.84
+		L551.96,253.32 L579.22,255.78 L606.48,255.37 L633.75,262.81 L661.01,246.49 L688.27,251.09 L715.53,255.25 L742.79,251.79
+		L770.06,252.03 L797.32,255.70 L824.58,255.18 L851.84,258.03 L879.11,255.29 L906.37,257.60 L933.63,255.33 L960.89,255.03
+		L988.15,254.99 L1015.42,254.92 L1042.68,254.91 L1069.94,254.92  '/></g>
+	</g>
+	<g id="gnuplot_plot_24" ><title>Gate Voltage 0.6V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(860.00,108.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage 0.6V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(  0,   0,   0)'  d='M867.00,105.01 L902.50,105.01 M170.29,254.89 L197.55,254.89 L224.81,254.89 L252.07,254.88 L279.34,254.88 L306.60,254.87
+		L333.86,254.84 L361.12,254.79 L388.38,253.88 L415.65,254.56 L442.91,253.43 L470.17,254.39 L497.43,253.65 L524.70,256.25
+		L551.96,253.49 L579.22,255.53 L606.48,254.01 L633.75,256.31 L661.01,255.90 L688.27,253.24 L715.53,255.31 L742.79,255.27
+		L770.06,284.54 L797.32,246.62 L824.58,255.81 L851.84,255.21 L879.11,267.06 L906.37,255.35 L933.63,255.18 L960.89,255.18
+		L988.15,255.17 L1015.42,255.00 L1042.68,254.93 L1069.94,254.92  '/></g>
+	</g>
+	<g id="gnuplot_plot_25" ><title>Gate Voltage 0.7V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(860.00,123.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage 0.7V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(148,   0, 211)'  d='M867.00,120.01 L902.50,120.01 M170.29,254.89 L197.55,254.89 L224.81,254.89 L252.07,254.88 L279.34,254.88 L306.60,254.87
+		L333.86,254.84 L361.12,254.78 L388.38,254.54 L415.65,254.69 L442.91,222.93 L470.17,254.50 L497.43,248.68 L524.70,254.24
+		L551.96,259.53 L579.22,255.59 L606.48,253.42 L633.75,255.51 L661.01,253.36 L688.27,255.45 L715.53,255.73 L742.79,258.34
+		L770.06,255.23 L797.32,256.22 L824.58,255.28 L851.84,255.69 L879.11,255.88 L906.37,255.21 L933.63,255.37 L960.89,257.58
+		L988.15,255.15 L1015.42,255.42 L1042.68,254.98 L1069.94,254.93  '/></g>
+	</g>
+	<g id="gnuplot_plot_26" ><title>Gate Voltage 0.8V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(860.00,138.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage 0.8V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(  0, 158, 115)'  d='M867.00,135.01 L902.50,135.01 M170.29,254.89 L197.55,254.89 L224.81,254.89 L252.07,254.88 L279.34,254.88 L306.60,254.87
+		L333.86,254.84 L361.12,254.75 L388.38,254.62 L415.65,254.49 L442.91,256.62 L470.17,260.03 L497.43,253.98 L524.70,255.90
+		L551.96,255.63 L579.22,255.66 L606.48,243.24 L633.75,255.79 L661.01,255.84 L688.27,253.23 L715.53,256.49 L742.79,255.57
+		L770.06,249.00 L797.32,256.57 L824.58,249.34 L851.84,255.46 L879.11,255.26 L906.37,255.28 L933.63,277.91 L960.89,257.97
+		L988.15,255.39 L1015.42,256.08 L1042.68,255.06 L1069.94,255.01  '/></g>
+	</g>
+	<g id="gnuplot_plot_27" ><title>Gate Voltage 0.9V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(860.00,153.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage 0.9V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 86, 180, 233)'  d='M867.00,150.01 L902.50,150.01 M170.29,254.89 L197.55,254.89 L224.81,254.88 L252.07,254.88 L279.34,254.88 L306.60,254.87
+		L333.86,254.84 L361.12,254.76 L388.38,254.64 L415.65,254.34 L442.91,256.41 L470.17,253.38 L497.43,242.05 L524.70,255.82
+		L551.96,253.37 L579.22,252.53 L606.48,255.76 L633.75,253.45 L661.01,256.90 L688.27,255.68 L715.53,253.21 L742.79,252.07
+		L770.06,256.36 L797.32,255.85 L824.58,251.94 L851.84,255.48 L879.11,258.38 L906.37,259.05 L933.63,255.46 L960.89,256.12
+		L988.15,255.32 L1015.42,255.18 L1042.68,255.60 L1069.94,255.06  '/></g>
+	</g>
+	<g id="gnuplot_plot_28" ><title>Gate Voltage 1.0V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(860.00,168.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage 1.0V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(230, 159,   0)'  d='M867.00,165.01 L902.50,165.01 M170.29,254.89 L197.55,254.89 L224.81,254.88 L252.07,254.88 L279.34,254.88 L306.60,254.86
+		L333.86,254.84 L361.12,254.80 L388.38,254.71 L415.65,245.86 L442.91,250.32 L470.17,253.84 L497.43,256.57 L524.70,244.99
+		L551.96,261.75 L579.22,257.31 L606.48,253.49 L633.75,255.97 L661.01,370.54 L688.27,252.80 L715.53,252.09 L742.79,255.69
+		L770.06,257.62 L797.32,252.07 L824.58,256.34 L851.84,247.29 L879.11,161.09 L906.37,256.99 L933.63,255.65 L960.89,255.42
+		L988.15,255.72 L1015.42,260.09 L1042.68,255.29 L1069.94,255.30  '/></g>
+	</g>
+	<g id="gnuplot_plot_29" ><title>Gate Voltage 1.1V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(1063.50,78.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage 1.1V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(240, 228,  66)'  d='M1070.50,75.01 L1106.00,75.01 M170.29,254.89 L197.55,254.89 L224.81,254.88 L252.07,254.88 L279.34,254.87 L306.60,254.87
+		L333.86,254.85 L361.12,254.79 L388.38,254.55 L415.65,254.45 L442.91,251.62 L470.17,261.65 L497.43,249.60 L524.70,251.18
+		L551.96,256.18 L579.22,252.93 L606.48,256.28 L633.75,253.08 L661.01,256.17 L688.27,257.41 L715.53,227.70 L742.79,256.17
+		L770.06,251.62 L797.32,255.56 L824.58,255.64 L851.84,256.00 L879.11,233.15 L906.37,256.40 L933.63,255.49 L960.89,263.01
+		L988.15,255.95 L1015.42,255.41 L1042.68,256.96 L1069.94,255.58  '/></g>
+	</g>
+	<g id="gnuplot_plot_30" ><title>Gate Voltage 1.2V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(1063.50,93.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage 1.2V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(  0, 114, 178)'  d='M1070.50,90.01 L1106.00,90.01 M170.29,254.89 L197.55,254.89 L224.81,254.88 L252.07,254.88 L279.34,254.87 L306.60,254.87
+		L333.86,254.85 L361.12,254.82 L388.38,254.76 L415.65,253.94 L442.91,258.06 L470.17,252.67 L497.43,253.41 L524.70,256.19
+		L551.96,256.15 L579.22,248.20 L606.48,252.29 L633.75,251.92 L661.01,256.83 L688.27,257.07 L715.53,255.94 L742.79,256.19
+		L770.06,256.15 L797.32,249.49 L824.58,256.89 L851.84,255.67 L879.11,257.00 L906.37,255.80 L933.63,292.41 L960.89,271.82
+		L988.15,255.64 L1015.42,255.47 L1042.68,256.84 L1069.94,256.08  '/></g>
+	</g>
+	<g id="gnuplot_plot_31" ><title>Gate Voltage 1.3V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(1063.50,108.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage 1.3V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(229,  30,  16)'  d='M1070.50,105.01 L1106.00,105.01 M170.29,254.89 L197.55,254.89 L224.81,254.88 L252.07,254.88 L279.34,254.88 L306.60,254.87
+		L333.86,254.85 L361.12,254.84 L388.38,254.77 L415.65,254.70 L442.91,253.11 L470.17,250.91 L497.43,253.43 L524.70,265.35
+		L551.96,256.98 L579.22,850.63 L606.48,217.82 L633.75,257.17 L661.01,256.05 L688.27,256.46 L715.53,258.38 L742.79,255.85
+		L770.06,256.44 L797.32,509.78 L824.58,257.64 L851.84,256.27 L879.11,256.17 L906.37,255.52 L933.63,255.46 L960.89,255.90
+		L988.15,256.33 L1015.42,255.48 L1042.68,255.40 L1069.94,255.89  '/></g>
+	</g>
+	<g id="gnuplot_plot_32" ><title>Gate Voltage 1.4V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(1063.50,123.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage 1.4V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(  0,   0,   0)'  d='M1070.50,120.01 L1106.00,120.01 M170.29,254.89 L197.55,254.89 L224.81,254.89 L252.07,254.88 L279.34,254.88 L306.60,254.88
+		L333.86,254.86 L361.12,254.85 L388.38,254.82 L415.65,254.74 L442.91,254.60 L470.17,254.33 L497.43,253.77 L524.70,260.99
+		L551.96,290.72 L579.22,252.86 L606.48,252.28 L633.75,256.47 L661.01,256.21 L688.27,256.30 L715.53,256.13 L742.79,259.40
+		L770.06,256.17 L797.32,256.88 L824.58,255.85 L851.84,255.73 L879.11,255.68 L906.37,560.11 L933.63,261.85 L960.89,262.10
+		L988.15,257.90 L1015.42,257.54 L1042.68,255.81 L1069.94,255.68  '/></g>
+	</g>
+	<g id="gnuplot_plot_33" ><title>Gate Voltage 1.5V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(1063.50,138.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage 1.5V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(148,   0, 211)'  d='M1070.50,135.01 L1106.00,135.01 M170.29,254.89 L197.55,254.89 L224.81,254.89 L252.07,254.88 L279.34,254.88 L306.60,254.88
+		L333.86,254.88 L361.12,254.87 L388.38,254.87 L415.65,254.85 L442.91,254.80 L470.17,254.66 L497.43,254.32 L524.70,258.52
+		L551.96,256.85 L579.22,257.11 L606.48,258.73 L633.75,251.43 L661.01,251.75 L688.27,252.25 L715.53,246.56 L742.79,250.21
+		L770.06,257.99 L797.32,255.80 L824.58,256.16 L851.84,256.06 L879.11,255.62 L906.37,257.42 L933.63,257.07 L960.89,256.00
+		L988.15,255.75 L1015.42,255.44 L1042.68,255.65 L1069.94,255.67  '/></g>
+	</g>
+	<g id="gnuplot_plot_34" ><title>Gate Voltage 1.6V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(1063.50,153.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Gate Voltage 1.6V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(  0, 158, 115)'  d='M1070.50,150.01 L1106.00,150.01 M170.29,254.89 L197.55,254.89 L224.81,254.89 L252.07,254.89 L279.34,254.89 L306.60,254.89
+		L333.86,254.88 L361.12,254.88 L388.38,254.87 L415.65,254.86 L442.91,254.85 L470.17,254.83 L497.43,254.67 L524.70,253.98
+		L551.96,253.71 L579.22,250.46 L606.48,256.85 L633.75,257.14 L661.01,258.57 L688.27,251.36 L715.53,256.42 L742.79,252.30
+		L770.06,258.99 L797.32,257.03 L824.58,248.16 L851.84,256.37 L879.11,255.44 L906.37,256.86 L933.63,255.46 L960.89,255.31
+		L988.15,255.50 L1015.42,255.31 L1042.68,256.17 L1069.94,255.63  '/></g>
+	</g>
+<g fill="none" color="#FFFFFF" stroke="rgb(  0, 158, 115)" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M88.50,60.01 L88.50,937.00 L1178.99,937.00 L1178.99,60.01 L88.50,60.01 Z  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(633.74,29.01)" stroke="none" fill="black" font-family="arial" font-size="20.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >GFET Transfer Characteristics (1X PbS): R</tspan><tspan font-family="arial"  font-size="16.0" dy="6.00px">D</tspan><tspan font-family="arial"  font-size="20.0" dy="-6.00px"> vs. V</tspan><tspan font-family="arial"  font-size="16.0" dy="6.00px">G</tspan><tspan font-size="20.0" dy="-6.00"></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+</g>
+</svg>
+
