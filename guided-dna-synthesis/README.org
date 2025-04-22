@@ -13,6 +13,7 @@ The sections below list the major topics of investigation, and the various
 dependencies they have. They also serve as a roadmap, and progress indicator for
 the work we are doing here.
 
+
 * TODO Measure Flow Changes          :livingcodeslab:dnasynthesis:majorgoal:
 
 This relies of the following tasks and/or orders
@@ -23,6 +24,7 @@ This relies of the following tasks and/or orders
 
 ** TODO Temperature control
 - Maybe acquire temperature control devices, e.g. Peltier, etc
+
 
 * TODO Guided DNA Synthesis          :livingcodeslab:dnasynthesis:majorgoal:
 
@@ -36,7 +38,6 @@ This is waiting on the completion of the following:
 - 
 
 * TODO Validation of Synthesis       :livingcodeslab:dnasynthesis:majorgoal:
- [[file:~/genenetwork/gn-uploader/uploader/files/functions.py]]
 
 
 * Tasks
@@ -118,5 +119,5 @@ This is waiting on the completion of the following:
 
 ** TODO Reassemble the microfluidics device manifold  :livingcodeslab::gfet:
 ** DONE Review vacuum pump operating procedures with @erikg :livingcodeslab:vacuumstorage:microfluidics:
-** TODO Collect device characteristics data with different chemicals :livingcodeslab:gfet:
+** DONE Collect device characteristics data with different chemicals :livingcodeslab:gfet:
  [[file:~/work-documents/uthsc/daily_work_report_202504.org::*2025-04-11][2025-04-11]]
