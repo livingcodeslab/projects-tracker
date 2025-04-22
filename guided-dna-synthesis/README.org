@@ -71,7 +71,7 @@ This is waiting on the completion of the following:
  :Link: https://www.fishersci.com/shop/products/isopropyl-alcohol-reagent-acs-99-5-spectrum-chemical/18603543#?keyword=isopropyl%20alcohol%2099%
  :END:
  [[file:~/livingcodeslab/graphene_fet_microfluidics/g_fet_device/measurements_requirements.org::*Chemicals][Chemicals]]
-*** SHIPPING 1 litre acetone, 99.5%           :livingcodeslab:orders:gfet:
+*** RECEIVED 1 litre acetone, 99.5%            :livingcodeslab:orders:gfet:
  :PROPERTIES:
  :LINK: https://www.fishersci.com/shop/products/acetone-acs-99-5-thermo-scientific/AA30698K2#?keyword=acetone
  :END:
@@ -81,7 +81,7 @@ This is waiting on the completion of the following:
  :LINK: https://www.graphenea.com/collections/buy-gfet-models-for-sensing-applications/products/gfet-s20-for-sensing-applications
  :END:
  [[file:~/livingcodeslab/graphene_fet_microfluidics/g_fet_device/measurements_requirements.org::*GFET][GFET]]
-*** TOBUY Reservoirs for Catridge S2X         :livingcodeslab:orders:gfet:
+*** ORDER Reservoirs for Catridge S2X          :livingcodeslab:orders:gfet:
  :PROPERTIES:
  :LINK: 
  :END:
@@ -103,12 +103,12 @@ This is waiting on the completion of the following:
  :LINK: https://tipsnano.com/catalog/calibration/calibr/tgq1/
  :END:
 
-*** ORDER DRI-BOX® Reusable Sorbent Box :livingcodeslab:orders:desiccant:gfet:
+*** ORDERED DRI-BOX® Reusable Sorbent Box :livingcodeslab:orders:desiccant:gfet:
  :PROPERTIES:
  :LINK: https://www.tedpella.com/desiccat_html/descant.aspx#DRI-BOX
  :END:
 
-** TODO Soak GFET chip in acetone for 12 hours :livingcodeslab:gfet:important:
+** DONE Soak GFET chip in acetone for 12 hours :livingcodeslab:gfet:important:
 
 ** TODO Reassemble the microfluidics device manifold  :livingcodeslab::gfet:
 ** DONE Review vacuum pump operating procedures with @erikg :livingcodeslab:vacuumstorage:microfluidics:
