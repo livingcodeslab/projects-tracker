@@ -16,8 +16,17 @@ the work we are doing here.
 
 * TODO Measure Flow Changes          :livingcodeslab:dnasynthesis:majorgoal:
 
-This relies of the following tasks and/or orders
-⋮
+This requires that the integration of the devices (and software) be complete.
+The integration includes:
+- [x] Verifying GFET device characteristics
+- [ ] Choosing GFET operating points
+- [ ] Assembling the manifold
+- [ ] Determining flow-rates for the microfluidics device and the timings for
+  getting the fluids on top of the chip
+- [ ] Figure out reagents and/or precursors
+- [ ] Figure out voltages/currents where reagents are altered
+- [ ] Write and debug software for driving everything
+- …
 
 
 * TODO Block Hybridisation           :livingcodeslab:dnasynthesis:majorgoal:
@@ -36,6 +45,7 @@ This is waiting on the completion of the following:
 - Functionalization of GFET: reagents, AFM, PBASE DNA, tests/calibration
 - Integration: hardware, software, OPS, tests/calibration
 - 
+
 
 * TODO Validation of Synthesis       :livingcodeslab:dnasynthesis:majorgoal:
 
