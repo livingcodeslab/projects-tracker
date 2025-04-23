@@ -68,8 +68,9 @@ This is waiting on the completion of the following:
  [[file:~/livingcodeslab/graphene_fet_microfluidics/g_fet_device/measurements_requirements.org::*Nitrogen Tank Couplings and Materials][Nitrogen Tank Couplings and Materials]]
 *** ORDERED 1/4 inch tygon tubing              :livingcodeslab:gfet:orders:
  :PROPERTIES:
-  :Link: https://www.amazon.com/Beduan-Pneumatic-Compressor-Transfer-10Meter/dp/B07QPRKTZQ/
- :Wrong-Link: https://www.amazon.com/Tygon-F-4040-Lubricant-Tubing-Length/dp/B000PHF06C/
+ :Link: https://www.amazon.com/Tygon-F-4040-Lubricant-Tubing-Length/dp/B000PHDLBI
+  :Wrong-Link-02: https://www.amazon.com/Beduan-Pneumatic-Compressor-Transfer-10Meter/dp/B07QPRKTZQ/
+ :Wrong-Link-01: https://www.amazon.com/Tygon-F-4040-Lubricant-Tubing-Length/dp/B000PHF06C/
  :END:
  [[file:~/livingcodeslab/graphene_fet_microfluidics/g_fet_device/measurements_requirements.org::*Nitrogen Tank Couplings and Materials][Nitrogen Tank Couplings and Materials]]
 *** RECEIVED Vacuum storage container             :livingcodes:gfet:orders:
@@ -118,6 +119,8 @@ This is waiting on the completion of the following:
  :PROPERTIES:
  :LINK: https://www.tedpella.com/desiccat_html/descant.aspx#DRI-BOX
  :END:
+
+ - Got wrong product - got Product No. 19950 rather than Product No. 19952
 
 *** ORDER Allen Key Wrench Set                :livingcodeslab:orders:tools:
  :PROPERTIES:
