@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="utf-8"  standalone="no"?>
+<svg 
+ viewBox="0 0 1200 1000"
+ xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+>
+
+<title>Gnuplot</title>
+<desc>Produced by GNUPLOT 6.0 patchlevel 1 </desc>
+
+<g id="gnuplot_canvas">
+
+<rect x="0" y="0" width="1200" height="1000" fill="#ffffff"/>
+<defs>
+
+	<circle id='gpDot' r='0.5' stroke-width='0.5' stroke='currentColor'/>
+	<path id='gpPt0' stroke-width='0.267' stroke='currentColor' d='M-1,0 h2 M0,-1 v2'/>
+	<path id='gpPt1' stroke-width='0.267' stroke='currentColor' d='M-1,-1 L1,1 M1,-1 L-1,1'/>
+	<path id='gpPt2' stroke-width='0.267' stroke='currentColor' d='M-1,0 L1,0 M0,-1 L0,1 M-1,-1 L1,1 M-1,1 L1,-1'/>
+	<rect id='gpPt3' stroke-width='0.267' stroke='currentColor' x='-1' y='-1' width='2' height='2'/>
+	<rect id='gpPt4' stroke-width='0.267' stroke='currentColor' fill='currentColor' x='-1' y='-1' width='2' height='2'/>
+	<circle id='gpPt5' stroke-width='0.267' stroke='currentColor' cx='0' cy='0' r='1'/>
+	<use xlink:href='#gpPt5' id='gpPt6' fill='currentColor' stroke='none'/>
+	<path id='gpPt7' stroke-width='0.267' stroke='currentColor' d='M0,-1.33 L-1.33,0.67 L1.33,0.67 z'/>
+	<use xlink:href='#gpPt7' id='gpPt8' fill='currentColor' stroke='none'/>
+	<use xlink:href='#gpPt7' id='gpPt9' stroke='currentColor' transform='rotate(180)'/>
+	<use xlink:href='#gpPt9' id='gpPt10' fill='currentColor' stroke='none'/>
+	<use xlink:href='#gpPt3' id='gpPt11' stroke='currentColor' transform='rotate(45)'/>
+	<use xlink:href='#gpPt11' id='gpPt12' fill='currentColor' stroke='none'/>
+	<path id='gpPt13' stroke-width='0.267' stroke='currentColor' d='M0,1.330 L1.265,0.411 L0.782,-1.067 L-0.782,-1.076 L-1.265,0.411 z'/>
+	<use xlink:href='#gpPt13' id='gpPt14' fill='currentColor' stroke='none'/>
+	<filter id='textbox' filterUnits='objectBoundingBox' x='0' y='0' height='1' width='1'>
+	  <feFlood flood-color='#FFFFFF' flood-opacity='1' result='bgnd'/>
+	  <feComposite in='SourceGraphic' in2='bgnd' operator='atop'/>
+	</filter>
+	<filter id='greybox' filterUnits='objectBoundingBox' x='0' y='0' height='1' width='1'>
+	  <feFlood flood-color='lightgrey' flood-opacity='1' result='grey'/>
+	  <feComposite in='SourceGraphic' in2='grey' operator='atop'/>
+	</filter>
+</defs>
+<g fill="none" color="#FFFFFF" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M81.50,937.00 L89.00,937.00 M1178.99,937.00 L1171.49,937.00  '/>	<g transform="translate(74.50,940.25)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >-8x10</tspan><tspan font-family="arial"  font-size="8.0" dy="-5.00px">-5</tspan><tspan font-size="10.0" dy="5.00"></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M81.50,827.38 L89.00,827.38 M1178.99,827.38 L1171.49,827.38  '/>	<g transform="translate(74.50,830.63)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >-7x10</tspan><tspan font-family="arial"  font-size="8.0" dy="-5.00px">-5</tspan><tspan font-size="10.0" dy="5.00"></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M81.50,717.75 L89.00,717.75 M1178.99,717.75 L1171.49,717.75  '/>	<g transform="translate(74.50,721.00)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >-6x10</tspan><tspan font-family="arial"  font-size="8.0" dy="-5.00px">-5</tspan><tspan font-size="10.0" dy="5.00"></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M81.50,608.13 L89.00,608.13 M1178.99,608.13 L1171.49,608.13  '/>	<g transform="translate(74.50,611.38)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >-5x10</tspan><tspan font-family="arial"  font-size="8.0" dy="-5.00px">-5</tspan><tspan font-size="10.0" dy="5.00"></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M81.50,498.51 L89.00,498.51 M1178.99,498.51 L1171.49,498.51  '/>	<g transform="translate(74.50,501.76)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >-4x10</tspan><tspan font-family="arial"  font-size="8.0" dy="-5.00px">-5</tspan><tspan font-size="10.0" dy="5.00"></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M81.50,388.88 L89.00,388.88 M1178.99,388.88 L1171.49,388.88  '/>	<g transform="translate(74.50,392.13)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >-3x10</tspan><tspan font-family="arial"  font-size="8.0" dy="-5.00px">-5</tspan><tspan font-size="10.0" dy="5.00"></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M81.50,279.26 L89.00,279.26 M1178.99,279.26 L1171.49,279.26  '/>	<g transform="translate(74.50,282.51)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >-2x10</tspan><tspan font-family="arial"  font-size="8.0" dy="-5.00px">-5</tspan><tspan font-size="10.0" dy="5.00"></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M81.50,169.63 L89.00,169.63 M1178.99,169.63 L1171.49,169.63  '/>	<g transform="translate(74.50,172.88)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >-1x10</tspan><tspan font-family="arial"  font-size="8.0" dy="-5.00px">-5</tspan><tspan font-size="10.0" dy="5.00"></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M81.50,60.01 L89.00,60.01 M1178.99,60.01 L1171.49,60.01  '/>	<g transform="translate(74.50,63.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" > 0</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M81.50,937.00 L81.50,929.50 M81.50,60.01 L81.50,67.51  '/>	<g transform="translate(81.50,955.25)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >-2</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M218.69,937.00 L218.69,929.50 M218.69,60.01 L218.69,67.51  '/>	<g transform="translate(218.69,955.25)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >-1.5</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M355.87,937.00 L355.87,929.50 M355.87,60.01 L355.87,67.51  '/>	<g transform="translate(355.87,955.25)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >-1</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M493.06,937.00 L493.06,929.50 M493.06,60.01 L493.06,67.51  '/>	<g transform="translate(493.06,955.25)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >-0.5</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M630.25,937.00 L630.25,929.50 M630.25,60.01 L630.25,67.51  '/>	<g transform="translate(630.25,955.25)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="middle">
+		<text><tspan font-family="arial" > 0</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M767.43,937.00 L767.43,929.50 M767.43,60.01 L767.43,67.51  '/>	<g transform="translate(767.43,955.25)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="middle">
+		<text><tspan font-family="arial" > 0.5</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M904.62,937.00 L904.62,929.50 M904.62,60.01 L904.62,67.51  '/>	<g transform="translate(904.62,955.25)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="middle">
+		<text><tspan font-family="arial" > 1</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1041.80,937.00 L1041.80,929.50 M1041.80,60.01 L1041.80,67.51  '/>	<g transform="translate(1041.80,955.25)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="middle">
+		<text><tspan font-family="arial" > 1.5</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M1178.99,937.00 L1178.99,929.50 M1178.99,60.01 L1178.99,67.51  '/>	<g transform="translate(1178.99,955.25)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="middle">
+		<text><tspan font-family="arial" > 2</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M81.50,60.01 L81.50,937.00 L1178.99,937.00 L1178.99,60.01 L81.50,60.01 Z  '/></g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M88.50,202.51 L88.50,67.51 L1126.50,67.51 L1126.50,202.51 L88.50,202.51 Z  '/></g>
+	<g id="gnuplot_plot_1" ><title>Channel Voltage (VD) -1.7V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(298.50,78.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Channel Voltage (V</tspan><tspan font-family="arial"  font-size="8.0" dy="3.00px">D</tspan><tspan font-family="arial"  font-size="10.0" dy="-3.00px">) -1.7V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(148,   0, 211)'  d='M305.50,75.01 L341.00,75.01 M163.81,838.29 L191.25,795.95 L218.69,761.08 L246.12,724.40 L273.56,685.87 L301.00,644.21
+		L328.44,607.41 L355.87,585.94 L383.31,582.51 L410.75,615.26 L438.18,627.34 L465.62,625.84 L493.06,619.82 L520.50,610.66
+		L547.93,600.11 L575.37,589.08 L602.81,577.22 L630.25,565.86 L657.68,552.95 L685.12,541.93 L712.56,530.48 L739.99,518.40
+		L767.43,506.57 L794.87,495.96 L822.31,490.63 L849.74,487.41 L877.18,485.35 L904.62,524.95 L932.05,545.14 L959.49,564.40
+		L986.93,585.40 L1014.37,596.54 L1041.80,600.55 L1069.24,610.22  '/></g>
+	</g>
+	<g id="gnuplot_plot_2" ><title>Channel Voltage (VD) -1.6V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(298.50,93.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Channel Voltage (V</tspan><tspan font-family="arial"  font-size="8.0" dy="3.00px">D</tspan><tspan font-family="arial"  font-size="10.0" dy="-3.00px">) -1.6V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(  0, 158, 115)'  d='M305.50,90.01 L341.00,90.01 M163.81,631.84 L191.25,613.16 L218.69,594.35 L246.12,573.44 L273.56,547.75 L301.00,520.71
+		L328.44,488.90 L355.87,455.69 L383.31,424.25 L410.75,399.10 L438.18,380.20 L465.62,367.30 L493.06,363.73 L520.50,377.39
+		L547.93,402.50 L575.37,460.70 L602.81,524.30 L630.25,558.45 L657.68,574.76 L685.12,581.79 L712.56,583.17 L739.99,578.40
+		L767.43,569.20 L794.87,558.14 L822.31,548.50 L849.74,542.74 L877.18,545.89 L904.62,572.21 L932.05,572.00 L959.49,576.24
+		L986.93,579.25 L1014.37,582.25 L1041.80,587.50 L1069.24,595.18  '/></g>
+	</g>
+	<g id="gnuplot_plot_3" ><title>Channel Voltage (VD) -1.5V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(298.50,108.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Channel Voltage (V</tspan><tspan font-family="arial"  font-size="8.0" dy="3.00px">D</tspan><tspan font-family="arial"  font-size="10.0" dy="-3.00px">) -1.5V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 86, 180, 233)'  d='M305.50,105.01 L341.00,105.01 M163.81,726.29 L191.25,699.99 L218.69,678.91 L246.12,656.47 L273.56,630.99 L301.00,602.29
+		L328.44,569.46 L355.87,533.53 L383.31,495.63 L410.75,459.56 L438.18,433.14 L465.62,413.45 L493.06,403.92 L520.50,414.32
+		L547.93,441.11 L575.37,504.43 L602.81,567.98 L630.25,596.62 L657.68,610.82 L685.12,616.00 L712.56,613.07 L739.99,608.31
+		L767.43,600.25 L794.87,590.60 L822.31,579.73 L849.74,574.78 L877.18,572.34 L904.62,578.00 L932.05,590.38 L959.49,596.83
+		L986.93,602.91 L1014.37,613.01 L1041.80,618.70 L1069.24,626.72  '/></g>
+	</g>
+	<g id="gnuplot_plot_4" ><title>Channel Voltage (VD) -1.4V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(298.50,123.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Channel Voltage (V</tspan><tspan font-family="arial"  font-size="8.0" dy="3.00px">D</tspan><tspan font-family="arial"  font-size="10.0" dy="-3.00px">) -1.4V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(230, 159,   0)'  d='M305.50,120.01 L341.00,120.01 M163.81,776.99 L191.25,755.87 L218.69,737.62 L246.12,717.17 L273.56,693.53 L301.00,666.60
+		L328.44,634.99 L355.87,598.61 L383.31,558.98 L410.75,516.50 L438.18,476.70 L465.62,450.16 L493.06,434.12 L520.50,429.80
+		L547.93,450.21 L575.37,503.96 L602.81,559.76 L630.25,605.08 L657.68,625.23 L685.12,632.88 L712.56,631.57 L739.99,626.96
+		L767.43,618.67 L794.87,612.18 L822.31,601.18 L849.74,595.14 L877.18,594.29 L904.62,599.40 L932.05,607.14 L959.49,613.05
+		L986.93,632.84 L1014.37,632.52 L1041.80,636.43 L1069.24,642.73  '/></g>
+	</g>
+	<g id="gnuplot_plot_5" ><title>Channel Voltage (VD) -1.3V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(298.50,138.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Channel Voltage (V</tspan><tspan font-family="arial"  font-size="8.0" dy="3.00px">D</tspan><tspan font-family="arial"  font-size="10.0" dy="-3.00px">) -1.3V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(240, 228,  66)'  d='M305.50,135.01 L341.00,135.01 M163.81,788.58 L191.25,774.30 L218.69,758.30 L246.12,740.13 L273.56,720.16 L301.00,697.28
+		L328.44,671.03 L355.87,639.14 L383.31,602.47 L410.75,560.88 L438.18,515.31 L465.62,471.73 L493.06,443.37 L520.50,433.22
+		L547.93,432.55 L575.37,473.91 L602.81,518.67 L630.25,569.46 L657.68,607.26 L685.12,623.04 L712.56,627.19 L739.99,626.07
+		L767.43,622.49 L794.87,612.53 L822.31,606.48 L849.74,603.45 L877.18,599.46 L904.62,599.46 L932.05,600.14 L959.49,607.69
+		L986.93,613.09 L1014.37,618.51 L1041.80,625.09 L1069.24,632.28  '/></g>
+	</g>
+	<g id="gnuplot_plot_6" ><title>Channel Voltage (VD) -1.2V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(298.50,153.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Channel Voltage (V</tspan><tspan font-family="arial"  font-size="8.0" dy="3.00px">D</tspan><tspan font-family="arial"  font-size="10.0" dy="-3.00px">) -1.2V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(  0, 114, 178)'  d='M305.50,150.01 L341.00,150.01 M163.81,767.25 L191.25,757.91 L218.69,743.92 L246.12,729.48 L273.56,712.01 L301.00,693.24
+		L328.44,670.58 L355.87,644.31 L383.31,612.74 L410.75,575.19 L438.18,531.97 L465.62,484.35 L493.06,442.02 L520.50,422.18
+		L547.93,409.80 L575.37,433.71 L602.81,475.34 L630.25,517.57 L657.68,580.31 L685.12,602.40 L712.56,612.81 L739.99,613.78
+		L767.43,610.37 L794.87,603.06 L822.31,597.90 L849.74,595.11 L877.18,590.23 L904.62,586.18 L932.05,584.98 L959.49,587.63
+		L986.93,594.52 L1014.37,601.14 L1041.80,609.68 L1069.24,617.12  '/></g>
+	</g>
+	<g id="gnuplot_plot_7" ><title>Channel Voltage (VD) -1.1V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(298.50,168.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Channel Voltage (V</tspan><tspan font-family="arial"  font-size="8.0" dy="3.00px">D</tspan><tspan font-family="arial"  font-size="10.0" dy="-3.00px">) -1.1V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(229,  30,  16)'  d='M305.50,165.01 L341.00,165.01 M163.81,721.14 L191.25,719.54 L218.69,709.74 L246.12,697.96 L273.56,682.95 L301.00,667.20
+		L328.44,648.90 L355.87,626.98 L383.31,600.87 L410.75,569.57 L438.18,531.56 L465.62,488.05 L493.06,440.23 L520.50,398.96
+		L547.93,381.70 L575.37,380.06 L602.81,418.18 L630.25,452.56 L657.68,495.75 L685.12,544.11 L712.56,572.31 L739.99,583.73
+		L767.43,586.53 L794.87,583.57 L822.31,581.10 L849.74,579.24 L877.18,575.07 L904.62,571.49 L932.05,569.67 L959.49,570.41
+		L986.93,573.74 L1014.37,577.32 L1041.80,586.54 L1069.24,596.65  '/></g>
+	</g>
+	<g id="gnuplot_plot_8" ><title>Channel Voltage (VD) -1.0V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(298.50,183.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Channel Voltage (V</tspan><tspan font-family="arial"  font-size="8.0" dy="3.00px">D</tspan><tspan font-family="arial"  font-size="10.0" dy="-3.00px">) -1.0V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(  0,   0,   0)'  d='M305.50,180.01 L341.00,180.01 M163.81,662.13 L191.25,669.61 L218.69,662.03 L246.12,653.27 L273.56,641.48 L301.00,628.00
+		L328.44,612.52 L355.87,593.62 L383.31,570.42 L410.75,543.59 L438.18,511.01 L465.62,471.57 L493.06,427.26 L520.50,380.43
+		L547.93,343.62 L575.37,334.79 L602.81,356.25 L630.25,395.56 L657.68,425.27 L685.12,473.67 L712.56,516.65 L739.99,539.95
+		L767.43,548.03 L794.87,552.23 L822.31,552.59 L849.74,552.64 L877.18,551.40 L904.62,547.85 L932.05,546.10 L959.49,545.77
+		L986.93,547.77 L1014.37,550.91 L1041.80,554.36 L1069.24,561.50  '/></g>
+	</g>
+	<g id="gnuplot_plot_9" ><title>Channel Voltage (VD) -0.9V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(298.50,198.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Channel Voltage (V</tspan><tspan font-family="arial"  font-size="8.0" dy="3.00px">D</tspan><tspan font-family="arial"  font-size="10.0" dy="-3.00px">) -0.9V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(148,   0, 211)'  d='M305.50,195.01 L341.00,195.01 M163.81,593.54 L191.25,612.05 L218.69,606.44 L246.12,597.86 L273.56,588.01 L301.00,576.65
+		L328.44,563.36 L355.87,547.22 L383.31,528.49 L410.75,505.50 L438.18,477.46 L465.62,445.51 L493.06,405.20 L520.50,361.95
+		L547.93,318.26 L575.37,287.95 L602.81,294.26 L630.25,329.73 L657.68,366.82 L685.12,396.76 L712.56,445.59 L739.99,485.15
+		L767.43,503.70 L794.87,511.54 L822.31,514.09 L849.74,516.49 L877.18,514.98 L904.62,513.23 L932.05,512.50 L959.49,508.81
+		L986.93,505.08 L1014.37,506.14 L1041.80,511.84 L1069.24,516.87  '/></g>
+	</g>
+	<g id="gnuplot_plot_10" ><title>Channel Voltage (VD) -0.8V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(558.00,78.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Channel Voltage (V</tspan><tspan font-family="arial"  font-size="8.0" dy="3.00px">D</tspan><tspan font-family="arial"  font-size="10.0" dy="-3.00px">) -0.8V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(  0, 158, 115)'  d='M565.00,75.01 L600.50,75.01 M163.81,504.11 L191.25,537.76 L218.69,533.99 L246.12,527.56 L273.56,519.91 L301.00,510.97
+		L328.44,499.20 L355.87,485.38 L383.31,469.94 L410.75,451.30 L438.18,429.42 L465.62,403.69 L493.06,371.76 L520.50,331.24
+		L547.93,294.04 L575.37,255.74 L602.81,226.96 L630.25,245.84 L657.68,290.57 L685.12,327.12 L712.56,362.89 L739.99,410.87
+		L767.43,442.77 L794.87,458.92 L822.31,466.48 L849.74,471.47 L877.18,473.43 L904.62,472.95 L932.05,474.06 L959.49,472.88
+		L986.93,472.62 L1014.37,472.79 L1041.80,473.21 L1069.24,476.35  '/></g>
+	</g>
+	<g id="gnuplot_plot_11" ><title>Channel Voltage (VD) -0.7V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(558.00,93.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Channel Voltage (V</tspan><tspan font-family="arial"  font-size="8.0" dy="3.00px">D</tspan><tspan font-family="arial"  font-size="10.0" dy="-3.00px">) -0.7V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb( 86, 180, 233)'  d='M565.00,90.01 L600.50,90.01 M163.81,456.67 L191.25,491.35 L218.69,489.62 L246.12,485.28 L273.56,479.65 L301.00,471.97
+		L328.44,463.85 L355.87,453.54 L383.31,442.25 L410.75,428.01 L438.18,411.32 L465.62,390.04 L493.06,364.04 L520.50,332.82
+		L547.93,293.74 L575.37,255.30 L602.81,217.29 L630.25,206.29 L657.68,238.05 L685.12,275.09 L712.56,299.69 L739.99,340.07
+		L767.43,379.48 L794.87,401.86 L822.31,415.06 L849.74,424.09 L877.18,427.83 L904.62,429.64 L932.05,431.73 L959.49,431.76
+		L986.93,431.76 L1014.37,430.06 L1041.80,431.81 L1069.24,433.80  '/></g>
+	</g>
+	<g id="gnuplot_plot_12" ><title>Channel Voltage (VD) -0.6V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(558.00,108.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Channel Voltage (V</tspan><tspan font-family="arial"  font-size="8.0" dy="3.00px">D</tspan><tspan font-family="arial"  font-size="10.0" dy="-3.00px">) -0.6V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(230, 159,   0)'  d='M565.00,105.01 L600.50,105.01 M163.81,395.89 L191.25,437.10 L218.69,438.14 L246.12,434.49 L273.56,431.30 L301.00,426.27
+		L328.44,419.81 L355.87,412.11 L383.31,402.69 L410.75,393.18 L438.18,378.15 L465.62,358.36 L493.06,336.43 L520.50,311.10
+		L547.93,280.51 L575.37,244.45 L602.81,208.39 L630.25,174.41 L657.68,187.72 L685.12,219.65 L712.56,244.89 L739.99,271.35
+		L767.43,310.43 L794.87,343.23 L822.31,361.87 L849.74,372.81 L877.18,378.76 L904.62,382.49 L932.05,383.36 L959.49,384.91
+		L986.93,384.43 L1014.37,384.76 L1041.80,384.81 L1069.24,385.73  '/></g>
+	</g>
+	<g id="gnuplot_plot_13" ><title>Channel Voltage (VD) -0.5V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(558.00,123.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Channel Voltage (V</tspan><tspan font-family="arial"  font-size="8.0" dy="3.00px">D</tspan><tspan font-family="arial"  font-size="10.0" dy="-3.00px">) -0.5V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(240, 228,  66)'  d='M565.00,120.01 L600.50,120.01 M163.81,334.78 L191.25,377.71 L218.69,379.89 L246.12,377.76 L273.56,375.42 L301.00,371.14
+		L328.44,366.99 L355.87,361.44 L383.31,355.32 L410.75,347.65 L438.18,336.46 L465.62,320.99 L493.06,302.23 L520.50,282.03
+		L547.93,258.62 L575.37,229.60 L602.81,196.57 L630.25,162.01 L657.68,141.73 L685.12,170.73 L712.56,197.57 L739.99,217.04
+		L767.43,246.99 L794.87,277.24 L822.31,301.28 L849.74,316.87 L877.18,324.36 L904.62,329.18 L932.05,331.77 L959.49,333.77
+		L986.93,335.95 L1014.37,338.31 L1041.80,340.56 L1069.24,343.58  '/></g>
+	</g>
+	<g id="gnuplot_plot_14" ><title>Channel Voltage (VD) -0.4V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(558.00,138.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Channel Voltage (V</tspan><tspan font-family="arial"  font-size="8.0" dy="3.00px">D</tspan><tspan font-family="arial"  font-size="10.0" dy="-3.00px">) -0.4V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(  0, 114, 178)'  d='M565.00,135.01 L600.50,135.01 M163.81,269.34 L191.25,311.80 L218.69,315.50 L246.12,314.65 L273.56,313.17 L301.00,310.57
+		L328.44,307.40 L355.87,303.42 L383.31,299.05 L410.75,293.76 L438.18,287.01 L465.62,277.21 L493.06,263.04 L520.50,245.55
+		L547.93,227.73 L575.37,206.90 L602.81,182.05 L630.25,153.80 L657.68,124.49 L685.12,122.04 L712.56,149.04 L739.99,170.64
+		L767.43,190.69 L794.87,214.84 L822.31,239.39 L849.74,258.72 L877.18,271.11 L904.62,279.09 L932.05,284.17 L959.49,287.80
+		L986.93,290.40 L1014.37,291.41 L1041.80,293.16 L1069.24,293.92  '/></g>
+	</g>
+	<g id="gnuplot_plot_15" ><title>Channel Voltage (VD) -0.3V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(558.00,153.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Channel Voltage (V</tspan><tspan font-family="arial"  font-size="8.0" dy="3.00px">D</tspan><tspan font-family="arial"  font-size="10.0" dy="-3.00px">) -0.3V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(229,  30,  16)'  d='M565.00,150.01 L600.50,150.01 M163.81,212.80 L191.25,244.56 L218.69,248.14 L246.12,247.59 L273.56,246.76 L301.00,244.75
+		L328.44,242.61 L355.87,240.30 L383.31,236.91 L410.75,233.31 L438.18,228.96 L465.62,223.23 L493.06,215.14 L520.50,201.57
+		L547.93,189.44 L575.37,175.59 L602.81,159.80 L630.25,139.09 L657.68,116.65 L685.12,94.91 L712.56,101.42 L739.99,122.37
+		L767.43,139.25 L794.87,157.06 L822.31,175.74 L849.74,193.47 L877.18,206.67 L904.62,216.40 L932.05,222.25 L959.49,226.04
+		L986.93,229.20 L1014.37,231.23 L1041.80,232.97 L1069.24,234.17  '/></g>
+	</g>
+	<g id="gnuplot_plot_16" ><title>Channel Voltage (VD) -0.2V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(558.00,168.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Channel Voltage (V</tspan><tspan font-family="arial"  font-size="8.0" dy="3.00px">D</tspan><tspan font-family="arial"  font-size="10.0" dy="-3.00px">) -0.2V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(  0,   0,   0)'  d='M565.00,165.01 L600.50,165.01 M163.81,162.78 L191.25,181.77 L218.69,182.22 L246.12,181.14 L273.56,180.18 L301.00,178.73
+		L328.44,177.02 L355.87,175.02 L383.31,172.73 L410.75,170.11 L438.18,167.36 L465.62,164.40 L493.06,160.17 L520.50,154.79
+		L547.93,146.55 L575.37,137.56 L602.81,128.09 L630.25,117.84 L657.68,104.18 L685.12,89.03 L712.56,78.43 L739.99,86.78
+		L767.43,100.09 L794.87,112.45 L822.31,126.17 L849.74,139.66 L877.18,151.18 L904.62,158.88 L932.05,164.53 L959.49,167.79
+		L986.93,170.61 L1014.37,172.66 L1041.80,173.95 L1069.24,174.73  '/></g>
+	</g>
+	<g id="gnuplot_plot_17" ><title>Channel Voltage (VD) -0.1V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(558.00,183.26)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="end">
+		<text><tspan font-family="arial" >Channel Voltage (V</tspan><tspan font-family="arial"  font-size="8.0" dy="3.00px">D</tspan><tspan font-family="arial"  font-size="10.0" dy="-3.00px">) -0.1V</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='rgb(148,   0, 211)'  d='M565.00,180.01 L600.50,180.01 M163.81,109.50 L191.25,117.62 L218.69,115.37 L246.12,113.78 L273.56,112.41 L301.00,111.31
+		L328.44,110.39 L355.87,109.45 L383.31,108.20 L410.75,106.83 L438.18,105.34 L465.62,103.86 L493.06,102.51 L520.50,100.07
+		L547.93,96.97 L575.37,92.44 L602.81,88.71 L630.25,85.26 L657.68,81.11 L685.12,75.44 L712.56,69.34 L739.99,66.80
+		L767.43,70.10 L794.87,76.65 L822.31,83.52 L849.74,92.61 L877.18,101.36 L904.62,106.25 L932.05,109.63 L959.49,111.84
+		L986.93,113.60 L1014.37,114.90 L1041.80,115.95 L1069.24,116.74  '/></g>
+	</g>
+	<g id="gnuplot_plot_18" ><title>Channel Voltage (VD) 4.16e-16V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	</g>
+	<g id="gnuplot_plot_19" ><title>Channel Voltage (VD) 0.1V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	</g>
+	<g id="gnuplot_plot_20" ><title>Channel Voltage (VD) 0.2V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	</g>
+	<g id="gnuplot_plot_21" ><title>Channel Voltage (VD) 0.3V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	</g>
+	<g id="gnuplot_plot_22" ><title>Channel Voltage (VD) 0.4V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	</g>
+	<g id="gnuplot_plot_23" ><title>Channel Voltage (VD) 0.5V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	</g>
+	<g id="gnuplot_plot_24" ><title>Channel Voltage (VD) 0.6V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	</g>
+	<g id="gnuplot_plot_25" ><title>Channel Voltage (VD) 0.7V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	</g>
+	<g id="gnuplot_plot_26" ><title>Channel Voltage (VD) 0.8V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	</g>
+	<g id="gnuplot_plot_27" ><title>Channel Voltage (VD) 0.9V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	</g>
+	<g id="gnuplot_plot_28" ><title>Channel Voltage (VD) 1.0V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	</g>
+	<g id="gnuplot_plot_29" ><title>Channel Voltage (VD) 1.1V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	</g>
+	<g id="gnuplot_plot_30" ><title>Channel Voltage (VD) 1.2V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	</g>
+	<g id="gnuplot_plot_31" ><title>Channel Voltage (VD) 1.3V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	</g>
+	<g id="gnuplot_plot_32" ><title>Channel Voltage (VD) 1.4V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	</g>
+	<g id="gnuplot_plot_33" ><title>Channel Voltage (VD) 1.5V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	</g>
+	<g id="gnuplot_plot_34" ><title>Channel Voltage (VD) 1.6V</title>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+	</g>
+<g fill="none" color="#FFFFFF" stroke="rgb(  0, 158, 115)" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="2.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="black" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<path stroke='black'  d='M81.50,60.01 L81.50,937.00 L1178.99,937.00 L1178.99,60.01 L81.50,60.01 Z  '/>	<g transform="translate(16.00,498.51) rotate(270.00)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >I</tspan><tspan font-family="arial"  font-size="8.0" dy="3.00px">D</tspan><tspan font-family="arial"  font-size="10.0" dy="-3.00px"> (A)</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(630.24,977.75)" stroke="none" fill="black" font-family="arial" font-size="10.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >V</tspan><tspan font-family="arial"  font-size="8.0" dy="3.00px">G</tspan><tspan font-family="arial"  font-size="10.0" dy="-3.00px"> (V)</tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<g transform="translate(630.24,29.01)" stroke="none" fill="black" font-family="arial" font-size="20.00"  text-anchor="middle">
+		<text><tspan font-family="arial" >GFET Transfer Characteristics (0-001X-pbs): I</tspan><tspan font-family="arial"  font-size="16.0" dy="6.00px">D</tspan><tspan font-family="arial"  font-size="20.0" dy="-6.00px"> vs. V</tspan><tspan font-family="arial"  font-size="16.0" dy="6.00px">G</tspan><tspan font-size="20.0" dy="-6.00"></tspan></text>
+	</g>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+</g>
+</g>
+</svg>
+

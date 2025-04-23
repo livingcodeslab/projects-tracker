@@ -236,6 +236,54 @@ These curves support the previous conclusion that the acetone-IPA-nitrogen
 chip-cleaning protocol does, indeed, restore the chip properties to near where
 they originally were.
 
+** 2025-04-23
+
+Dilute 1X PBS to 0.001X PBS by:
+- Put 10μL of 1X PBS in a reagent bottle
+- Add 9990μL of distilled water in the same reagent bottle
+- Put cap on bottle and shake vigorously
+
+We use *chip00* for the initial trial with the *0.001X PBS* solution.
+
+The current characteristics curves become:
+#+CAPTION: Current Characteristics Curves, 0.001X PBS, Chip00
+#+NAME: chip00-current-xristics-0.001X-PBS
+[[file:images/2025-04-23/chip00/0-001X-pbs-current-characteristics.svg]]
+
+and those for the resistance are:
+#+CAPTION: Resistance Characteristics Curves, 0.001X PBS, Chip00
+#+NAME: chip00-resistance-xristics-0.001X-PBS
+[[file:images/2025-04-23/chip00/0-001X-pbs-resistance-characteristics.svg]]
+
+The results above hint at the cause of the chip seemingly failing after using
+1X PBS, and possibly after using 0.001X PBS (we'll verify this later).
+
+It looks like whenever the channel voltage (V_{D}) goes positive, something in
+the PBS solution gets deposited onto the chip, such that the characteristics of
+the chip are drastically altered. The following images demonstrate this.
+
+The current and resistance characteristics for *chip00* with 0.001X PBS with
+channel voltages (V_{D}) from -1.7V to 0.1V are:
+
+#+CAPTION: Current Characteristics Curves, 0.001X PBS, Chip00, -1.7V ≤ V_{D} < 0.0V
+#+NAME: chip00-current-xristics-0.001X-PBS-negative-channel-voltages
+[[file:images/2025-04-23/chip00/0-001X-pbs-current-characteristics-neg1.7Vtoneg0.1V.svg]]
+
+#+CAPTION: Resistance Characteristics Curves, 0.001X PBS, Chip00, -1.7V ≤ V_{D} < 0.0V
+#+NAME: chip00-resistance-xristics-0.001X-PBS-negative-channel-voltages
+[[file:images/2025-04-23/chip00/0-001X-pbs-resistance-characteristics-neg1.7Vtoneg0.1V.svg]]
+
+Meanwhile, the current and resistance characteristics for *chip00* with 0.001X
+PBS with channel voltages (V_{D}) from -1.7V to 0.1V are:
+
+#+CAPTION: Current Characteristics Curves, 0.001X PBS, Chip00, 0.0V ≤ V_{D} ≤ 1.7V
+#+NAME: chip00-current-xristics-0.001X-PBS-negative-channel-voltages
+[[file:images/2025-04-23/chip00/0-001X-pbs-current-characteristics-0.0Vto1.7V.svg]]
+
+#+CAPTION: Resistance Characteristics Curves, 0.001X PBS, Chip00, 0.0V ≤ V_{D} ≤ 1.7V
+#+NAME: chip00-resistance-xristics-0.001X-PBS-negative-channel-voltages
+[[file:images/2025-04-23/chip00/0-001X-pbs-resistance-characteristics-0.0Vto1.7V.svg]]
+
 * Footnotes
 [fn:gfet-measurement-protocols] https://cdn.shopify.com/s/files/1/0191/2296/files/2025_Measurement_Protocols_GFET-S2X_v5.pdf?v=1736951757 
 
