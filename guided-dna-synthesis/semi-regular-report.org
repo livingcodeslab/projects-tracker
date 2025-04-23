@@ -284,6 +284,13 @@ PBS with channel voltages (V_{D}) from -1.7V to 0.1V are:
 #+NAME: chip00-resistance-xristics-0.001X-PBS-negative-channel-voltages
 [[file:images/2025-04-23/chip00/0-001X-pbs-resistance-characteristics-0.0Vto1.7V.svg]]
 
+*** Conclusions
+
+- We *can* vary the gate voltage, *V_{G}*, from negative voltages, through zero to
+  positive voltages.
+- The channel/drain voltage, *V_{D}*, /must always/ remain negative. Positive
+  voltages for the channel/drain lead to instabilities in the device.
+
 * Footnotes
 [fn:gfet-measurement-protocols] https://cdn.shopify.com/s/files/1/0191/2296/files/2025_Measurement_Protocols_GFET-S2X_v5.pdf?v=1736951757 
 
