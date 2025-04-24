@@ -277,11 +277,11 @@ Meanwhile, the current and resistance characteristics for *chip00* with 0.001X
 PBS with channel voltages (V_{D}) from -1.7V to 0.1V are:
 
 #+CAPTION: Current Characteristics Curves, 0.001X PBS, Chip00, 0.0V ≤ V_{D} ≤ 1.7V
-#+NAME: chip00-current-xristics-0.001X-PBS-negative-channel-voltages
+#+NAME: chip00-current-xristics-0.001X-PBS-positive-channel-voltages
 [[file:images/2025-04-23/chip00/0-001X-pbs-current-characteristics-0.0Vto1.7V.svg]]
 
 #+CAPTION: Resistance Characteristics Curves, 0.001X PBS, Chip00, 0.0V ≤ V_{D} ≤ 1.7V
-#+NAME: chip00-resistance-xristics-0.001X-PBS-negative-channel-voltages
+#+NAME: chip00-resistance-xristics-0.001X-PBS-positive-channel-voltages
 [[file:images/2025-04-23/chip00/0-001X-pbs-resistance-characteristics-0.0Vto1.7V.svg]]
 
 *** Conclusions
