@@ -70,9 +70,9 @@ This is waiting on the completion of the following:
  :Link: https://www.amazon.com/gp/aw/d/B09JNM3Q9X/
  :END:
  [[file:~/livingcodeslab/graphene_fet_microfluidics/g_fet_device/measurements_requirements.org::*Nitrogen Tank Couplings and Materials][Nitrogen Tank Couplings and Materials]]
-*** ORDERED 1/4 inch tygon tubing              :livingcodeslab:gfet:orders:
+*** RECEIVED 1/4 inch tygon tubing             :livingcodeslab:gfet:orders:
  :PROPERTIES:
- :Link: https://www.amazon.com/Tygon-F-4040-Lubricant-Tubing-Length/dp/B000PHDLBI
+ :Link: https://www.coleparmer.com/i/tygon-e-3603-tubing-1-4-id-x-3-8-od-50-ft/5010630?PubID=UX&persist=true&ip=no&gQT=1
   :Wrong-Link-02: https://www.amazon.com/Beduan-Pneumatic-Compressor-Transfer-10Meter/dp/B07QPRKTZQ/
  :Wrong-Link-01: https://www.amazon.com/Tygon-F-4040-Lubricant-Tubing-Length/dp/B000PHF06C/
  :END:
@@ -114,7 +114,7 @@ This is waiting on the completion of the following:
  :LINK: https://www.amazon.com/Officemate-Medium-Ergonomic-Capacity-90088/dp/B0006BAWUQ/
  :END:
  [[file:~/livingcodeslab/graphene_fet_microfluidics/g_fet_device/measurements_requirements.org::*Others][Others]]
-*** ORDERED TGQ1 Calibration Grating          :livingcodeslab:orders:gfet:
+*** RECEIVED TGQ1 Calibration Grating          :livingcodeslab:orders:gfet:
  :PROPERTIES:
  :LINK: https://tipsnano.com/catalog/calibration/calibr/tgq1/
  :END:
@@ -126,9 +126,15 @@ This is waiting on the completion of the following:
 
  - Got wrong product - got Product No. 19950 rather than Product No. 19952
 
-*** ORDER Allen Key Wrench Set                :livingcodeslab:orders:tools:
+*** ORDERED Allen Key Wrench Set              :livingcodeslab:orders:tools:
  :PROPERTIES:
  :LINK: https://www.amazon.com/LEXIVON-Master-35-Piece-Industrial-LX-131/dp/B07MR7SDF7
+ :QUANTITY: 1
+ :UNITS: pieces
+ :END:
+*** ORDERED Digital Callipers                 :livingcodeslab:orders:tools:
+ :PROPERTIES:
+ :LINK: https://www.amazon.com/Kynup-Measuring-Stainless-Waterproof-Protection/dp/B07X8JQ8L5
  :QUANTITY: 1
  :UNITS: pieces
  :END:
