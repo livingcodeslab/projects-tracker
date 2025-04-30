@@ -1,5 +1,6 @@
 #+STARTUP: content
 #+TITLE: Progress Report and Updates
+#+BIBLIOGRAPHY: references.bib
 
 * Introduction
 
@@ -412,6 +413,9 @@ Nice! Heating works too! Turn it off again.
 - using pySerial, it should be possible to write code to integrate the
   temperature module into our workflow.
 
+*** GFET S-20 Literature review
+
+The drain voltage is set to less than 100mv [cite:@biagetti01:@khan01:@xu01]
 * Footnotes
 [fn:opentrons-temp-module] https://opentrons.com/products/temperature-module-gen2
 
