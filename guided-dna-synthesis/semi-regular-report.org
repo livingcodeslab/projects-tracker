@@ -343,7 +343,9 @@ that it is accessible at =/dev/ttyACM0= for this attempt.
 
 The devices begins with an initial temperature of 21℃
 
-<<<<IMAGE GOES HERE>>>>
+#+CAPTION: Opentrons Temperature Module: Starting point on attaching to computer
+#+NAME: opentrons-temp-module
+[[file:images/2025-04-30/opentrons_temperature_module.jpg]]
 
 Now, let's try connecting to it with plain =sh= or =bash= commands. These assume
 your user is a member of the =dialout= group.
