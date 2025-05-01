@@ -1,6 +1,7 @@
 #+STARTUP: content
 #+TITLE: Progress Report and Updates
 #+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
 
 * Introduction
 
@@ -423,7 +424,7 @@ It does look like we can use alternating current rather than direct current[cite
 
 Another operating point was at 50mV [cite:@ROMAGNOLI2023101729] with a gate voltage sweeping from 0 to 1.5V
 
-
+#+print_bibliography:
 
 * Footnotes
 [fn:opentrons-temp-module] https://opentrons.com/products/temperature-module-gen2
