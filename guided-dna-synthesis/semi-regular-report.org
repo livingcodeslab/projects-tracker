@@ -1,5 +1,6 @@
 #+STARTUP: content
 #+TITLE: Progress Report and Updates
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
 #+BIBLIOGRAPHY: references.bib
 #+CITE_EXPORT: natbib kluwer
 
