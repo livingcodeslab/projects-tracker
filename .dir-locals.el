@@ -37,4 +37,6 @@
                        (sequence "ORDER" "ORDERED" "SHIPPING" "DELAYED" "|" "RECEIVED"))))
             ;; ==== Add things to evaluate before this line ====
             ;; Set flag: this should be last thing in this eval
-            (setq living-codes-lab-settings-loaded t)))))))
+            (setq living-codes-lab-settings-loaded t))))))
+ (org
+  . (org-cite-activate-processor 'natbib)))
