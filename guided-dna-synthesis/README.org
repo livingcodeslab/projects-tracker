@@ -30,24 +30,29 @@ The integration includes:
   - Microfluidics device
   - …
 - [ ] Assemble and mount AFM
+  This is began, but we broke the AFM: waiting on
+  - [ ] dedicated computer for dealing with the AFM
+  - [ ] New USB cable and training tip
 - …
 
 
 * TODO Block Hybridisation           :livingcodeslab:dnasynthesis:majorgoal:
 
 ** TODO Temperature control
-- Maybe acquire temperature control devices, e.g. Peltier, etc
+- [x] Maybe acquire temperature control devices, e.g. Peltier, etc
+  - I tested the Opentrons temperature module and was able to control it from
+    the linux command-line. This is resolved for now.
 
 
 * TODO Guided DNA Synthesis          :livingcodeslab:dnasynthesis:majorgoal:
 
 This is waiting on the completion of the following:
 - [[*Order materials and tools][Order materials and tools]]
-- Reagents: enzymes, DNA, oligos — verify oligos are  okay
-- Microfluidics — reassembly of manifold,
-- GFET measurements: acquire GFETs, SMU, cleaning GFETS
-- Functionalization of GFET: reagents, AFM, PBASE DNA, tests/calibration
-- Integration: hardware, software, OPS, tests/calibration
+- [ ] Reagents: enzymes, DNA, oligos — verify oligos are  okay
+- [ ] Microfluidics — reassembly of manifold,
+- [x] GFET measurements: acquire GFETs, SMU, cleaning GFETS
+- [ ] Functionalization of GFET: reagents, AFM, PBASE DNA, tests/calibration
+- [ ] Integration: hardware, software, OPS, tests/calibration
 - 
 
 
