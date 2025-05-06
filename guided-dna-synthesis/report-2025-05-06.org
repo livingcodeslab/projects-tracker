@@ -1,0 +1,91 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-05-06
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* GFET Operating Point Selection
+
+The focus was testing out the operating points mentioned in the literature [cite:@xu2022719; @khan20211335; @biagetti202317011].
+
+Started off by getting open-air characteristics for operating points at 10mV,
+20mV, 50mV and 70mV, with chip00. The results were unexpected. We got noise-like
+responses that had a very similar shape, represented by figure [[chip00-10mv-operating-point-open-air]]
+
+#+CAPTION: 10mV Operating Point for Chip00 Open-Air
+#+NAME: chip00-10mv-operating-point-open-air
+[[file:images/2025-05-06/chip00/open-air/10mV_setpoint.svg]]
+
+It gave a very similar shape with distilled water. I then decided to change the
+active port on the catridge, switching from port A to port B. This time, we get
+the response represented by figure [[chip00-10mv-operating-point-distilled-water]]:
+
+#+CAPTION: 10mV Operating Point for Chip00 with Distilled Water
+#+NAME: chip00-10mv-operating-point-distilled-water
+[[file:images/2025-05-06/chip00/distilled-water/10mV_setpoint.svg]]
+
+Maybe it's because we are considering only the positive voltages, try negative
+ones. The result still has the same general shape as the one above.
+
+This is not good. Maybe the chip is broken/needs cleaning. Try different chip.
+
+Changing to *chip01* gave us somewhat better results, for example, with V_{DS}
+in the negative range, we get results of the shapes in figures
+[[chip01-neg50mV-open-air-current]] and [[chip01-neg50mV-open-air-resistance]].
+
+#+CAPTION: V_{DS} = -50mV: Chip01, Open-Air Current Characteristics
+#+NAME: chip01-neg50mV-open-air-current
+[[file:images/2025-05-06/chip01/open-air/neg50mV_setpoint_current.svg]]
+
+#+CAPTION: V_{DS} = -50mV: Chip01, Open-Air Resistance Characteristics
+#+NAME: chip01-neg50mV-open-air-resistance
+[[file:images/2025-05-06/chip01/open-air/neg50mV_setpoint_resistance.svg]]
+
+meanwhile, with V_{DS} in the positive range, the response is represented by
+figures [[chip01-50mV-open-air-current]] and [[chip01-50mV-open-air-resistance]]
+
+#+CAPTION: V_{DS} = 50mV: Chip01, Open-Air Current Characteristics
+#+NAME: chip01-50mV-open-air-current
+[[file:images/2025-05-06/chip01/open-air/50mV_setpoint_current.svg]]
+
+#+CAPTION: V_{DS} = 50mV: Chip01, Open-Air Resistance Characteristics
+#+NAME: chip01-50mV-open-air-resistance
+[[file:images/2025-05-06/chip01/open-air/50mV_setpoint_resistance.svg]]
+
+
+From the shapes above, we note a few things:
+- The current characteristics are flipped when you cross from negative to
+  positive and vice-versa. It is not a mirror image, but the general shapes are
+  flipped. This is expected, since a "negative" current flows in the opposite
+  direction as the "positive" current.
+- The resistance characteristics shapes remain mostly the same
+
+We do the same experiment but with distilled water and we get the following
+shapes for the negative section:
+
+#+CAPTION: V_{DS} = -50mV: Chip01, Distilled-Water Current Characteristics
+[[file:images/2025-05-06/chip01/distilled-water/neg50mV_setpoint_current.svg]]
+
+#+CAPTION: V_{DS} = -50mV: Chip01, Distilled-Water Resistance Characteristics
+[[file:images/2025-05-06/chip01/distilled-water/neg50mV_setpoint_resistance.svg]]
+
+and for the positive section, the general shapes are as below:
+
+#+CAPTION: V_{DS} = 50mV: Chip01, Distilled-Water Current Characteristics
+[[file:images/2025-05-06/chip01/distilled-water/50mV_setpoint_current.svg]]
+
+#+CAPTION: V_{DS} = 50mV: Chip01, Distilled-Water Resistance Characteristics
+[[file:images/2025-05-06/chip01/distilled-water/50mV_setpoint_resistance.svg]]
+
+We note the same expected flipping of the shape for the current, while the
+resistance shape is generally similar.
+
+Looking at the 50mV operating point, and focussing on the *0V ≤ V_{G} ≤ 1.5V* we
+see that the curve is somewhat similar to that in the Graphenea documentation
+for liquid gating.
+
+Moving forward, we can choose V_{DS}=50mV operating point for future experiments.
+
+#+print_bibliography:
