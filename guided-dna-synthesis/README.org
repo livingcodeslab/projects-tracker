@@ -119,20 +119,20 @@ This is waiting on the completion of the following:
  :LINK: https://tipsnano.com/catalog/calibration/calibr/tgq1/
  :END:
 
-*** ORDERED DRI-BOX® Reusable Sorbent Box :livingcodeslab:orders:desiccant:gfet:
+*** RECEIVED DRI-BOX® Reusable Sorbent Box :livingcodeslab:orders:desiccant:gfet:
  :PROPERTIES:
  :LINK: https://www.tedpella.com/desiccat_html/descant.aspx#DRI-BOX
  :END:
 
  - Got wrong product - got Product No. 19950 rather than Product No. 19952
 
-*** ORDERED Allen Key Wrench Set              :livingcodeslab:orders:tools:
+*** RECEIVED Allen Key Wrench Set             :livingcodeslab:orders:tools:
  :PROPERTIES:
  :LINK: https://www.amazon.com/LEXIVON-Master-35-Piece-Industrial-LX-131/dp/B07MR7SDF7
  :QUANTITY: 1
  :UNITS: pieces
  :END:
-*** ORDERED Digital Callipers                 :livingcodeslab:orders:tools:
+*** RECEIVED Digital Callipers                :livingcodeslab:orders:tools:
  :PROPERTIES:
  :LINK: https://www.amazon.com/Kynup-Measuring-Stainless-Waterproof-Protection/dp/B07X8JQ8L5
  :QUANTITY: 1
