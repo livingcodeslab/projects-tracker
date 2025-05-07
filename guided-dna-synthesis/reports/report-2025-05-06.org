@@ -70,19 +70,19 @@ show the general shapes of the response when 0 < V_{DS} < 100mV.
 
 #+CAPTION: V_{DS} = -50mV: Chip01, Distilled-Water Current Characteristics
 #+NAME: chip01-neg50mV-distilled-water-current
-[[file:images/2025-05-06/chip01/distilled-water/neg50mV_setpoint_current.svg]]
+[[file:images/2025-05-06/chip01/distilled-water/chip01-distilled-water-neg50mV_setpoint_current.svg]]
 
 #+CAPTION: V_{DS} = -50mV: Chip01, Distilled-Water Resistance Characteristics
 #+NAME: chip01-neg50mV-distilled-water-resistance
-[[file:images/2025-05-06/chip01/distilled-water/neg50mV_setpoint_resistance.svg]]
+[[file:images/2025-05-06/chip01/distilled-water/chip01-distilled-water-neg50mV_setpoint_resistance.svg]]
 
 #+CAPTION: V_{DS} = 50mV: Chip01, Distilled-Water Current Characteristics
 #+NAME: chip01-50mV-distilled-water-current
-[[file:images/2025-05-06/chip01/distilled-water/50mV_setpoint_current.svg]]
+[[file:images/2025-05-06/chip01/distilled-water/chip01-distilled-water-50mV_setpoint_current.svg]]
 
 #+CAPTION: V_{DS} = 50mV: Chip01, Distilled-Water Resistance Characteristics
 #+NAME: chip01-50mV-distilled-water-resistance
-[[file:images/2025-05-06/chip01/distilled-water/50mV_setpoint_resistance.svg]]
+[[file:images/2025-05-06/chip01/distilled-water/chip01-distilled-water-50mV_setpoint_resistance.svg]]
 
 We note the same expected flipping of the shape for the current, while the
 resistance shape is generally similar.
