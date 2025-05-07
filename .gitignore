@@ -1,3 +1,11 @@
 .aider*
+
+## TeX and LaTeX generated files
 **/*.pdf
 **/*.tex
+**/*.pdf_tex
+**/*.aux
+**/*.bbl
+**/*.log
+**/*.out
+**/*.toc
