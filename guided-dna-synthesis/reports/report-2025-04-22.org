@@ -1,0 +1,40 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-04-22
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+
+** 2025-04-22
+
+Take the characteristics of *chip00* after cleanup with acetone.
+
+In the open-air configuration, after acetone chip-cleanup, the current
+characteristics for *chip00* are:
+
+#+CAPTION: Current Characteristics of Chip00: I_{D} vs. V_{G}: Open-Air After Chip Cleanup
+#+NAME: chip00-open-air-after-chip-cleanup-current-xristics
+[[file:images/2025-04-22/chip00/after-acetone-cleanup/open-air-current-characteristics.svg]]
+
+whereas the resistance characteristics are:
+
+#+CAPTION: Resistance Characteristics of Chip00: R_{D} vs. V_{G}: Open-Air After Chip Cleanup
+#+NAME: chip00-open-air-after-chip-cleanup-resistance-xristics
+[[file:images/2025-04-22/chip00/after-acetone-cleanup/open-air-resistance-characteristics.svg]]
+
+
+In the distilled-water configuration, after acetone chip-cleanup, the current
+characteristics for *chip00* are:
+
+#+CAPTION: Current Characteristics of Chip00: I_{D} vs. V_{G}: Distilled-Water After Chip Cleanup
+#+NAME: chip00-distilled-water-after-chip-cleanup-current-xristics
+[[file:images/2025-04-22/chip00/after-acetone-cleanup/distilled-water-current-characteristics.svg]]
+
+whereas the resistance characteristics
+
+#+CAPTION: Resistance Characteristics of Chip00: R_{D} vs. V_{G}: Distilled-Water After Chip Cleanup
+#+NAME: chip00-distilled-water-after-chip-cleanup-resistance-xristics
+[[file:images/2025-04-22/chip00/after-acetone-cleanup/distilled-water-resistance-characteristics.svg]]
+
+These curves support the previous conclusion that the acetone-IPA-nitrogen
+chip-cleaning protocol does, indeed, restore the chip properties to near where
+they originally were.

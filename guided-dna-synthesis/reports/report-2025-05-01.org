@@ -1,0 +1,13 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-05-01
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+
+* Literature Review: GFET Operating Point(s)
+
+It does look like we can use alternating current rather than direct current[cite:@GIL2022394].
+
+Another operating point was at 50mV [cite:@ROMAGNOLI2023101729] with a gate voltage sweeping from 0 to 1.5V
+
+#+print_bibliography:

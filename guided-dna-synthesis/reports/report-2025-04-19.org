@@ -1,0 +1,51 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-04-19
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+
+** 2025-04-19
+
+The acetone baths for each of the chips had evaporated overnight.
+
+We, then submerged each of the chips in 2 ml of acetone, and gently agitated
+the container for about 2 minutes.
+
+We then proceeded to pipette the acetone in the baths into a waste container.
+The chips were then, each submerged in 2ml of isopropyl alcohol (IPA) and
+agitated in order to rinse them.
+
+We then dried each chip by running it under a stream of nitrogen gas for a while.
+
+We then ran a quick and dirty check for the properties of *chip01* to see
+whether cleaning the chip was helpful to restore the characteristics/usefulness
+of the chip.
+
+The current characteristics, for the chip in the open-air configuration are:
+
+#+CAPTION: Current Characteristics of Chip01: I_{D} vs. V_{G}: Open-Air After Chip Cleanup
+#+NAME: chip01-open-air-after-chip-cleanup-current-xristics
+[[file:images/2025-04-18/chip01/open-air-current-characteristics.svg]]
+
+whereas, the resistance characteristics in the open-air configuration are:
+
+#+CAPTION: Resistance Characteristics of Chip01: R_{D} vs. V_{G}: Open-Air After Chip Cleanup
+#+NAME: chip01-open-air-after-chip-cleanup-resistance-xristics
+[[file:images/2025-04-18/chip01/open-air-resistance-characteristics.svg]]
+
+The current characteristics for the distilled-water configuration, after cleanup, gives:
+
+#+CAPTION: Current Characteristics of Chip01: I_{D} vs. V_{G}: Distilled-Water After Chip Cleanup
+#+NAME: chip01-distilled-water-after-chip-cleanup-current-xristics
+[[file:images/2025-04-18/chip01/distilled-water-current-characteristics.svg]]
+
+and the corresponding resistance characteristics after cleanup are:
+
+#+CAPTION: Resistance Characteristics of Chip01: R_{D} vs. V_{G}: Distilled-Water After Chip Cleanup
+#+NAME: chip01-distilled-water-after-chip-cleanup-resistance-xristics
+[[file:images/2025-04-18/chip01/distilled-water-resistance-characteristics.svg]]
+
+The curves after cleaning up with acetone, rinsing with IPA and drying indicate,
+at least for *chip01* that the cleaning protocol does restore the chip to nearly
+the original point of operation (compare [[chip01-dwater-resist-xristics-no-zero-vg][original resistance characteristics]] to
+the [[chip01-distilled-water-after-chip-cleanup-resistance-xristics][resistance characteristics after chip cleanup]]).

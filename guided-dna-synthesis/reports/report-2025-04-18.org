@@ -1,0 +1,102 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-04-18
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+
+** 2025-04-18
+
+Started off with a new Graphenea GFET S-20[fn:gfet-s-20] chip, *chip01* and
+attempted to get its characteristics.
+
+The characteristics curve I got for the open-air iteration was:
+
+#+CAPTION: Current Characteristics of Chip01: I_{D} vs. V_{G}: Open-Air
+#+NAME: chip01-open-air-current-xristics-01
+[[file:images/2025-04-16/chip01/open_air_current_characteristics.svg]]
+
+and with distilled water, I got:
+
+#+CAPTION: Current Characteristics of Chip01: I_{D} vs. V_{G}: Distilled Water
+#+NAME: chip01-dwater-current-xristics-01
+[[file:images/2025-04-16/chip01/distilled-water-current-characteristics.svg]]
+
+#+CAPTION: Resistance Characteristics of Chip01: R_{D} vs. V_{G}: Distilled Water
+#+NAME: chip01-dwater-resist-xristics-01
+[[file:images/2025-04-16/chip01/distilled-water-resistance-characteristics.svg]]
+
+The current characteristics curves are nice and clear.
+
+The resistance characteristics curves are ruined (mostly) by the 50kΩ spike,
+which probably occurs at the 4.16×10^{-16}V Gate voltage.
+
+After removing the 4.16×10^{-16}V gate voltage data, the resistance
+characteristics graphs become:
+
+#+CAPTION: Resistance Characteristics of Chip01: R_{D} vs. V_{G}: Distilled Water
+#+NAME: chip01-dwater-resist-xristics-no-zero-vg
+[[file:images/2025-04-16/chip01/distilled-water-resistance-characteristics-no-zero-vg.svg]]
+
+which is much nicer. This also demonstrates that we probably do not want to run
+with a gate voltage of near zero, since the characteristics at that point might
+be a tad unstable.
+
+  At this point, we used a 1X PBS (Phosphate Buffered Saline) solution for testing.
+  As in *chip00* mentioned previously, this broke the new chip — the
+  characteristics for the 1X PBS solution is as follows
+
+#+CAPTION: Current Characteristics of Chip01: I_{D} vs. V_{G}: 1X PBS
+#+NAME: chip01-pbs-current-xristics-01
+[[file:images/2025-04-16/chip01/pbs-solution-current-characteristics.svg]]
+
+#+CAPTION: Resistance Characteristics of Chip01: R_{D} vs. V_{G}: 1X PBS
+#+NAME: chip01-pbs-resist-xristics-01
+[[file:images/2025-04-16/chip01/pbs-solution-resistance-characteristics.svg]]
+
+We do get a few curves for the current characteristics, that follow the roughly
+bell-shaped curves seen before, though these ones are weird. The resistance
+curves, or rather, the lack thereof, is indicative of a problem.
+
+After running the chip with the 1X PBS solution, we attempt to verify whether
+the chip was still functioning as expected. The characteristic curves for
+open-air and distilled water are as follows, after using the 1X PBS:
+
+
+- Open-air current characteristics after 1X PBS
+  #+CAPTION: Current Characteristics of Chip01: I_{D} vs. V_{G}: Open-Air After 1X PBS
+  #+NAME: chip01-open-air-after-pbs-current-xristics-01
+  [[file:images/2025-04-16/chip01/open-air-verify-01-current-characteristics.svg]]
+
+- Open-air resistance characteristics after 1X PBS
+  #+CAPTION: Resistance Characteristics of Chip01: R_{D} vs. V_{G}: Open-Air After 1X PBS
+  #+NAME: chip01-open-air-after-pbs-resist-xristics-01
+  [[file:images/2025-04-16/chip01/open-air-verify-01-resistance-characteristics.svg]]
+
+- Distilled water current characteristics after 1X PBS
+  #+CAPTION: Current Characteristics of Chip01: I_{D} vs. V_{G}: Open-Air After 1X PBS
+  #+NAME: chip01-open-air-after-pbs-current-xristics-01
+  [[file:images/2025-04-16/chip01/distilled-water-verify-current-characteristics.svg]]
+
+- Distilled water resistance characteristics after 1X PBS
+  #+CAPTION: Resistance Characteristics of Chip01: R_{D} vs. V_{G}: Open-Air After 1X PBS
+  #+NAME: chip01-open-air-after-pbs-resist-xristics-01
+  [[file:images/2025-04-16/chip01/distilled-water-verify-resistance-characteristics.svg]]
+
+
+The new curves indicate that the new chip, chip01, had its characteristics
+drastically altered by the high concentration of PBS (for reference, Graphenea
+used 0.001X PBS[fn:gfet-measurement-protocols])
+
+This is, probably the reason why the chips, seemingly, broke.
+
+
+The mitigation measure planned is to soak the devices in acetone according to to
+the documentation from Graphenea[fn:gfet-measurement-protocols].
+
+The two broken chips (*chip00* and *chip01*) were, each, submerged in 1ml of
+acetone in a pyrex container (1 chip per container) and left overnight.
+
+* Footnotes
+[fn:gfet-measurement-protocols] https://cdn.shopify.com/s/files/1/0191/2296/files/2025_Measurement_Protocols_GFET-S2X_v5.pdf?v=1736951757 
+
+[fn:gfet-s-20] Graphenea's GFET S-20 chip https://www.graphenea.com/products/gfet-s20-for-sensing-applications

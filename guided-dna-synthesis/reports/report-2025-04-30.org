@@ -1,0 +1,119 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-04-30
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+
+* opentrons[fn:opentrons] Temperature Module[fn:opentrons-temp-module]
+
+The goal was to figure out whether it is possible to control the opentrons
+temperature module without the robot.
+
+It turns out that [[https://support.opentrons.com/s/article/Running-your-module-without-the-robot][it is possible]].
+
+We, however, want to attempt control without downloading and using the CoolTerm
+application, so, let us see whether it is possible to do this with the Linux
+command line first.
+
+Begin by connecting the temperature module and running ~dmesg~:
+#+begin_src shell
+  $ sudo dmesg -T
+  ⋮
+  [Wed Apr 30 11:55:33 2025] usb 1-2: new full-speed USB device number 6 using xhci_hcd
+  [Wed Apr 30 11:55:33 2025] usb 1-2: New USB device found, idVendor=04d8, idProduct=ee93, bcdDevice= 1.00
+  [Wed Apr 30 11:55:33 2025] usb 1-2: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+  [Wed Apr 30 11:55:33 2025] usb 1-2: Product: Opentrons TempDeck
+  [Wed Apr 30 11:55:33 2025] usb 1-2: Manufacturer: Microchip Technology Inc
+  [Wed Apr 30 11:55:33 2025] cdc_acm 1-2:1.0: ttyACM0: USB ACM device
+  [Wed Apr 30 11:55:33 2025] usbcore: registered new interface driver cdc_acm
+  [Wed Apr 30 11:55:33 2025] cdc_acm: USB Abstract Control Model driver for USB modems and ISDN adapters
+#+end_src
+
+Okay, nice. so the device shows, as =Product: Opentrons TempDeck=, and its
+vendor and product identifiers are =04d8= nad =ee93= respectively. We also see
+that it is accessible at =/dev/ttyACM0= for this attempt.
+
+The devices begins with an initial temperature of 21℃
+
+#+CAPTION: Opentrons Temperature Module: Starting point on attaching to computer
+#+NAME: opentrons-temp-module
+[[file:images/2025-04-30/opentrons_temperature_module.jpg]]
+
+Now, let's try connecting to it with plain =sh= or =bash= commands. These assume
+your user is a member of the =dialout= group.
+
+Start off by setting the baud rate:
+
+#+begin_src shell
+  stty -F /dev/ttyACM0 115200
+#+end_src
+
+Now confirm the baud rate
+
+#+begin_src shell
+  stty -F /dev/ttyACM0 speed
+#+end_src
+
+that should respond with ~115200~.
+
+Good, now try setting the temperature to 4℃:
+
+#+begin_src shell
+  echo "M104 S004" > /dev/ttyACM0
+#+end_src
+
+Observed:
+
+- Indicator light turned blue
+- Fan ramped up very quickly — I was a little apprehensive
+- Temperature indicator started dropping
+- Heating/cooling surface began to cool!
+- The indicator does actually get to 4℃ and remain there
+
+Okay! Nice! Now turn off the module:
+
+#+begin_src shell
+  echo "M18" > /dev/ttyACM0
+#+end_src
+
+The fan stops, and the temperature indicator starts counting upward.
+
+Let's try heating up to say, 40℃:
+
+#+begin_src shell
+  echo "M104 S040" > /dev/ttyACM0
+#+end_src
+
+- Indicator light turned red
+- Fan turned on, but is not as fast as the cooling attempt
+- Temperature indicator started rising
+- Heating/cooling surface gets warm
+- The indicator get's to 40℃
+- Any time the indicator goes above 40℃, the motor ramps up to cool it
+
+Nice! Heating works too! Turn it off again.
+
+#+begin_src shell
+  echo "M18" > /dev/ttyACM0
+#+end_src
+
+**** Conclusions
+
+- we can control the temperature module directly on the command-line
+- we cannot modulate fan speed for cooling
+- using pySerial, it should be possible to write code to integrate the
+  temperature module into our workflow.
+
+* GFET S-20[fn:gfet-s-20] Literature review
+
+The drain voltage is set to less than 100mv [cite:@xu2022719; @khan20211335; @biagetti202317011]
+
+* Footnotes
+[fn:opentrons-temp-module] https://opentrons.com/products/temperature-module-gen2
+
+[fn:opentrons] https://opentrons.com/
+
+[fn:gfet-s-20] Graphenea's GFET S-20 chip https://www.graphenea.com/products/gfet-s20-for-sensing-applications
+
+
+#+print_bibliography:

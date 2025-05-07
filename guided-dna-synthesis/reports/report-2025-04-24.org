@@ -1,0 +1,23 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-04-24
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+
+** 2025-04-24
+
+Began the day by putting *chip00* in acetone bath to clean it.
+
+We now verify our conclusions from yesterday with data from *chip01*. We remove
+all data for channel/drain voltages ≥ 0V, and get:
+
+Current characteristics for *chip01*, distilled water, -1.7V ≤ V_{D} < 0V
+
+#+CAPTION: Current Characteristics, Distilled Water, Chip01, 0.0V ≤ V_{D} < 0V
+#+NAME: chip00-current-xristics-distilled-water-negative-channel-voltages
+[[file:images/2025-04-24/chip01/distilled-water-current-characteristics-neg1.7Vtoneg0.1V.svg]]
+
+Resistance characteristics for *chip01*, distilled water, -1.7V ≤ V_{D} < 0V
+
+#+CAPTION: Resistance Characteristics, Distilled Water, Chip01, 0.0V ≤ V_{D} < 0V
+#+NAME: chip00-resistance-xristics-distilled-water-negative-channel-voltages
+[[file:images/2025-04-24/chip01/distilled-water-resistance-characteristics-neg1.7Vtoneg0.1V.svg]]
