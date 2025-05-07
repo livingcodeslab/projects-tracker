@@ -19,7 +19,7 @@ the work we are doing here.
 This requires that the integration of the devices (and software) be complete.
 The integration includes:
 - [x] Verifying GFET device characteristics
-- [ ] Choosing GFET operating points
+- [x] Choosing GFET operating points: chosen V_{DS}=50mv, and 0V≤V_{G}≤1.7V
 - [ ] Assembling the manifold, and entire microfluidics device
 - [ ] Determining flow-rates for the microfluidics device and the timings for
   getting the fluids on top of the chip
