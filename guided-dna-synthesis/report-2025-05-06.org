@@ -33,7 +33,9 @@ This is not good. Maybe the chip is broken/needs cleaning. Try different chip.
 
 Changing to *chip01* gave us somewhat better results, for example, with V_{DS}
 in the negative range, we get results of the shapes in figures
-[[chip01-neg50mV-open-air-current]] and [[chip01-neg50mV-open-air-resistance]].
+[[chip01-neg50mV-open-air-current]] and [[chip01-neg50mV-open-air-resistance]]
+meanwhile, with V_{DS} in the positive range, the response is represented by
+figures [[chip01-50mV-open-air-current]] and [[chip01-50mV-open-air-resistance]]
 
 #+CAPTION: V_{DS} = -50mV: Chip01, Open-Air Current Characteristics
 #+NAME: chip01-neg50mV-open-air-current
@@ -42,9 +44,6 @@ in the negative range, we get results of the shapes in figures
 #+CAPTION: V_{DS} = -50mV: Chip01, Open-Air Resistance Characteristics
 #+NAME: chip01-neg50mV-open-air-resistance
 [[file:images/2025-05-06/chip01/open-air/neg50mV_setpoint_resistance.svg]]
-
-meanwhile, with V_{DS} in the positive range, the response is represented by
-figures [[chip01-50mV-open-air-current]] and [[chip01-50mV-open-air-resistance]]
 
 #+CAPTION: V_{DS} = 50mV: Chip01, Open-Air Current Characteristics
 #+NAME: chip01-50mV-open-air-current
@@ -62,21 +61,27 @@ From the shapes above, we note a few things:
   direction as the "positive" current.
 - The resistance characteristics shapes remain mostly the same
 
-We do the same experiment but with distilled water and we get the following
-shapes for the negative section:
+We do the same experiment but with distilled water. Figures
+[[chip01-neg50mV-distilled-water-current]] and
+[[chip01-neg50mV-distilled-water-resistance]] demonstrate the general shape of the
+response when V_{DS} is negative, while figures
+[[chip01-50mV-distilled-water-current]] and [[chip01-50mV-distilled-water-resistance]]
+show the general shapes of the response when 0 < V_{DS} < 100mV.
 
 #+CAPTION: V_{DS} = -50mV: Chip01, Distilled-Water Current Characteristics
+#+NAME: chip01-neg50mV-distilled-water-current
 [[file:images/2025-05-06/chip01/distilled-water/neg50mV_setpoint_current.svg]]
 
 #+CAPTION: V_{DS} = -50mV: Chip01, Distilled-Water Resistance Characteristics
+#+NAME: chip01-neg50mV-distilled-water-resistance
 [[file:images/2025-05-06/chip01/distilled-water/neg50mV_setpoint_resistance.svg]]
 
-and for the positive section, the general shapes are as below:
-
 #+CAPTION: V_{DS} = 50mV: Chip01, Distilled-Water Current Characteristics
+#+NAME: chip01-50mV-distilled-water-current
 [[file:images/2025-05-06/chip01/distilled-water/50mV_setpoint_current.svg]]
 
 #+CAPTION: V_{DS} = 50mV: Chip01, Distilled-Water Resistance Characteristics
+#+NAME: chip01-50mV-distilled-water-resistance
 [[file:images/2025-05-06/chip01/distilled-water/50mV_setpoint_resistance.svg]]
 
 We note the same expected flipping of the shape for the current, while the
