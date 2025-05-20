@@ -1,0 +1,121 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-05-20
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Re-Initialise MicroFluidics Device
+
+- [x] Assemble cabling and turn on device
+  - [x] Device turns on
+  - [x] Device shows up in ~dmesg -T~ kernel log
+- [x] Test pump
+  - [x] Disconnect peristaltic pump tube
+  - [x] Define baud rate
+    #+begin_src shell
+      stty -F /dev/ttyACM0 9600
+    #+end_src
+  - [x] Run test command
+    #+begin_src shell
+      echo "PURGE COMMON 0 -T 60 -R 36" > /dev/ttyACM0
+    #+end_src
+    - Pump runs! Good!
+- Possible issues to investigate:
+  - 2 of the valve terminals are not attached to any valve
+  - I might have offset the valve terminals somewhat when reassembling: verify
+    whether this is the case
+  - One of the 2 terminals that are not attached is powered when I run:
+    #+begin_src shell
+      echo "WASH COMMON 0 -T 60 -R 36" > /dev/ttyACM0
+    #+end_src
+    - This command should wash common line up to the GFET chip
+    - From the flow diagrams, that  opens the wash valve and the waste valve,
+      after the GFET chip and closes the waste valve before the GFET chip
+- Test priming:
+  - These seem to work
+    #+begin_src shell
+      echo "PRIME -C 2 -T 60 -R 36" > /dev/ttyACM0
+      echo "PRIME -C 3 -T 60 -R 36" > /dev/ttyACM0
+    #+end_src
+  - These seem to fail:
+    #+begin_src shell
+      echo "PRIME -C 1 -T 60 -R 36" > /dev/ttyACM0
+      echo "PRIME -C 4 -T 60 -R 36" > /dev/ttyACM0
+      echo "PRIME -C 5 -T 60 -R 36" > /dev/ttyACM0
+      echo "PRIME -C 6 -T 60 -R 36" > /dev/ttyACM0
+      echo "PRIME -C 7 -T 60 -R 36" > /dev/ttyACM0
+      echo "PRIME -C 8 -T 60 -R 36" > /dev/ttyACM0
+    #+end_src
+- Attempt purging: both commands, seemingly, work:
+  #+begin_src shell
+    echo "PURGE ALL 0 -T 60 -R 36" > /dev/ttyACM0
+    echo "PURGE COMMON 0 -T 60 -R 36" > /dev/ttyACM0
+  #+end_src
+- Attempt collection:
+  - These work (variously, with delays sometimes):
+    #+begin_src shell
+      echo "COLLECT -C 1 -T 60 -R 36" > /dev/ttyACM0 # Worked first time
+      echo "COLLECT -C 2 -T 60 -R 36" > /dev/ttyACM0
+      echo "COLLECT -C 3 -T 60 -R 36" > /dev/ttyACM0
+      echo "COLLECT -C 6 -T 60 -R 36" > /dev/ttyACM0 # really slow
+    #+end_src
+  - These do not seem to work at all:
+    #+begin_src shell
+      echo "COLLECT -C 4 -T 60 -R 36" > /dev/ttyACM0
+      echo "COLLECT -C 5 -T 60 -R 36" > /dev/ttyACM0
+      echo "COLLECT -C 7 -T 60 -R 36" > /dev/ttyACM0
+      echo "COLLECT -C 8 -T 60 -R 36" > /dev/ttyACM0
+      echo "COLLECT -C 1 -T 60 -R 36" > /dev/ttyACM0 # Failed in subsequent attempts
+      echo "COLLECT -C 6 -T 60 -R 36" > /dev/ttyACM0 # No longer works after run of the other commands above
+    #+end_src
+- Wash all chemical channels to see what happens
+  #+begin_src shell
+    echo "WASH CHEM_WASH 0 -T 60 -R 36" > /dev/ttyACM0
+  #+end_src
+  - Part way during the run of the command, the bubble of water at the wash
+    intake got pulled in — replenished it and then there was no observable
+    change.
+- PRIME CHEM_WASH
+  #+begin_src shell
+    echo "PRIME CHEM_WASH 10 -T 60 -R 36" > /dev/ttyACM0
+  #+end_src
+  - Prime all channels' wash lines starting at 8 down to 1
+    - 8: no observable change
+    - 7: A tiny drop in intake drop level — immediately after switchover
+    - 6: No
+    - 5: No
+    - 4: No*
+    - 3: Tiny drop in intake drop level
+    - 2: Complete intake of drop— replenishment drops get taken in too
+    - 1: Complete intake of drop— replenishment drops get taken in too
+- Verify ~PRIME CHEM_WASH~ with other command
+  - These work:
+    #+begin_src shell
+      echo "PRIME CHEM_WASH 1 -T 60 -R 36" > /dev/ttyACM0 # D&R
+      echo "PRIME CHEM_WASH 2 -T 60 -R 36" > /dev/ttyACM0 # D&R
+      echo "PRIME CHEM_WASH 3 -T 60 -R 36" > /dev/ttyACM0 # D&R: slow
+    #+end_src
+  - These do not work:
+    #+begin_src shell
+      echo "PRIME CHEM_WASH 4 -T 60 -R 36" > /dev/ttyACM0
+      echo "PRIME CHEM_WASH 5 -T 60 -R 36" > /dev/ttyACM0
+      echo "PRIME CHEM_WASH 6 -T 60 -R 36" > /dev/ttyACM0
+      echo "PRIME CHEM_WASH 7 -T 60 -R 36" > /dev/ttyACM0 # Ext. slow -T 240
+      echo "PRIME CHEM_WASH 8 -T 60 -R 36" > /dev/ttyACM0
+    #+end_src
+- PUMP
+  - These work:
+    #+begin_src shell
+      echo "PUMP -C 2 -T 60 -R 36" > /dev/ttyACM0 # consistently fastest
+      echo "PUMP -C 3 -T 60 -R 36" > /dev/ttyACM0
+    #+end_src
+  - These fail:
+    #+begin_src shell
+      echo "PUMP -C 1 -T 60 -R 36" > /dev/ttyACM0
+      echo "PUMP -C 4 -T 60 -R 36" > /dev/ttyACM0
+      echo "PUMP -C 5 -T 60 -R 36" > /dev/ttyACM0
+      echo "PUMP -C 6 -T 60 -R 36" > /dev/ttyACM0
+      echo "PUMP -C 7 -T 60 -R 36" > /dev/ttyACM0
+    #+end_src
