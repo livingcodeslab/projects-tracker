@@ -1,0 +1,101 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-05-21
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Signals' Debug
+
+Today, we'll be probing the voltages applied to various valves when specific
+commands are run — this will help verify whether or not the expected signals are
+being sent, and addressed correctly.
+
+The microfluidics device has *six* (6) main commands, which are:
+- =PRIME=
+- =WASH=
+- =PURGE=
+- =COLLECT=
+- =PUMP=
+- =WAIT=
+
+Each command above has various options.
+
+In addition to that, the device has *twenty* (20) valves. This leads to an
+explosion of possible combinations of commands and valve states.
+
+There are, however, specific valve states that *MUST* be mutually exclusive for
+specific commands, for the device to function as expected, e.g for a command,
+~COLLECT -C 1 …~, valves /1 and 6/ *MUST* be powered /ON/ *and* /ALL/ other
+valves *MUST* be powered *OFF*. (TODO: please verify this)
+
+We'll explore more of these to verify at a high level, whether on not the
+firmware and/or circuitry is working as expected.
+
+We'll address the valves clockwise as follows:
+- valve =1=: chooses between "collection" and "waste"
+- valve =2=: chooses between "waste" and "GFET"
+- valve =3=: handles venting air
+- valve =4=: controls air/wash to common line
+⋮
+- valve =6=: chooses reagent 1 or wash for channel 1
+⋮
+- valve =20=: chooses reagent 1 or wash for channel 8
+
+We use the LHD Series 3-way control solenoid valves, with the central port
+(common port) being the inlet. The port closest to the valves wires (and to the
+outside of the manifold) is the normally-open (NO) port. The port closest to the
+centre of the manifold is the normally-closed (NC) port.
+
+*** Conventions
+
+We'll use the following conventions for the data values:
+
+- ~0~: Indicates there is *NO* power to the valve: (0 V)
+- ~1~: Indicates *there is* power to the valve: (11.91 V)
+- ~x~: Indicates invalid values for the =var1= argument for the command.
+  When these invalid values are provided, the device *SHOULD* do nothing.
+
+** PRIME
+
+*** PRIME CHEM_WASH …
+
+Command: ~PRIME CHEM_WASH var1 …~
+
+|-----------------+---+---+---+---+---+---+---+---+---+---+----|
+| var1 argument → | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+|-----------------+---+---+---+---+---+---+---+---+---+---+----|
+|         ↓ Valve |   |   |   |   |   |   |   |   |   |   |    |
+|-----------------+---+---+---+---+---+---+---+---+---+---+----|
+|               1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | x |    |
+|               2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | x |    |
+|               3 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | x |    |
+|               4 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | x |    |
+|               5 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | x |    |
+|               6 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | x |    |
+|               7 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | x |    |
+|               8 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | x |    |
+|               9 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | x |    |
+|              10 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | x |    |
+|              11 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | x |    |
+|              12 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | x |    |
+|              13 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | x |    |
+|              14 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | x |    |
+|              15 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | x |    |
+|              16 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | x |    |
+|              17 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | x |    |
+|              18 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | x |    |
+|              19 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | x |    |
+|              20 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | x |    |
+|-----------------+---+---+---+---+---+---+---+---+---+---+----|
+
+The command ~PRIME CHEM_WASH 10 …~ should activate all the same valves as 1 — 8
+at different times, starting with channel 8 down to channel 1.
+
+*** PRIME -C …
+
+The command is ~PRIME -C var1 -T 210 -R 36~
+The device seems to completely ignore the ~-T 210~ argument and only prime for
+about 13 seconds: the timings for 10 attempts are 13.37, 13.39, 13.36, 13.46,
+13.25, 13.31, 13.38, 13.40, 13.41, 13.19, seconds.
