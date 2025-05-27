@@ -34,8 +34,8 @@ We'll explore more of these to verify at a high level, whether on not the
 firmware and/or circuitry is working as expected.
 
 We'll address the valves clockwise as follows:
-- valve =1=: chooses between "collection" and "waste"
-- valve =2=: chooses between "waste" and "GFET"
+- valve =1=: directs fluid from"GFET" either to "collection" or to "waste"
+- valve =2=: directs fluid from "Pump" either to the "GFET" or to "waste"
 - valve =3=: handles venting air
 - valve =4=: controls air/wash to common line
 ⋮
