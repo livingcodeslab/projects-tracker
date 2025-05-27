@@ -1,0 +1,168 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-05-27
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Signals' Debug
+
+** PRIME
+
+*** PRIME -C …
+
+
+|-----------------+---+---+---+---+---+---+---+---+---+---+----|
+| var1 argument → | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+|-----------------+---+---+---+---+---+---+---+---+---+---+----|
+|         ↓ Valve |   |   |   |   |   |   |   |   |   |   |    |
+|-----------------+---+---+---+---+---+---+---+---+---+---+----|
+|               1 | x | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | x | x  |
+|               2 | x | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | x | x  |
+|               3 | x | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | x | x  |
+|               4 | x | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | x | x  |
+|               5 | x | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | x | x  |
+|               6 | x | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | x | x  |
+|               7 | x | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | x | x  |
+|               8 | x | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | x | x  |
+|               9 | x | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | x | x  |
+|              10 | x | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | x | x  |
+|              11 | x | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | x | x  |
+|              12 | x | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | x | x  |
+|              13 | x | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | x | x  |
+|              14 | x | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | x | x  |
+|              15 | x | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | x | x  |
+|              16 | x | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | x | x  |
+|              17 | x | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | x | x  |
+|              18 | x | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | x | x  |
+|              19 | x | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | x | x  |
+|              20 | x | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | x | x  |
+|-----------------+---+---+---+---+---+---+---+---+---+---+----|
+
+
+The results above, and those from 2025-05-21 indicate that (at least for the
+~PRIME *~ commands) the channels' valves are receiving the appropriate signals.
+
+In addition, valve 2 (which takes the output from the GFET and directs it either
+to collection or waste) is also receiving the expected signal (default to waste).
+
+Next we need to test the following:
+- Collection (valve 1 should turn on, valve 2 should be off)
+- Venting (valve 3 should turn on, and valve 4 should be off)
+
+** Collection
+
+Command: ~COLLECT -C 1 -T 210 -R 36~
+
+|-------+----------+--------|
+| valve | Expected | Actual |
+|-------+----------+--------|
+|     1 |        1 |      1 |
+|     2 |        0 |      0 |
+|     3 |        0 |      0 |
+|     4 |        0 |      0 |
+|     5 |        0 |      1 |
+|     6 |        1 |      1 |
+|     7 |        0 |      0 |
+|     8 |        0 |      0 |
+|     9 |        0 |      0 |
+|    10 |        0 |      0 |
+|    11 |        0 |      0 |
+|    12 |        0 |      0 |
+|    13 |        0 |      0 |
+|    14 |        0 |      0 |
+|    15 |        0 |      0 |
+|    16 |        0 |      0 |
+|    17 |        0 |      0 |
+|    18 |        0 |      0 |
+|    19 |        0 |      0 |
+|    20 |        0 |      0 |
+|-------+----------+--------|
+
+*BUG*: Valve 5 being open is irrelevant, since valve 6 ends up closing the wash
+channel when it is powered on, and fetching the fluid from the channel 1's fluid
+container anyway. Valve 5 is thus, being powered on needlessly.
+
+** Venting
+
+Command: ~PURGE ALL 0 -T 210 -R 36~
+
+|-------+----------+--------|
+| valve | Expected | Actual |
+|-------+----------+--------|
+|     1 |        0 |      0 |
+|     2 |        0 |      0 |
+|     3 |        1 |      1 |
+|     4 |        0 |      0 |
+|     5 |        0 |      0 |
+|     6 |        0 |      0 |
+|     7 |        0 |      0 |
+|     8 |        0 |      0 |
+|     9 |        0 |      0 |
+|    10 |        0 |      0 |
+|    11 |        0 |      0 |
+|    12 |        0 |      0 |
+|    13 |        0 |      0 |
+|    14 |        0 |      0 |
+|    15 |        0 |      0 |
+|    16 |        0 |      0 |
+|    17 |        0 |      0 |
+|    18 |        0 |      0 |
+|    19 |        0 |      0 |
+|    20 |        0 |      0 |
+|-------+----------+--------|
+
+Command: ~PURGE COMMON 0 -T 210 -R 36~
+
+|-------+----------+--------|
+| valve | Expected | Actual |
+|-------+----------+--------|
+|     1 |        1 |      0 |
+|     2 |        1 |      1 |
+|     3 |        1 |      1 |
+|     4 |        0 |      0 |
+|     5 |        0 |      0 |
+|     6 |        0 |      0 |
+|     7 |        0 |      0 |
+|     8 |        0 |      0 |
+|     9 |        0 |      0 |
+|    10 |        0 |      0 |
+|    11 |        0 |      0 |
+|    12 |        0 |      0 |
+|    13 |        0 |      0 |
+|    14 |        0 |      0 |
+|    15 |        0 |      0 |
+|    16 |        0 |      0 |
+|    17 |        0 |      0 |
+|    18 |        0 |      0 |
+|    19 |        0 |      0 |
+|    20 |        0 |      0 |
+|-------+----------+--------|
+
+*BUG*: It is important that valve 1 be powered so that it prevents the fluid in
+the   waste line from flowing into the GFET via the GFET output line. It is
+unlikely that the fluid will actually flow back, due to pressure, but having the
+valve explicitly closed will ensure it does not.
+
+** Liquid Debug
+
+Reassemble the device and do liquid drop debug
+
+*** ~PRIME CHEM_WASH 1 -T 30 -R 36~
+
+- The drop at the wash-line get's pulled in
+- No output on waste line
+- Flutters in flow, and eventual blow-out of "PUMP IN" line
+- Reassemble and disconnect
+- Flow out via "GFET IN" port — debug:
+
+*BUG*: This command pushes the fluid through the GFET, but then powers on valve2
+and leaves valve 1 off. This leads to fluid being pushed past the waste port
+(for some reason) through valve1, back through the GFET and on to valve2's
+"normally open" port. Since valve2 is powered
+on, the "normally open" port is closed, which leads to back-pressure, and
+finally, the flow to waste occurs.
+This also leads to flutters/vibrations in the flow (and possibly a build up in
+pressure in the system, which might be what caused the "PUMP IN" plumbing to
+blow out, during an earlier test).
