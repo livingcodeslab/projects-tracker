@@ -30,6 +30,10 @@ We *shall not* handle testing that the values for the arguments above (=-T= and
 =-R=) are honoured in this document; rather, we'll focus only on valve states in
 this document.
 
+Valve states will be represented as follows:
+- *0*: means that the valve is powered *OFF*
+- *1*: means that the valve is powered *ON*
+
 * Command: =PRIME=
 
 This command handles priming various channels with the wash or reagents,
