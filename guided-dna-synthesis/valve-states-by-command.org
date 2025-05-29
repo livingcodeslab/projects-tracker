@@ -80,6 +80,9 @@ valve between the "normally open" port of valve 1 and the waste port (port G).
 
 This bug will be present for *ALL* commands that attempt to bypass the GFET and
 output to the waste port.
+
+This bug will be mitigated by adding a valve between the waste port (port G) and
+the normally open port of valve 1.
 #+end_verse
 
 We turn off the vent (air) valve (valve 3), to prevent air from being drawn in.
