@@ -39,10 +39,28 @@ There are 2 forms of this command, the =CHEM_WASH= and the =-C= forms.
 
 ** Command: =PRIME CHEM_WASH <var1> -T … -R …=
 
-Acceptable values for =<var1>= are: 0, 1, 2, 3, 4, 5, 6, 7, 8, 10
 
-⋮
 
+The =CHEM_WASH= argument tells the system to use the "wash" reagent to prime the
+selected lines. The choice for the line to use is determined by the value of the
+=<var1>= argument.
+
+The acceptable values for =<var1>= are: 0, 1, 2, 3, 4, 5, 6, 7, 8, 10
+
+|----------+--------------------------------------------------------------------|
+| =<var1>= | Description                                                        |
+|----------+--------------------------------------------------------------------|
+|        0 | This primes the "wash" line only.                                  |
+|        1 | This primes channel 1's wash line only.                            |
+|        2 | This primes channel 2's wash line only.                            |
+|        3 | This primes channel 3's wash line only.                            |
+|        4 | This primes channel 4's wash line only.                            |
+|        5 | This primes channel 5's wash line only.                            |
+|        6 | This primes channel 6's wash line only.                            |
+|        7 | This primes channel 8's wash line only.                            |
+|        8 | This primes channel 8's wash line only.                            |
+|       10 | This primes all the channel wash lines, starting with 8 down to 1. |
+|----------+--------------------------------------------------------------------|
 ** Command: =PRIME -C <var1> -T … -R …=
 
 Acceptable values for =<var1>= are: 1, 2, 3, 4, 5, 6, 7, 8, 10
