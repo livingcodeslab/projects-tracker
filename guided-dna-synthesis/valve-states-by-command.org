@@ -77,6 +77,9 @@ valve (valve 2) should be powered on to redirect fluid to waste, before the GFET
 *BUG*: valve 1 being powered off allows waste output flow from valve 2 to flow
 into the GFET through the "GFET IN" port (port C). Maybe, we should have another
 valve between the "normally open" port of valve 1 and the waste port (port G).
+
+This bug will be present for *ALL* commands that attempt to bypass the GFET and
+output to the waste port.
 #+end_verse
 
 We turn off the vent (air) valve (valve 3), to prevent air from being drawn in.
@@ -107,6 +110,38 @@ All other valves are off.
 |    19 |     0 |
 |    20 |     0 |
 |-------+-------|
+
+*** Command: =PRIME CHEM_WASH <var1=1—8> -T … -R …=
+
+For these, we open the respective wash lines for each channel, and prevent flow
+through the GFET into collection.
+
+These suffer the same bug as above.
+
+|-------+--------+--------+--------+--------+--------+--------+--------+--------|
+| Valve | var1=1 | var1=2 | var1=3 | var1=4 | var1=5 | var1=6 | var1=7 | var1=8 |
+|-------+--------+--------+--------+--------+--------+--------+--------+--------|
+|     1 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |
+|     2 |      1 |      1 |      1 |      1 |      1 |      1 |      1 |      1 |
+|     3 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |
+|     4 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |
+|     5 |      1 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |
+|     6 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |
+|     7 |      0 |      1 |      0 |      0 |      0 |      0 |      0 |      0 |
+|     8 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |
+|     9 |      0 |      0 |      1 |      0 |      0 |      0 |      0 |      0 |
+|    10 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |
+|    11 |      0 |      0 |      0 |      1 |      0 |      0 |      0 |      0 |
+|    12 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |
+|    13 |      0 |      0 |      0 |      0 |      1 |      0 |      0 |      0 |
+|    14 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |
+|    15 |      0 |      0 |      0 |      0 |      0 |      1 |      0 |      0 |
+|    16 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |
+|    17 |      0 |      0 |      0 |      0 |      0 |      0 |      1 |      0 |
+|    18 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |
+|    19 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      1 |
+|    20 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |
+|-------+--------+--------+--------+--------+--------+--------+--------+--------|
 
 ** Command: =PRIME -C <var1> -T … -R …=
 
