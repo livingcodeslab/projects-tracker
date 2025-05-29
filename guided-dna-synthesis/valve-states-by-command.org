@@ -1,0 +1,98 @@
+#+STARTUP: content
+#+TITLE: Microfluidics Device: Expected Valve States for Each Command
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+#+OPTIONS: ^:{}
+
+* Introduction
+
+The recent debug efforts in May 2025, specifically on the 20^{th} and 27^{th},
+revealed some ways to validate the correct operation of the microfluidics device
+by ensuring the valves are powered off or on appropriately.
+
+In this document/report, I'll look at breaking down all the commands possible,
+and laying down the expected states for each valve for the specific command in
+question.
+
+** Conventions
+
+All commands have the =-T= argument. This argument takes a integer value. The
+value is interpreted as the number of seconds to keep the command active for.
+
+All except the =WAIT= command have the ~-R~ argument. This argument takes an
+integer value. This value in the rotation rate for the peristaltic pump. The
+recommended maximum value is =36=.
+
+We *shall not* handle testing that the values for the arguments above (=-T= and
+=-R=) are honoured in this document; rather, we'll focus only on valve states in
+this document.
+
+* Command: =PRIME=
+
+This command handles priming various channels with the wash or reagents,
+depending on the value specified for the first argument.
+
+There are 2 forms of this command, the =CHEM_WASH= and the =-C= forms.
+
+** Command: =PRIME CHEM_WASH <var1> -T … -R …=
+
+Acceptable values for =<var1>= are: 0, 1, 2, 3, 4, 5, 6, 7, 8, 10
+
+⋮
+
+** Command: =PRIME -C <var1> -T … -R …=
+
+Acceptable values for =<var1>= are: 1, 2, 3, 4, 5, 6, 7, 8, 10
+
+⋮
+
+* Command: =WASH=
+
+This command runs the wash "reagent" across the specified channels.
+
+It has five different forms, i.e. =CHEM_WASH=, =-C=, =COLLECT=, =COMMON= and
+=ALL=.
+
+** Command: =WASH CHEM_WASH 0 -T … -R …=
+
+** Command: =WASH -C <var1> -T … -R …=
+
+Acceptable values for =<var1> are 1, 2, 3, 4, 5, 6, 7, 8
+
+** Command: =WASH COLLECT 0 -T … -R …=
+
+** Command: =WASH COMMON 0 -T … -R …=
+
+** Command: =WASH ALL 0 -T … -R …=
+
+* Command: =PURGE=
+
+This command concerns itself with purging channels with air — it could also be
+named the =VENT= command.
+
+It has 2 forms: =ALL= and =COMMON=
+
+** Command: =PURGE ALL 0 -T … -R …=
+
+** Command: =PURGE COMMON 0 -T … -R …=
+
+* Command: =COLLECT -C <var1> -T … -R …=
+
+This opens the collection valve, and pushes the reagent selected out to the
+collection output.
+
+* Command: =PUMP -C <var1> -T … -R …=
+
+This pumps the fluid/reagent from the selected channel. The acceptable values
+for =<var1>= are 1, 2 , 3, 4, 5, 6, 7, 8.
+
+It is unclear, at this point, where the reagent should be routed; collection or waste.
+
+* Command: =WAIT -T <var1>=
+
+This command just waits for the total number of seconds specified in =<var1>=.
+
+The pump, and all the valves, should be powered off.
