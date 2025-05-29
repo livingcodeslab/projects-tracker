@@ -61,6 +61,53 @@ The acceptable values for =<var1>= are: 0, 1, 2, 3, 4, 5, 6, 7, 8, 10
 |        8 | This primes channel 8's wash line only.                            |
 |       10 | This primes all the channel wash lines, starting with 8 down to 1. |
 |----------+--------------------------------------------------------------------|
+
+*** Command: =PRIME CHEM_WASH 0 -T … -R …=
+
+*MEANING*: Prime the "wash" line, up to the common line with the "wash" reagent.
+
+The "wash" should be allowed to flow through the "wash" line for this command to
+work correctly. This means that the "wash" valve (valve 4) should be powered on.
+
+We do not want anything going into the collection vial during priming, therefore
+the collection valve (valve 1) should be powered off. Meanwhile, the "GFET Out"
+valve (valve 2) should be powered on to redirect fluid to waste, before the GFET.
+
+#+begin_verse
+*BUG*: valve 1 being powered off allows waste output flow from valve 2 to flow
+into the GFET through the "GFET IN" port (port C). Maybe, we should have another
+valve between the "normally open" port of valve 1 and the waste port (port G).
+#+end_verse
+
+We turn off the vent (air) valve (valve 3), to prevent air from being drawn in.
+
+All other valves are off.
+
+|-------+-------|
+| Valve | State |
+|-------+-------|
+|     1 |     0 |
+|     2 |     1 |
+|     3 |     0 |
+|     4 |     1 |
+|     5 |     0 |
+|     6 |     0 |
+|     7 |     0 |
+|     8 |     0 |
+|     9 |     0 |
+|    10 |     0 |
+|    11 |     0 |
+|    12 |     0 |
+|    13 |     0 |
+|    14 |     0 |
+|    15 |     0 |
+|    16 |     0 |
+|    17 |     0 |
+|    18 |     0 |
+|    19 |     0 |
+|    20 |     0 |
+|-------+-------|
+
 ** Command: =PRIME -C <var1> -T … -R …=
 
 Acceptable values for =<var1>= are: 1, 2, 3, 4, 5, 6, 7, 8, 10
