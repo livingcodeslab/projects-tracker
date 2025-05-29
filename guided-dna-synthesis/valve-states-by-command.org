@@ -96,3 +96,29 @@ It is unclear, at this point, where the reagent should be routed; collection or 
 This command just waits for the total number of seconds specified in =<var1>=.
 
 The pump, and all the valves, should be powered off.
+
+* Future Improvements
+
+** Error and State Indication
+
+The device does not have any indicator for errors, or what the valve states are.
+Malformed commands, or invalid arguments are simply ignored, and the device does
+nothing.
+
+The closest thing we get as communication, back from the device is an =ACK= or
+=NAK= message. Unfortunately, however, the device does sometimes begin spamming
+the =NAK= signal to the communication channel, making it mostly unhelpful.
+
+State indication will be very useful for debugging problems with the device. My
+recent forays into debugging issues would have been greatly aided by the
+existence of such a feature.
+
+A future iteration of the device should have indications for the state of the
+device. The indicators could be:
+
+- light-emitting diodes on the device for each valve,
+- some form of screen on the device to indicate the state
+- serial communication to a "management program" with state updates
+
+If we go with the "on-device screen" or "management program" options, then, in
+addition to the pump and valve states, we should indicate the active command.
