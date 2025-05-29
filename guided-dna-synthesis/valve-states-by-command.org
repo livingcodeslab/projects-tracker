@@ -187,6 +187,14 @@ It has 2 forms: =ALL= and =COMMON=
 This opens the collection valve, and pushes the reagent selected out to the
 collection output.
 
+Acceptable values for =<var1>= are 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+
+** Command: =COLLECT -C 0 -T … -R …=
+
+This  pushes air from the vent, through the GFET and out to collection. Combined
+with the =PURGE COMMON 0 -T … -R …= command, we can ensure we only collect the
+processed outputs from the GFET.
+
 * Command: =PUMP -C <var1> -T … -R …=
 
 This pumps the fluid/reagent from the selected channel. The acceptable values
