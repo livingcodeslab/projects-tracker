@@ -1,0 +1,21 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates (2025-05-29)
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+#+OPTIONS: ^:{}
+
+* Valve States Document
+
+Begin the document on expected valve states for each command.
+
+- https://github.com/livingcodeslab/projects-tracker/commit/e804b994b6e0d285ad60f5e1f4ece8d454e21c3a
+- https://github.com/livingcodeslab/projects-tracker/commit/be86764f6047b5dddb494ea735c7ab261861a23d
+- https://github.com/livingcodeslab/projects-tracker/commit/ad643df10f310e6ab6ac9941f53e9b15433a60a8
+- https://github.com/livingcodeslab/projects-tracker/commit/da7300966e0020eb83db8bcb6d61281f17df36b0
+- https://github.com/livingcodeslab/projects-tracker/commit/7f86c0e20b08072f3b1fccb2797b209032f36985
+- https://github.com/livingcodeslab/projects-tracker/commit/9e4e73099d4edfb454f1e9898a78b5b3ec4b478e
+- https://github.com/livingcodeslab/projects-tracker/commit/a983922f7979b105a577f357fb425fa84b5b5ebf
+- https://github.com/livingcodeslab/projects-tracker/commit/7fd73461f673ab8440f874fce5bdd93a7e7fbcef
