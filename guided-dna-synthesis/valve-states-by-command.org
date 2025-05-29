@@ -73,7 +73,7 @@ We do not want anything going into the collection vial during priming, therefore
 the collection valve (valve 1) should be powered off. Meanwhile, the "GFET Out"
 valve (valve 2) should be powered on to redirect fluid to waste, before the GFET.
 
-#+begin_verse
+#+begin_example
 *BUG*: valve 1 being powered off allows waste output flow from valve 2 to flow
 into the GFET through the "GFET IN" port (port C). Maybe, we should have another
 valve between the "normally open" port of valve 1 and the waste port (port G).
@@ -83,7 +83,7 @@ output to the waste port.
 
 This bug will be mitigated by adding a valve between the waste port (port G) and
 the normally open port of valve 1.
-#+end_verse
+#+end_example
 
 We turn off the vent (air) valve (valve 3), to prevent air from being drawn in.
 
