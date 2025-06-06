@@ -1,0 +1,156 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-06-06
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Meeting With Michael Cato
+
+- Explain what I did, with some basic demo of what I was doing when debugging.
+- Plan of action
+  - Setup firmware development environment to help with flashing the device with
+    firmware fixes
+  - Debug  flows with output from pump being fed into waste beaker directly to
+    check for suction problems
+  - Bypass valve to waste before the GFET when testing, for the time being
+  - Michael Cato will build us a new manifold with the backflow issue fixed
+
+* Setup Firmware Development Environment
+
+- Download and install Arduino IDE 2 (version 2.3.6)
+- Install Teensyduino (version 1.59) addon
+- Identify board version: It's Teensy 4.1
+  - Had to open up microfluidics device bottom to check
+  - Test sending commands via serial monitor
+    - The message is sent, and the device sends back an "ACK" message and runs
+    - The device sends back a "FIN" message once it completes the command
+
+* Debug =PUMP=: With "Pump IN" (Port "E") Out to Beaker
+
+We hook up all the reagent bottles then disconnect the tube from output of the
+pump to the manifold, and redirect that into the waste bottle directly, then run
+the commands we wish to debug.
+
+The idea is to check whether we have a suction problem.
+
+Between each of these commands, we run =PURGE ALL 0 -T 300 -R 36= to ensure the
+line is cleared and we are actually getting the fluid from the channel we think
+we are.
+
+** Command: =PUMP -C 1 -T 180 -R 36=
+
+We get a flow of fluid from the reagent bottle to the output of the pump, but it
+has lots of air bubbles.
+
+** Command: =PUMP -C 2 -T 180 -R 36=
+
+We get a flow of fluid from the reagent bottle to the output of the pump, but it
+has lots of air bubbles. There's also some back-and-forth "vibration" of the
+fluid and air bubbles on the pumps output, whenever a large bubble of air is
+being pulled in from the pump's input.
+
+I have no idea where the air bubbles are being pulled in from.
+
+** Command: =PUMP -C 3 -T 180 -R 36=
+
+Same to =-C 2= above.
+
+** Command: =PUMP -C 4 -T 180 -R 36=
+
+No flow at all!
+
+This channel is affected by the delamination, extending across both the
+channel's lines.
+
+** Command: =PUMP -C 5 -T 180 -R 36=
+
+No flow at all.
+
+** Command: =PUMP -C 6 -T 180 -R 36=
+
+No flow at all, either.
+
+** Command: =PUMP -C 7 -T 180 -R 36=
+
+Minimal flow; mostly air, with small plugs of liquid, from time to time.
+
+** Command: =PUMP -C 8 -T 180 -R 36=
+
+No flow whatsoever.
+
+** Summary:
+
+- The =PURGE ALL 0 …= command works as expected.
+- =PUMP -C <var1> …= with ~<var1>~ being, 1, 2 or 3 has liquid flow, that's
+  relatively good, except for the plentifulness of small air bubbles.
+- =PUMP -C <var1> …= with ~<var1>~ being 4, 5, 6, 7 or 8 has no flow. 7 has
+  minimal liquid flow.
+
+I *suspect* (with no verification at all at this point) that starting at channel
+4 (which has the delamination), there is an air leak that leads to all channels
+downstream of channel A to not work. This hypothesis falls apart, however, when
+you consider that *ALL* the channels are connected to a common line, therefore,
+there is no reason why an air-leak would cause channels 1, 2 and 3 to work
+whereas channels 4, 5 ,6, 7 and 8 do not.
+
+* Debug =COLLECT=: With "Pump IN" (Port "E") Out to Beaker
+
+** Command: =COLLECT -C 0 -T …=
+
+Pulls in from wash and directs it to collection
+
+We get some "solid" liquid flows, similar to, but not as good as the flow in
+[[*Command: =PUMP -C 2 -T 180 -R 36=][Command: =PUMP -C 2 -T 180 -R 36= above.]]
+
+
+** Command: =COLLECT -C 1 -T …=
+
+Same as above
+
+**  Command: =COLLECT -C 2 -T …=
+
+Same as above
+
+**  Command: =COLLECT -C 3 -T …=
+
+Same as above
+
+**  Command: =COLLECT -C 4 -T …=
+
+No liquid flow, whatsoever.
+
+**  Command: =COLLECT -C 5 -T …=
+
+No liquid flow, whatsoever.
+
+**  Command: =COLLECT -C 6 -T …=
+
+No liquid flow, whatsoever.
+
+**  Command: =COLLECT -C 7 -T …=
+
+Theres a tiny bit of liquid flow: small plugs of liquid delimited by large plugs
+of air.
+
+**  Command: =COLLECT -C 8 -T …=
+
+No liquid flow, whatsoever.
+
+* Debug =WASH COLLECT=: With "Pump IN" (Port "E") Out to Beaker
+
+** Command: =WASH COLLECTION 0 …=
+
+There is some flow, similar to [[*Command: =COLLECT -C 0 -T …=][Command: =COLLECT -C 0 -T …= above]].
+
+* Read Through Firmware Code
+
+There's a consistent naming of the pins using ~_SSR_~ and ~_SRR_~ patterns. I
+have not figured out what the "SSR" and "SRR" values stand in for.
+
+Once I've figured out what each pin does, I'll probably rename the chemical pins
+from ~CHEMICAL…_00~ and ~CHEMICAL…_01~ to ~CHANNEL…_REAGENT~ and
+~CHANNEL…_WASH~ as appropriate.
+
+~resetSystem~ function turns all valves off: Good!
