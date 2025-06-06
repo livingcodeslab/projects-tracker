@@ -163,7 +163,52 @@ commands in the section above.
 
 Acceptable values for =<var1>= are: 1, 2, 3, 4, 5, 6, 7, 8, 10
 
-⋮
+*** Command: =PRIME -C <var1=1—8> -T … -R …=
+
+This primes the specified channel (=-C <var1>=) with the reagent for that
+channel.
+
+The considerations for these commands are:
+- Reagent valve for specified channel should be powered on
+- The wash line valves for all lines should be powered off
+- The vent line valve should be powered off
+- Line directing fluid out of manifolt to GFET should be blocked
+- Line directing fluid in to manifold from GFET should be blocked
+- Line to collection should be blocked
+- Line to waste should be open
+
+|-------+--------+--------+--------+--------+--------+--------+--------+--------|
+| Valve | var1=1 | var1=2 | var1=3 | var1=4 | var1=5 | var1=6 | var1=7 | var1=8 |
+|-------+--------+--------+--------+--------+--------+--------+--------+--------|
+|     1 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |
+|     2 |      1 |      1 |      1 |      1 |      1 |      1 |      1 |      1 |
+|     3 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |
+|     4 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |
+|     5 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |
+|     6 |      1 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |
+|     7 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |
+|     8 |      0 |      1 |      0 |      0 |      0 |      0 |      0 |      0 |
+|     9 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |
+|    10 |      0 |      0 |      1 |      0 |      0 |      0 |      0 |      0 |
+|    11 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |
+|    12 |      0 |      0 |      0 |      1 |      0 |      0 |      0 |      0 |
+|    13 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |
+|    14 |      0 |      0 |      0 |      0 |      1 |      0 |      0 |      0 |
+|    15 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |
+|    16 |      0 |      0 |      0 |      0 |      0 |      1 |      0 |      0 |
+|    17 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |
+|    18 |      0 |      0 |      0 |      0 |      0 |      0 |      1 |      0 |
+|    19 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |      0 |
+|    20 |      1 |      0 |      0 |      0 |      0 |      0 |      0 |      1 |
+|-------+--------+--------+--------+--------+--------+--------+--------+--------|
+
+*** Command =PRIME -C <var1=10> -T … -R …=
+
+This is a convenience command, and should ideally be build on top of the
+=PRIME -C <var1=1—8> -T … -R …= commands in [[*Command: =PRIME -C <var1=1—8> -T … -R …=][the section above]].
+
+This is used to prime *ALL* the reagents in a single command, rather than
+running the individual =PRIME -C <var1=1—8> -T … -R …= commands.
 
 * Command: =WASH=
 
