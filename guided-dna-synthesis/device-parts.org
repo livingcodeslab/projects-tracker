@@ -1,0 +1,22 @@
+#+STARTUP: content
+#+TITLE: Parts for the Microfluidics Device
+#+AUTHOR: Frederick Muriuki Muriithi
+
+* Parts
+
+|------------------------------+--------------+-------------------------------------+-----------------|
+| Description                  | Part Number  | Specs                               | Company         |
+|------------------------------+--------------+-------------------------------------+-----------------|
+| Mounting screw strap bracket | LHDX0307140A | …                                   | The Lee Company |
+| Screws, SHCS                 | …            | 0.086" #2-56 × 7/8" stainless steel | …               |
+| Hex Nuts                     | …            | 0.086" 2#-56                        |                 |
+| Valve                        | LHDA1223211H |                                     | The Lee Company |
+
+** Links
+
+- Mounting screw strap bracket https://www.theleeco.com/product/lhd-series-3-way-control-solenoid-valve/#installation-accessories
+  - Cannot figure out how to order these
+- Hex nuts https://www.amazon.com/uxcell-810-304-Stainless-Hexagon-Silver/dp/B07JPL65L4
+  - Don't currently need more of these
+- Screws, SHCS https://www.mcmaster.com/95198A267/
+  - Might need replacements down the line
