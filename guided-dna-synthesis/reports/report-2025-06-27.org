@@ -1,0 +1,210 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-06-27
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Meeting With Michael Cato
+
+- We use 4mm syringe filters for the vent
+  - currently PTFE 0.2µm filters
+  - We probably want 1 inch filters for better air flow
+- Connectors, Fittings, and part numbers
+  - New documentation will include part numbers for most of the parts
+- We can use slightly higher gauge needles for better flow
+- *IMPORTANT*: Always make sure there's a path from intake to output before
+  running the pump - Never run pump without a valve on the input side open
+
+* GFET Device
+
+- Connect the valves to control module
+- Hook up tubes to manifold
+- Test device
+
+** PRIME
+
+*** PRIME CHEM_WASH …
+
+#+begin_src shell
+  echo "PRIME CHEM_WASH 8 -T 60 -R 36" > /dev/ttyACM0
+  echo "PRIME CHEM_WASH 7 -T 60 -R 36" > /dev/ttyACM0
+  echo "PRIME CHEM_WASH 6 -T 60 -R 36" > /dev/ttyACM0
+  echo "PRIME CHEM_WASH 5 -T 60 -R 36" > /dev/ttyACM0
+  echo "PRIME CHEM_WASH 4 -T 60 -R 36" > /dev/ttyACM0
+  echo "PRIME CHEM_WASH 3 -T 60 -R 36" > /dev/ttyACM0
+  echo "PRIME CHEM_WASH 2 -T 60 -R 36" > /dev/ttyACM0
+  echo "PRIME CHEM_WASH 1 -T 60 -R 36" > /dev/ttyACM0
+  echo "PRIME CHEM_WASH 0 -T 60 -R 36" > /dev/ttyACM0
+#+end_src
+
+All the ~PRIME CHEM_WASH …~ commands above work as expected with very solid
+flows (there are some air bubbles, but very few).
+
+The imperfections in the flows are probably due to improperly fastened
+connectors or valves that are not seated perfectly.
+
+** PRIME -C …
+
+#+begin_src shell
+  echo "PRIME -C 8 -T 60 -R 36" > /dev/ttyACM0
+  echo "PRIME -C 7 -T 60 -R 36" > /dev/ttyACM0
+  echo "PRIME -C 6 -T 60 -R 36" > /dev/ttyACM0
+  echo "PRIME -C 5 -T 60 -R 36" > /dev/ttyACM0
+  echo "PRIME -C 4 -T 60 -R 36" > /dev/ttyACM0
+  echo "PRIME -C 3 -T 60 -R 36" > /dev/ttyACM0
+  echo "PRIME -C 2 -T 60 -R 36" > /dev/ttyACM0
+  echo "PRIME -C 1 -T 60 -R 36" > /dev/ttyACM0
+#+end_src
+
+Similar to the above, we get very solid flows as above for these commands.
+
+** WASH
+
+*** WASH -C …
+
+#+begin_src shell
+  echo "WASH -C 8 -T 60 -R 36" > /dev/ttyACM0
+  echo "WASH -C 7 -T 60 -R 36" > /dev/ttyACM0
+  echo "WASH -C 6 -T 60 -R 36" > /dev/ttyACM0
+  echo "WASH -C 5 -T 60 -R 36" > /dev/ttyACM0
+  echo "WASH -C 4 -T 60 -R 36" > /dev/ttyACM0
+  echo "WASH -C 3 -T 60 -R 36" > /dev/ttyACM0
+  echo "WASH -C 2 -T 60 -R 36" > /dev/ttyACM0
+  echo "WASH -C 1 -T 60 -R 36" > /dev/ttyACM0
+#+end_src
+
+I ran this after running a ~PURGE COMMON 0 …~.
+There was some initial sudden reconfiguration of the fluid positions all over
+the manifold for the first command. I'm guessing the ~PURGE COMMON …~ might have
+created some vaccuums.
+
+We got pretty solid flows, with few bubbles for *8* , *7* and *6*, an none for
+any of the other commands.
+
+*** WASH CHEM_WASH …
+
+#+begin_src shell
+  echo "WASH CHEM_WASH 0 -T 60 -R 36" > /dev/ttyACM0
+#+end_src
+
+Got pretty solid flows for most of the run.
+
+**POSSIBLE BUG**: The last run seems to have pulled from the vent, rather than
+channel1 — either that, or there were no open valves on the input side. The
+reason is, running the ~WASH COLLECTION …~ command below, we got the sudden
+reconfiguration of fluids across the entire manifold. This will need further
+investigation.
+
+*** WASH COLLECTION …
+
+#+begin_src shell
+  echo "WASH COLLECTION 0 -T 60 -R 36" > /dev/ttyACM0
+#+end_src
+
+Very solid flow.
+
+**POSSIBLE BUG — RESOLVED**: Does not go through the GFET. This reveals a
+possible wiring issue — *ALL* waste that we've got for all command above and
+~WASH COMMON …~ below all send the fluid through the waste line *AFTER* the
+GFET, not before, as expected. The waste valve before GFET is seemingly not
+being powered on.
+
+*** WASH COMMON …
+
+#+begin_src shell
+  echo "WASH COMMON 0 -T 60 -R 36" > /dev/ttyACM0
+#+end_src
+
+Very solid flow.
+
+*** WASH ALL …
+
+** Purge
+
+*** PURGE COMMON …
+
+#+begin_src shell
+  echo "PURGE COMMON 0 -T 60 -R 36" > /dev/ttyACM0
+#+end_src
+
+Some stutter at the pump but it does flush out the fluid in the common.
+**POSSIBLE BUG — RESOLVED**: We'll need to investigate the stutter.
+
+*** PURGE ALL …
+
+#+begin_src shell
+  echo "PURGE ALL 0 -T 60 -R 36" > /dev/ttyACM0
+#+end_src
+
+Same as ~PURGE COMMON …~ above, stutter and all.
+
+** COLLECT
+
+Sudden fluid reconfiguration manifold-wide after the ~PURGE ALL …~ command.
+
+#+begin_src shell
+  echo "COLLECT -C 8 -T 60 -R 36" > /dev/ttyACM0
+  echo "COLLECT -C 7 -T 60 -R 36" > /dev/ttyACM0
+  echo "COLLECT -C 6 -T 60 -R 36" > /dev/ttyACM0
+  echo "COLLECT -C 5 -T 60 -R 36" > /dev/ttyACM0
+  echo "COLLECT -C 4 -T 60 -R 36" > /dev/ttyACM0
+  echo "COLLECT -C 3 -T 60 -R 36" > /dev/ttyACM0
+  echo "COLLECT -C 2 -T 60 -R 36" > /dev/ttyACM0
+  echo "COLLECT -C 1 -T 60 -R 36" > /dev/ttyACM0
+  echo "COLLECT -C 0 -T 60 -R 36" > /dev/ttyACM0
+#+end_src
+
+There's a big delay from entering the command to device running.
+Commands give pretty solid flows with only *8*, *7*, and *6* showing few bubbles.
+
+**POSSIBLE BUG — RESOLVED**: Output going out to waste, rather than collection.
+
+
+** Review Wiring After Results
+
+- Valve 3 was not connected! Explains the issues with ~PURGE …~ commands.
+  - Connect and try again.
+    #+begin_src shell
+      echo "PURGE COMMON 0 -T 60 -R 36" > /dev/ttyACM0
+      echo "PURGE ALL 0 -T 60 -R 36" > /dev/ttyACM0
+    #+end_src
+    No more stutters. Channels are cleared as expected!
+- Valve 2 was connected wrong: connect and try again.
+  #+begin_src shell
+    echo "WASH COMMON 0 -T 60 -R 36" > /dev/ttyACM0
+  #+end_src
+  Solid flow. Waste is collected *BEFORE* the GFET as expected! Success!!
+  #+begin_src shell
+    echo "WASH COLLECTION 0 -T 60 -R 36" > /dev/ttyACM0
+  #+end_src
+  Solid flow. Waste is collected *AFTER* the GFET as expected. Success!!
+- Valve 1 was connected wrong: reconnect and try again:
+  #+begin_src shell
+    echo "COLLECT -C 8 -T 60 -R 36" > /dev/ttyACM0
+  #+end_src
+  Output going out to collection! Success!!
+- Test ~WASH CHEM_WASH 0 …~ after fixes above:
+  #+begin_src shell
+    echo "WASH CHEM_WASH 0 -T 60 -R 36" > /dev/ttyACM0
+  #+end_src
+  - **BUG**: Still washing to waste *AFTER* GFET
+  - **BUG**: Does a 9 runs (rather than 8, for the chemical channel). The 9^{th}
+    run also also has a problem, in that none of the intake valves are open,
+    leading to negative pressure in the manifold. I'm guessing that the 9^{th}
+    run should be washing the common line, probably.
+    Code seems to indicate it should run only 8 times. This will require more
+    thorough investigation.
+- Test ~WASH -C 8—1 …~ after fixes above:
+  #+begin_src shell
+    echo "WASH -C 8 -T 60 -R 36" > /dev/ttyACM0
+    echo "WASH -C 7 -T 60 -R 36" > /dev/ttyACM0
+    echo "WASH -C 6 -T 60 -R 36" > /dev/ttyACM0
+    echo "WASH -C 5 -T 60 -R 36" > /dev/ttyACM0
+    echo "WASH -C 4 -T 60 -R 36" > /dev/ttyACM0
+    echo "WASH -C 3 -T 60 -R 36" > /dev/ttyACM0
+    echo "WASH -C 2 -T 60 -R 36" > /dev/ttyACM0
+    echo "WASH -C 1 -T 60 -R 36" > /dev/ttyACM0
+  #+end_src
+  - **BUG**: Still washing to waste *AFTER* GFET
