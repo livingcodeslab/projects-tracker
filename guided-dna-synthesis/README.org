@@ -38,7 +38,7 @@ The integration includes:
 
 * TODO Block Hybridisation           :livingcodeslab:dnasynthesis:majorgoal:
 
-** TODO Temperature control
+** DONE Temperature control
 - [x] Maybe acquire temperature control devices, e.g. Peltier, etc
   - I tested the Opentrons temperature module and was able to control it from
     the linux command-line. This is resolved for now.
