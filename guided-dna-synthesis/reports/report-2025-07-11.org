@@ -1,0 +1,50 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-07-11
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Build Firmware
+
+The main aim of the day is to build the original firmware, as is and upload that
+onto the device.
+
+We can then follow that up by making a minor fix, rebuilding and re-uploading.
+
+** Build Dependencies
+
+*** *TeensyDuino extension?*
+
+- ~Tools > Board > Boards Manager~
+- Type "Teensy" in the filter box
+- Select version 1.59.0 (as f 2025-06-27)
+- Click "Install"
+
+**** TODO Detail how to add this
+
+*** *AD5245.h*
+
+- On the arduino IDE, go to ~Sketch > Include Library > Manage Libraries~
+- In the filter box type "AD5245"
+- Select version 0.4.0 (latest version as of 2025-07-11)
+- Click "Install"
+
+** Uploading
+
+- Get UDEV rule from https://www.pjrc.com/teensy/00-teensy.rules and install it
+  at =/etc/udev/rules.d/00-teensy.rules=.
+  Physically unplug and reconnect the Teensy device.
+- Select the port from the list of "teensy ports" rather than the "Serial Ports"
+  from the ~Tools > Port~ menu in the Arduino IDE
+- *Might be necessary sometimes*: Press the "PROGRAM MODE BUTTON"
+- Upload success!
+
+** Bugfix: Wash specific chemical channel to just before the GFET chip
+
+- https://github.com/livingcodeslab/gFet_main/commit/434d4c5c65df2a624945733b5efd20bb3680975c
+  Fixes minor warnig when compiling the code
+- https://github.com/livingcodeslab/gFet_main/commit/2f23c0bcbe6c40a3c0a82ffe70d933b946a36fc9
+  Turn's on the "Pump-In" port valve to direct fluid to waste before it can go
+  through the GFET chip
