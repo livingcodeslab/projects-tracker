@@ -49,3 +49,9 @@ We can then follow that up by making a minor fix, rebuilding and re-uploading.
   Turn's on the "Pump-In" port valve to direct fluid to waste before it can go
   through the GFET chip
   This fixes the bug "Still washing to waste *AFTER* GFET" in the report from 2025-06-27.
+
+** Bugfix: Return Before Invalid 9^{th} Run
+
+- https://github.com/livingcodeslab/gFet_main/commit/4a34ba3d007ec9fa0286a6334f3a9dc545bdab68
+  This fixes bug where the ~WASH CHEM_WASH 0 …~ was running 9 times. The 9^{th}
+  run happened with the valves in an invalid state.
