@@ -48,3 +48,4 @@ We can then follow that up by making a minor fix, rebuilding and re-uploading.
 - https://github.com/livingcodeslab/gFet_main/commit/2f23c0bcbe6c40a3c0a82ffe70d933b946a36fc9
   Turn's on the "Pump-In" port valve to direct fluid to waste before it can go
   through the GFET chip
+  This fixes the bug "Still washing to waste *AFTER* GFET" in the report from 2025-06-27.
