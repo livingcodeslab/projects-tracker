@@ -1,0 +1,27 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-07-18
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Calibration
+
+We calibrate priming of the various line.
+
+We define priming as pulling in the chemical on a particular line until it just
+shows up on the common waste line (before GFET).
+
+We run the ~PURGE COMMON 0 -T 120 -R 36~ command between each reading to ensure
+there is no fluid in the common line that could interfere with the reading(s).
+
+All the calibration readings will be in the [[file:~/livingcodeslab/projects-tracker/guided-dna-synthesis/calibrations.org::*Readings][Calibrations File]].
+
+** WASH LINE
+
+The prime command is ~PRIME CHEM_WASH 0 -T 30 -R 36~.
+
+** Chemical Channel 01
+
+The prime command is ~PRIME -C 1 -T 30 -R 36~
