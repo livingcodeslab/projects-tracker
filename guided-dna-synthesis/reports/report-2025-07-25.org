@@ -99,7 +99,10 @@ manually:
 #+end_src
 
 Hmm, could be. After the script above, the lines all seem pretty filled up with
-liquid
+liquid.
+
+*NOTE*: The buildup could also indicate an incomplete seating/sealing of a valve
+leading to leakage at the seat. (need to jerry-rig some sort of gasket).
 
 After priming, working with the ~PURGE~ and ~COLLECT~ commands seems to be
 possible from initial rudimentary explorations, but this will require more
