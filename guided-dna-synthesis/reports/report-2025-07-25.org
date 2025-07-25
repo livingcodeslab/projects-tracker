@@ -1,0 +1,102 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-07-25
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Test pulling in a bead of air
+
+** Steps
+
+1. prime all lines, including wash
+2. Purge common
+3. Pull in fluid from one channel for 1 second or so, e.g. channel 1,
+4. Pull in air for 1 second
+5. Repeat steps 3 and for a number of times
+6. Observe and report
+
+** Observations
+
+*** Priming
+
+- Wash (wash line): ~PRIME CHEM_WASH 0 -T 25 -R 36~
+- Wash all chemical lines: ~PRIME CHEM_WASH 10 -T 25 -R 36~: looks buggy. Needs
+  further investigation.
+- Wash (chemical lines): ~PRIME CHEM_WASH <1…8> -T 25 -R 36~: mostly works fine
+  - There's a build-up of air on the wash line when running these commands,
+    that needs investigatigation
+- Channels: ~PRIME -C 10 -T 25 -R 36~: Seems to not work as expected - needs
+  further investigation.
+
+*** Beading
+
+#+begin_src bash
+  for i in $(seq 1 1 8);
+  do
+      echo "PUMP -C ${i} -T 2 -R 36" > /dev/ttyACM0;
+      echo "PURGE ALL -T 1 -R 36" > /dev/ttyACM0;
+  done
+#+end_src
+
+This did not work as expected.
+
+*** Air Build-Up Investigation
+
+Pull out the one-way valve at the normally-open side air-intake valve and try
+running the commands — this must be maintained in a sealed state!
+
+- Replace 2 broken mounting clips for valves, an reassemble manifold.
+- Create seal at air intake/vent (cut a piece of glove, and use it to create a
+  somewhat air-tight seal): still getting the air accumulation on the wash line,
+  and especially for long runs (60 seconds or more) the accumulation is more
+  visible.
+- Try lower pump rate: ~-R 27~: we still get a lot of air accumulation in the
+  wash line.
+- Seal the extra air vent (both vents are now sealed) with a piece of glove and
+  restore pump rate: still getting some accumulation.
+
+
+- Run ~PRIME CHEM_WASH 0 -T 25 -R 36~ followed by only one
+  ~PRIME CHEM_WASH <channel> -T 60 -R 36~ where channel goes from 1 to 8
+
+  - ~PRIME CHEM_WASH 0 -T 60 -R 36~ -> ~PRIME CHEM_WASH 1 -T 60 -R 36~
+    - No buildup of air on wash line
+  - ~PRIME CHEM_WASH 0 -T 60 -R 36~ -> ~PRIME CHEM_WASH 2 -T 60 -R 36~
+    - No buildup of air on wash line
+  - ~PRIME CHEM_WASH 0 -T 60 -R 36~ -> ~PRIME CHEM_WASH 3 -T 60 -R 36~
+    - Bubble seen on wash-line, but not big buildup
+  - ~PRIME CHEM_WASH 0 -T 60 -R 36~ -> ~PRIME CHEM_WASH 4 -T 60 -R 36~
+    - No buildup of air on wash line
+  - ~PRIME CHEM_WASH 0 -T 60 -R 36~ -> ~PRIME CHEM_WASH 5 -T 60 -R 36~
+    - No buildup of air on wash line
+  - ~PRIME CHEM_WASH 0 -T 60 -R 36~ -> ~PRIME CHEM_WASH 6 -T 60 -R 36~
+    - Buildup observed in wash line, drawn from the wash-valve
+  - ~PRIME CHEM_WASH 0 -T 60 -R 36~ -> ~PRIME CHEM_WASH 7 -T 60 -R 36~
+    - Buildup observed in wash line, drawn from the wash-valve
+  - ~PRIME CHEM_WASH 0 -T 60 -R 36~ -> ~PRIME CHEM_WASH 8 -T 60 -R 36~
+    - Buildup observed in wash line, drawn from the wash-valve. This one is
+      particularly egregious, filling up the entire wash line with air, and even
+      most of the common, leading to bubbles being pulled into the pump.
+
+Outgassing of air from the water in the various lines was also observed when
+system is left to sit undisturbed for a while.
+
+Maybe that's why the priming is seemingly, supposed to run from 8 to 1. Try that
+manually:
+
+#+begin_src shell
+  echo "PRIME CHEM_WASH 0 -T 60 -R 36" > /dev/ttyACM0;
+  sleep 61;
+  for chan in $(seq 8 -1 1);
+  do
+      echo "Priming wash to channel ${chan}";
+      echo "PRIME CHEM_WASH ${chan} -T 60 -R 36" > /dev/ttyACM0;
+      sleep 61;
+  done
+  echo "PRIME CHEM_WASH 0 -T 60 -R 36" > /dev/ttyACM0;
+#+end_src
+
+Hmm, could be. After the script above, the lines all seem pretty filled up with
+liquid
