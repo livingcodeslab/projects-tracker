@@ -100,3 +100,10 @@ manually:
 
 Hmm, could be. After the script above, the lines all seem pretty filled up with
 liquid
+
+After priming, working with the ~PURGE~ and ~COLLECT~ commands seems to be
+possible from initial rudimentary explorations, but this will require more
+investigation. The ~COLLECT~ works even with a rate of 1 i.e. ~… -R 1~.
+
+We'll probably also need a *"Vent to Collection"* feature to force out all fluid
+on the collection line — we'll see whether this makes sense.
