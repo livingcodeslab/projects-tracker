@@ -1,0 +1,143 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-08-08
+#+PROPERTY: header-args:shell :tangle ./work_cycle_verification.sh
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+
+* Work-Cycle Verification
+
+** Plan of Action
+
+- Prime all channels
+- Do a purge
+  - ~PURGE COMMON …~
+  - ~PURGE ALL …~
+- Do cycle
+  - a. Select a channel
+  - b. Do a ~COLLECT -C …~ with the selected channel for say 1 or 2 seconds
+  - c. ~WASH COMMON …~ to clean common
+  - d. ~PURGE COMMON …~ to remove wash from common
+  - e. Repeat, from (a.) above, possibly selecting a different channel each time
+
+** Transcript
+
+*** Initialise Device
+
+#+begin_src shell :tangle ./work_cycle_verification.sh
+  #!/bin/sh
+  stty -F /dev/ttyACM0 9600
+#+end_src
+
+Set serial baud-rate to 9600
+
+*** Prime
+
+#+begin_src shell :tangle ./work_cycle_verification.sh
+
+  # Set up timing
+  primet=25 # time to prime lines
+  extrat=3 # extra time and delays
+  primesleep=$((primet + extrat))
+
+  echo "\n========== PRIME (WASH) ==========";
+  echo "Prime the wash line";
+  echo "PRIME CHEM_WASH 0 -T 25 -R 36" > /dev/ttyACM0;
+  sleep ${primesleep};
+  for chan in $(seq 8 -1 1);
+  do
+      echo "Priming the wash to channel ${chan}";
+      echo "PRIME CHEM_WASH ${chan} -T 25 -R 36" > /dev/ttyACM0;
+      sleep ${primesleep};
+  done
+
+  echo "\n========== PRIME (REAGENTS) ==========";
+  echo "Prime the chemical channels now";
+  for chan in $(seq 8 -1 1);
+  do
+      echo "Priming reagent in channel ${chan}";
+      echo "PRIME -C ${chan} -T 25 -R 36" > /dev/ttyACM0;
+      sleep ${primesleep};
+  done
+
+  echo "\n========== WASH ==========";
+  echo "Washing the common to eliminate reagents in common line";
+  echo "WASH COMMON 0 -T 25 -R 36" > /dev/ttyACM0;
+  sleep ${primesleep};
+
+  echo "Washing past the GFET to waste to ensure line is also clean.";
+  echo "WASH COLLECTION 0 -T 25 -R 36" > /dev/ttyACM0;
+  sleep ${primesleep};
+#+end_src
+
+*** Purge
+
+#+begin_src shell :tangle ./work_cycle_verification.sh
+
+  echo "\n========== VENT ==========";
+  echo "Vent the common line.";
+  echo "PURGE COMMON 0 -T ${primet} -R 36" > /dev/ttyACM0;
+  sleep ${primesleep};
+  echo "Vent past the GFET to waste.";
+  echo "PURGE ALL 0 -T 60 -R 36" > /dev/ttyACM0;
+  sleep $((60 + extrat));
+
+#+end_src
+
+*** Cycle
+
+After the steps above, the lines should be washed and vented. Now we can begin
+the work cycle.
+
+#+begin_src shell :tangle ./work_cycle_verification.sh
+
+  echo "\n========== WORK CYCLE ==========";
+  collt=25 # total for collections
+  plugs=5 # plug size in seconds
+  colls=$((collt + extrat)) # sleep time for collections
+  for chan in $(seq 1 1 8);
+  do
+      echo "--------------";
+      echo "Collect reagent ${chan} for ${plugs} seconds.";
+      echo "COLLECT -C ${chan} -T ${plugs} -R 36" > /dev/ttyACM0;
+      sleep $((plugs + extrat));
+      echo "COLLECT -C 9 -T $((collt - plugs)) -R 36" > /dev/ttyACM0;
+      sleep $((collt - plugs + extrat));
+      echo "--------------";
+
+      echo "Wash the common line";
+      echo "WASH COMMON 0 -T ${primet} -R 36" > /dev/ttyACM0;
+      sleep ${primesleep};
+      echo "Vent the common line.";
+      echo "PURGE COMMON 0 -T ${primet} -R 36" > /dev/ttyACM0;
+      sleep ${primesleep};
+  done
+  echo "Work cycle complete!";
+
+  echo "\n========== COLLECTING ==========";
+  echo "Force out all reagents in GFET line out to collection";
+  echo "COLLECT -C 9 -T 60 -R 36" > /dev/ttyACM0;
+  sleep $((60 + extrat));
+
+  echo "\n========== RESETTING ==========";
+  echo "Wash the GFET line.";
+  echo "WASH COLLECTION 0 -T 60 -R 36" > /dev/ttyACM0;
+  sleep $((60 + extrat));
+  echo "Vent the GFET line.";
+  echo "PURGE ALL 0 -T 60 -R 36" > /dev/ttyACM0;
+  sleep $((60 + extrat));
+
+  echo "Device reset!";
+#+end_src
+
+** Conclusion
+
+- The script above proves that it is possible to direct measured flows through
+  the device and to selected outputs.
+- We need a measure/estimate of the time it takes for fluid to flow from reagent
+  channel to the GFET chip.
+- With the estimates above and integration with the SMU, it should be possible
+  to automate most of the experiments.
