@@ -20,19 +20,19 @@ This requires that the integration of the devices (and software) be complete.
 The integration includes:
 - [x] Verifying GFET device characteristics
 - [x] Choosing GFET operating points: chosen V_{DS}=50mv, and 0V≤V_{G}≤1.7V
-- [ ] Assembling the manifold, and entire microfluidics device
+- [x] Assembling the manifold, and entire microfluidics device
 - [ ] Determining flow-rates for the microfluidics device and the timings for
   getting the fluids on top of the chip
 - [ ] Figure out reagents and/or precursors
-- [ ] Figure out voltages/currents where reagents are altered
+- [x] Figure out voltages/currents where reagents are altered
 - [ ] Write and debug software for driving all the devices, i.e.
   - SMU
   - Microfluidics device
   - …
 - [ ] Assemble and mount AFM
   This is began, but we broke the AFM: waiting on
-  - [ ] dedicated computer for dealing with the AFM
-  - [ ] New USB cable and training tip
+  - [x] dedicated computer for dealing with the AFM
+  - [x] New USB cable and training tip
 - …
 
 
@@ -53,6 +53,18 @@ This is waiting on the completion of the following:
 - [x] GFET measurements: acquire GFETs, SMU, cleaning GFETS
 - [ ] Functionalization of GFET: reagents, AFM, PBASE DNA, tests/calibration
 - [ ] Integration: hardware, software, OPS, tests/calibration
+  - [ ] Run "experiment"
+    - [ ] Sense electrical changes on fluid arrival/departure
+    - [ ] Run characteristics curves signal for the fluid on arrival
+    - [ ] stop signals when fluid departs/leaves
+  - [ ] Further calibration
+    - [ ] Collect data on circular area of channels/tubings/both (~A~).
+    - [ ] Collect fluid for a specified amount of time for a given pump RPM.
+      This is our discharge (~Q~) which we could regomise ~Q_{R}~  where the ~R~
+      represents a particular RPM.
+    - [ ] Compute velocity for the fluid for each RPM: ~v~ from the formula ~Q=Av~
+  - [ ] Identify and plug in any and all sources of air leaks to try and get
+    solid flows where possible
 - 
 
 
@@ -145,7 +157,7 @@ This is waiting on the completion of the following:
  :END:
 ** DONE Soak GFET chip in acetone for 12 hours :livingcodeslab:gfet:important:
 
-** TODO Reassemble the microfluidics device manifold  :livingcodeslab::gfet:
+** DONE Reassemble the microfluidics device manifold  :livingcodeslab::gfet:
 ** DONE Review vacuum pump operating procedures with @erikg :livingcodeslab:vacuumstorage:microfluidics:
 ** DONE Collect device characteristics data with different chemicals :livingcodeslab:gfet:
  [[file:~/work-documents/uthsc/daily_work_report_202504.org::*2025-04-11][2025-04-11]]
