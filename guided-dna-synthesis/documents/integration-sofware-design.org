@@ -1,0 +1,74 @@
+#+STARTUP: content
+#+TITLE: Design Document for Integration Software
+#+AUTHOR: Frederick Muriuki Muriithi
+
+* Requirements
+
+** Microfluidics Section
+- Automatic: Setup device for operations
+  - Prime =WASH= lines
+  - Prime =REAGENT= lines
+- Flow one or more plugs of reagent through the GFET
+- Reset device
+  - Clean up after ourselves
+
+*** Improvements
+
+- Simplify operations
+  - Reduce the number of low-level functions to less than or equal to 3
+    e.g.
+    - ~bool pump(from, to, time, rpm, via, …)~
+    - ~bool wait(time, …)~
+  - Use th(i/e)s(e) low-level operation(s) to implement the existing
+    =PRIME=, =WASH=, =PURGE=/=VENT=, =COLLECT=, =WAIT=
+
+** GFET and SMU
+
+- Detect when a plug of liquid arrives on chip
+- Detect when a plug of liquid departs from chip
+- Run provided signals on fluid on top of the chip
+
+We currently use only a single channel on the GFET, therefore it will be
+challenging to detect presence/absence of a fluid while running the signals at
+the same time.
+
+** Control Software
+
+- Determine how much of the reagent flows into GFET line
+- Keep track of reagent plugs
+- Associate each reagent plug with signals to run against it
+- Once a sample for use with GFET is taken, suspend all other operations until:
+  - the sample has been detected as arriving on the GFET
+  - the signals associated with this sample have been ran
+  - the sample has left the GFET
+  - This option does not allow concurrency, but is easier to implement. See the
+    more advanced option in the improvements section below.
+- Abstract away the operation details:
+  - Use fluid units like µL, ml, L, etc rather than low level details like pump
+    RPM and number of seconds
+- Provide UI with:
+  - details on current operations
+  - logs of past operations (maybe)
+  - debug and calibration information
+- Do automated calibration (perhaps?)
+
+*** Improvements
+
+- Slow/stop fluid flow when there's a plug on the chip (This is complex, and
+  might require use of interrupts on the microfluidics device — see simpler, but
+  slower option mentioned previously.)
+  - If it's a "WASH" cycle immediately after taking a reagent sample for the
+    GFET, complete the "wash and purge cycle", then continue with the signalling
+  - If it is a "SAMPLING" cycle (i.e. we are taking a reagent sample for the
+    GFET line), then:
+    - slow the pump operations keeping track of:
+      - What reagent was being sampled (keep sampling, but much much slower)
+      - How much had been requested?
+      - How much was already sampled? (How much more to sample?)
+        - Requires RPM, time and calibration information
+    - Concurrently (in parallel?) with the slowed sampling, run the electrical
+      signals for the sample on the GFET
+      - *QUESTION*: Do we loop the signals until fluid leaves, or single-shot
+        the signals?
+    - Once plug departs, stop the elecrical/electronic signals to the GFET and
+      resume the slowed/stopped operation
