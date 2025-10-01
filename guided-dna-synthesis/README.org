@@ -52,6 +52,12 @@ This is waiting on the completion of the following:
 - [x] Microfluidics — reassembly of manifold,
 - [x] GFET measurements: acquire GFETs, SMU, cleaning GFETS
 - [ ] Functionalization of GFET: reagents, AFM, PBASE DNA, tests/calibration
+-
+
+** TODO Integration: hardware, software, OPS, tests/calibration
+
+*** Original list
+
 - [ ] Integration: hardware, software, OPS, tests/calibration
   - [ ] Run "experiment"
     - [ ] Sense electrical changes on fluid arrival/departure
@@ -65,7 +71,19 @@ This is waiting on the completion of the following:
     - [ ] Compute velocity for the fluid for each RPM: ~v~ from the formula ~Q=Av~
   - [ ] Identify and plug in any and all sources of air leaks to try and get
     solid flows where possible
-- 
+
+*** 2025-10-01: Goals
+
+- [ ] Establish flow of one plug of fluid at a time over the GFET and out to waste
+  - *GOAL*: Avoid dealing with concurrency issue at this point
+- [ ] Mount "fluidics device ⇋ GFET" adapter onto the GFET catridge
+  - [ ] Run fluid over  GFET
+  - [ ] Check for leaks and other bugs in the flow
+- [ ] Flow a plug of distilled water over GFET; take signals of
+  - [ ] Before plug "hits" the GFET
+  - [ ] While plug is on top of GFET
+  - [ ] After plug has "left" the GFET
+- [ ] Repeat item above for 2 or 3 different concentrations of PBS
 
 
 * TODO Validation of Synthesis       :livingcodeslab:dnasynthesis:majorgoal:
