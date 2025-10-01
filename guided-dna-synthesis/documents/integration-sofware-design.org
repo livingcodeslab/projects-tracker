@@ -43,6 +43,8 @@ the same time.
   - the sample has left the GFET
   - This option does not allow concurrency, but is easier to implement. See the
     more advanced option in the improvements section below.
+- Currently, we do not care to collect the fluids for further processing, so we
+  can just push it all to waste
 - Abstract away the operation details:
   - Use fluid units like µL, ml, L, etc rather than low level details like pump
     RPM and number of seconds
