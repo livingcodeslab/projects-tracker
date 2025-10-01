@@ -49,7 +49,7 @@ The integration includes:
 This is waiting on the completion of the following:
 - [[*Order materials and tools][Order materials and tools]]
 - [ ] Reagents: enzymes, DNA, oligos — verify oligos are  okay
-- [ ] Microfluidics — reassembly of manifold,
+- [x] Microfluidics — reassembly of manifold,
 - [x] GFET measurements: acquire GFETs, SMU, cleaning GFETS
 - [ ] Functionalization of GFET: reagents, AFM, PBASE DNA, tests/calibration
 - [ ] Integration: hardware, software, OPS, tests/calibration
