@@ -1,0 +1,122 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-10-16
+#+PROPERTY: header-args:shell :tangle ./work_cycle_verification.sh
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Integration
+
+** Assemble catridge
+
+- Disassemble to change from the drop-type reservoir to the customised flow-type
+  reservoir
+  - Reservoir does not sit right
+    - Height of drop-type reservoir: 19.04mm
+    - Height of flow-type reservoir: 19.53mm
+    - Difference: ~0.5mm
+    - Try shaving off the 0.5mm from the flow-type reservoir
+      - The razor does seem to work, but it's a slow process
+      - Quit at about 19.3Xmm of height: reservoir sits slightly better
+      - Reassemble catridge with a GFET chip loaded
+
+** Assemble Microfluidics Side
+
+- Hook up catridge to microfluidics device
+- Hook up power and USB Connections
+- Loads up as device =/dev/ttyACM0=
+
+** Verify Flow  
+
+- Flow fluids through system to verify it still works: run the work-cycle
+  verification script from 2025-08-08: looks like all the channels still work
+- ~echo "COLLECT -C 1 -T 90 -R 36" > /dev/ttyACM0~
+  - Collect fluid from Channel 01 flowing it past GFET and out to collection
+  - Flow seems good
+- ~echo "PURGE ALL 0 -T 180 -R 36" > /dev/ttyACM0~
+  - Purge out all fluid from the GFET line
+
+Flows seem to mostly be okay. There is a sign of blockage sometimes, especially
+when pushing to waste, where fluid seems to not flow for a while, then suddenly
+flows quickly before finally stabilising and flowing regularly.
+
+** Connect to SMU
+
+Last time, after disconnecting from the SMU, I was not able to re-establish
+connection to the device despite multiple attempts. It has been a number of days
+since then, and hopefully the device has reset and will allow us to connect to it.
+
+It shows up on computer as device =/dev/ttyUSB0=.
+
+Transcript:
+
+#+begin_src shell
+  # Activate a Python virtual env
+  $ source /home/frederick/livingcodeslab/guided-dna-synthesis-project/experiments/.venv/bin/activate
+
+  # Start python
+  $ python3
+
+  # Do appropriate imports
+  >>> import pyvisa
+  >>> from keithley2600 import Keithley2600
+  >>> rm = pyvisa.ResourceManager()
+  >>> resources = rm.list_resources()
+
+  # Print out list of resources on REPL to verify the device shows up
+  >>> resources
+  (…, 'ASRL/dev/ttyS0::INSTR', 'ASRL/dev/ttyUSB0::INSTR', 'ASRL/dev/ttyACM0::INSTR')
+
+  # Now connect to the device
+  >>> smu = Keithley2600('ASRL/dev/ttyUSB0::INSTR')
+
+  # Now verify whether the device will accept connection in remote mode
+  >>> smu.smua
+  ⋮
+  pyvisa.errors.VisaIOError: VI_ERROR_TMO (-1073807339): Timeout expired before operation completed.
+#+end_src
+
+Still cannot connect to the device.
+
+Look at settings on device:
+- Change baud from 115200 to 9600
+- Try again:
+
+  #+begin_src shell
+    >>> smu.smua
+    <KeithleyClass(smua)>
+  #+end_src
+
+  Success!
+
+  Okay, noted!
+
+  From the experience above, it is possible that if we want the faster baud rate, then we do need to setup the port on the controller (my laptop) to also use the same baud rate rather than defaulting to 9600. Test this at a later time.
+
+  We will use the operating point of V_{DS}=50mV as established in [[file:report-2025-05-06.org::*GFET Operating Point Selection][the summary of Report 2025-05-06]].
+
+** Fluids
+
+We are currently using only distilled water for our initial experiment.
+
+** Code
+
+Steps
+
+- Prime wash on all lines
+- Prime all reagents
+- Wash common to eliminate reagents
+- Wash past  GFET to clean line
+- Vent common
+- Vent GFET
+- For each channel:
+  - Turn on signals from SMU: maybe separate thread?
+    - Record values for Voltage, Current and Resistance from the SMU at say
+      every ~(0.001 + (1 / args.line_frequency)) / 2~ seconds
+  - Take plug of fluid, say 5 seconds long
+  - Flow plug of fluid through GFET and out to waste
+  - Stop SMU signals for the channel
+- Plot the values for each channel to see whether the fluid plugs were detected
+  flowing past the GFET

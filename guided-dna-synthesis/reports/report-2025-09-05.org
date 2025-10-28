@@ -1,0 +1,19 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-09-05
+#+PROPERTY: header-args:shell :tangle ./work_cycle_verification.sh
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Control Software
+
+** Implementation and Updates
+
+- [ ] Test the Teensy4.1 with baud rate 115200
+- [ ] Explore using serial communication with the SMU
+  - [ ] The SMU can use up to a maximum baud rate of 115200
+  - [ ] Lookup the serial port visa address for the SMU
+    - https://www.newegg.com/p/181-08GT-001S3
+- Probably need to switch single GFET between "sensing mode" and "signals mode"

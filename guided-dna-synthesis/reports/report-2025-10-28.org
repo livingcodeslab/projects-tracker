@@ -1,0 +1,88 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-10-28
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Troubleshoot Values
+
+** Change Chip
+
+I changed the chip in use and tried a different one.
+
+The new chip was taken from vacuum storage for use.
+
+We get cleaner results (the lines are crisper, without a lot of noise) but the
+rising resistance is still present.
+
+** Remove chip, empty catridge
+
+To verify that the rise in resistance is not a bug caused by the catridge, I
+reassembled the catridge, but without a chip inside and read the values from the
+SMU.
+
+We a noisy signal, as would be expected. There is no rise in the values, like
+was observed with the chips in the catridge.
+
+This eliminates the catridge and wiring as possible reasons for the observed
+rise in resistance (or inversely, drop in current flow).
+
+** Restore new chip into catridge
+
+During the test with the empty catridge, the chip, newly removed from vacuum
+storage, was placed in a 10mL glass measuring cup, exposed to the air.
+
+After replacing the new chip in the catridge, a new set of readings was taken.
+
+This time, the rise in resistance is still visible, but the line is not as crisp
+as that one from when the chip was fresh from the vacuum. This does indicate
+that the air seems to have an effect on the readings of the chip.
+
+** Change Reservoir
+
+I changed the reservoir from the flow-type reservoir to the drop-type reservoir.
+
+I used the new chip for this part of the experiment.
+
+I will start taking the readings with no liquid on the chip. While still taking
+readings, I will put a drop of water on the chip. After a while, still taking
+readings, I will drain the drop, and run a nitrogen stream over the chip to dry
+it.
+
+I will repeat a number of times,
+
+I will then plot the values and see whether there is a noticeable difference.
+
+- start: 12:19
+- drop: 12:22, 12:41, 12:55, 13:03
+- drain: 12:24 — 12:30, 12:45 — 12:51, 12:57 — 13:00, 13:05 —13:07
+- stop: 13:11
+
+Drying (running the nitrogen) was a tad awkward, since I had to improvise a
+nozzle to direct the flow of N_2 over the chip.
+
+*** Results
+
+There was a noticeable, and sharp drop in the resistance when the drop was put
+on the chip. The resistance would flatten at some local minimum for the entire
+period that the drop of water was on the chip. It would then start rising
+sharply once the drop was removed and the chip dried.
+
+Unfortunately, the incessant rise in resistance when there was no drop would
+keep happenning.
+
+Overall, I think it is a valid conclusion that we can indeed detect a change
+from air to water.
+
+*** Discussion
+
+A discussion on the results with @erikg produced the idea to avoid using air
+buffers. We should instead try a neutral wash as our buffer between solutions.
+
+
+** Clean Up the Chips
+
+I soaked the chips in 2mL of acetone and left them overnight.

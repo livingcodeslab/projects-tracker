@@ -1,0 +1,17 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-09-05
+#+PROPERTY: header-args:shell :tangle ./work_cycle_verification.sh
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Integration
+
+** Connecting to SMU via Serial
+
+I attempted to connect to the SMU using the new USB-to-RS232 cable:
+- Needed to install =pyserial= to get it working
+- VISA address takes on the form: ~ASRL/dev/ttyUSB0::INSTR~
+- I can still mostly use the same code as before, 

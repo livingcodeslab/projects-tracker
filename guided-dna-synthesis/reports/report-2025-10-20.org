@@ -1,0 +1,16 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-10-20
+#+PROPERTY: header-args:shell :tangle ./work_cycle_verification.sh
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Integration
+
+** Code
+
+- Fix some bugs, refactor some code and begin testing implementation
+- Code structure seems to work somewhat
+- Flow is compromised, looks like there's an obstruction on the GFET line side  

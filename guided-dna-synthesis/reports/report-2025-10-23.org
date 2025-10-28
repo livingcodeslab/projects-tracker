@@ -1,0 +1,23 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-10-23
+#+PROPERTY: header-args:shell :tangle ./work_cycle_verification.sh
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Integration
+
+** Debug Issues
+
+*** Flow
+
+- Troubleshoot flow through the GFET line
+  - flow fluid through the GFET line continuously
+    - we get a smooth flow for flowing the wash through the GFET line
+    - We get the stutters in the venting step
+      - look at schematics and firmware code to trace what is happening
+  - Watch flows for each channel:
+    - stutter on vent, both to waste and collection
+- Invert flow: flow mostly solid liquid, with plugs of air as separators
