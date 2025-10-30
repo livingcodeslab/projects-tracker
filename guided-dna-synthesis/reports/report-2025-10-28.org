@@ -77,6 +77,21 @@ keep happenning.
 Overall, I think it is a valid conclusion that we can indeed detect a change
 from air to water.
 
+The results files from which the conclusion(s) above is drawn are in this
+repository, under the path =guided-dna-synthesis/reports/static= and are:
+
+- [[file:static/20251028-clean_drop_readings.csv][=20251028-clean_drop_readings.csv=]]: A text file, derived from the original
+  results, with some spikes (outlier values) edited out.
+- [[file:static/20251028-drop_readings_events.txt][=20251028-drop_readings_events.txt=]]: A text file with details on approximate
+  times when certain events occurred.
+- [[file:static/20251028-drop_readings.txt][=20251028-drop_readings.txt=]]: A text file with the original, unedited results.
+
+The "cleaned" out results are represented in the image below:
+
+#+CAPTION: Sensing Phase Change from Air to Water and Back
+#+NAME: phase-change-sensing
+[[file:images/2025-10-28/20251028-annotated_clean_drop_readings.svg]]
+
 *** Discussion
 
 A discussion on the results with @erikg produced the idea to avoid using air

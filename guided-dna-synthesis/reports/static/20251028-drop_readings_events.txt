@@ -1,0 +1,15 @@
+time    timestamp       description
+12:19	1761671940.0    Begin experiment
+12:22	1761672120.0    Drop 01
+12:24	1761672240.0    Drop 01: Begin drying
+12:30   1761672600.0    Drop 01: End drying
+12:41   1761673260.0    Drop 02
+12:45   1761673500.0    Drop 02: Begin drying
+12:51   1761673860.0    Drop 02: End drying
+12:55   1761674100.0    Drop 03
+12:57   1761674220.0    Drop 03: Begin drying
+13:00   1761674400.0    Drop 03: End drying
+13:03   1761674580.0    Drop 04
+13:05   1761674700.0    Drop 05: Begin drying
+13:07   1761674820.0    Drop 05: End drying
+13:11   1761675060.0    End experiment
