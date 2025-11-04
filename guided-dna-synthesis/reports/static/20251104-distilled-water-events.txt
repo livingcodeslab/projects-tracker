@@ -1,0 +1,10 @@
+2025-11-04 14:39:32,768 - 1762288772.768592 - __main__ - INFO — In dispatch function: __main__
+2025-11-04 14:39:32,769 - 1762288772.769037 - __main__ - INFO — Begin fluid-buffer flows.
+2025-11-04 14:39:32,769 - 1762288772.769125 - __main__ - INFO — Collecting reagent 01 for 05 seconds.
+2025-11-04 14:39:38,070 - 1762288778.070040 - __main__ - INFO — Buffering with 10 seconds long wash buffer
+2025-11-04 14:39:48,469 - 1762288788.469819 - __main__ - INFO — Collecting reagent 02 for 05 seconds.
+2025-11-04 14:39:53,869 - 1762288793.869940 - __main__ - INFO — Buffering with 10 seconds long wash buffer
+2025-11-04 14:40:04,269 - 1762288804.269675 - __main__ - INFO — Collecting reagent 03 for 05 seconds.
+2025-11-04 14:40:09,669 - 1762288809.669685 - __main__ - INFO — Buffering with 10 seconds long wash buffer
+2025-11-04 14:40:20,069 - 1762288820.069749 - __main__ - INFO — Washing GFET line for 60 seconds.
+2025-11-04 14:41:20,468 - 1762288880.468436 - __main__ - INFO — Complete fluid-buffer flows.

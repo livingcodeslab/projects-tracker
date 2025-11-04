@@ -1,0 +1,39 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-11-04
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+
+* Integration
+
+I began the day by organising the SMU and microfluidics devices inside the hood.
+
+I then refactored some code, and wrote a new script for the liquid-buffer flow
+experiment, i.e. where we use the neutral wash reagent as a buffer between
+different reagents.
+The script can be  [[https://github.com/livingcodeslab/gfet-microfluidics-experiments/blob/70089be484f3af910d782871b8f2530c8c414177/fluid_buffer_flows.py][viewed here]].
+
+I then reassembled the catridge using the "flow-type" reservoir rather than the
+"drop-type" reservoir.
+
+I ran the initialisation, for the microfluidics and noted a leak. I disassembled
+the catridge again, dried off the chip and catridge and reassembled.
+
+The second initialisation ran without any observable leak.
+
+The results of the run are in [[file:static/20251104-distilled-water-readings.csv][this file]].
+
+The plot of the results is noisy, indicating a possible problem with the
+collection of parts used for the experiment.
+
+#+CAPTION: Detecting Reagent Change With liquid-buffer
+#+NAME: liquid-buffer-reagent-change
+[[file:static/20251104-distilled-water-readings.svg]]
+
+It is possible that I selected a broken chip, or maybe the fact that the
+reservoir fails to sit cleanly inside the catridge might be leading to unstable
+connections.
