@@ -1,0 +1,164 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-11-06
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Integration
+
+Disassemble the catridge. Note that there's an offset for some of the pins.
+This be one of the causes of instability in our readings.
+
+Dry chip, and the pins. Change the reservoir, since it also cracked.
+
+Initialise the microfluidics device:
+
+#+begin_src shell
+  python3 fluid_detection.py initialise-microfluidics-device\
+          --microfluidics-serial-port /dev/ttyACM0
+#+end_src
+
+Leakage observed — cleanup and tighten connections: no more leaks.
+
+Initialise the SMU:
+
+#+begin_src shell
+  python3 fluid_detection.py initialise-source-measure-unit \
+          --smu-visa-address ASRL/dev/ttyUSB0::INSTR
+#+end_src
+
+Read values continuosly from the SMU:
+
+#+begin_src shell
+  python3 read_smu_continuously.py \
+          --smu-visa-address ASRL/dev/ttyUSB0::INSTR \
+          --line-frequency 60 \
+          --nplc 12.5005 | tee 2025-11-06/distilled-water-readings.csv
+#+end_src
+
+Run the fluid-buffer flow script while taking the readings:
+
+#+begin_src shell
+  python3 fluid_buffer_flows.py run-fluid-flows \
+          --microfluidics-serial-port /dev/ttyACM0 | \
+      tee 2025-11-06/distilled-water-events.svg
+#+end_src
+
+Plot the results
+
+#+begin_src shell
+  python3 fluid_detection.py plot-file \
+          fd-test-01/2025-11-06/distilled-water-readings.csv \
+          fd-test-01/2025-11-06/distilled-water-readings.svg
+e#+end_src
+
+With a frequency of 60Hz and a NPLC of 12.5005, the SMU returns a reading at the time interval of slightly over a second.
+
+With that, we get the following plot for the values:
+
+#+CAPTION: Plot with NPLC=12.5005
+#+NAME: resistance-readings-nplc-12.5005
+[[file:static/20251106-distilled-water-nplc-12.5005-readings.svg]]
+
+Try with a smaller NPLC (rename files above and tag with NPLC value).
+
+#+begin_src shell
+  python3 read_smu_continuously.py \
+          --smu-visa-address ASRL/dev/ttyUSB0::INSTR \
+          --line-frequency 60 \
+          --nplc 6.25025 | \
+      tee 2025-11-06/distilled-water-nplc-6.25025-readings.csv
+#+end_src
+
+and run the fluid-buffer flows:
+
+#+begin_src shell
+  python3 fluid_buffer_flows.py run-fluid-flows \
+          --microfluidics-serial-port /dev/ttyACM0 | \
+      tee 2025-11-06/distilled-water-nplc-6.25025-events.csv
+#+end_src
+
+then plot the values:
+
+#+begin_src shell
+  python3 fluid_detection.py plot-file \
+          fd-test-01/2025-11-06/distilled-water-nplc-6.25025-readings.csv \
+          fd-test-01/2025-11-06/distilled-water-nplc-6.25025-readings.svg
+#+end_src
+
+and we get:
+
+#+CAPTION: Plot with NPLC=6.25025
+#+NAME: resistance-readings-nplc-6.25025
+[[file:static/20251106-distilled-water-nplc-6.25025-readings.svg]]
+
+Okay.
+
+Try changing the gate voltage from 1V to 0.6V. This will hopefully avoid doping
+of the chip/cracking of the water.
+
+#+begin_src shell
+  python3 read_smu_continuously.py \
+          --smu-visa-address ASRL/dev/ttyUSB0::INSTR \
+          --line-frequency 60 \
+          --nplc 6.25025 \
+          --gate-voltage 0.6 | \
+      tee fd-test-01/2025-11-06/distilled-water-nplc-6.25025-gate-0.6V-readings.csv
+#+end_src
+
+#+begin_src shell
+  python3 fluid_buffer_flows.py run-fluid-flows \
+          --microfluidics-serial-port /dev/ttyACM0 | \
+      tee fd-test-01/2025-11-06/distilled-water-nplc-6.25025-gate-0.6V-events.txt
+#+end_src
+
+then plot the values:
+
+#+begin_src shell
+  python3 fluid_detection.py plot-file \
+          fd-test-01/2025-11-06/distilled-water-nplc-6.25025-gate-0.6V-readings.csv \
+          fd-test-01/2025-11-06/distilled-water-nplc-6.25025-gate-0.6V-readings.svg \
+          --plottitle "Drain Resistance Characteristics (Gate Voltage=0.6V, Drain Voltage=0.05V, NPLC=6.25025, Frequency=60Hz)" \
+          --ylabel "Resistance (KΩ)" \
+          --legend_title "Drain resistance"
+#+end_src
+
+and we get a plot as follows
+#+CAPTION: Plot with NPLC=6.25025
+#+NAME: resistance-readings-nplc-6.25025
+[[file:static/20251106-distilled-water-nplc-6.25025-gate-0.6V-readings.svg]]
+
+We observe the same general rise in resistance (i.e. drop in current, since voltages are constant).
+
+** Dilution
+
+For tomorrow, we have the plan to acquire the following concentrations of PBS:
+
+- 0.001X: this is what is used in the GFET documentation from Graphenea
+- 0.0005X: Dilute that (above) some more.
+
+  We have 40ml vials for the reagents, which means:
+
+  | PBS Concentration | 1X PBS Quantity (mL) | Distilled Water Quantity (mL) |
+  |-------------------+----------------------+-------------------------------|
+  |             0.001 |                 0.04 |                         39.96 |
+  |            0.0005 |                 0.02 |                         39.98 |
+
+  That's 40µL of 1X PBS to 39.96mL of water to get the 0.001X PBS, and 20µL of
+  1X PBS to 39.98mL of water to get the 0.0005X PBS.
+
+  What instruments do we have?
+
+  - I have P10, P20, P200 , and P1000 micropipettes:
+    - I could use the P20 once, or the P10 twice to get the 20µL
+    - I could use the P20 twice, or the P10 four times to get the 40µL
+
+For the dilution:
+- start off with say 30.96 (or 30.98) mL of water
+- add 40µL (or 20µL) of 1X PBS
+- mix thoroughly
+- add remaining 9ml of water to get to 40mL
+- mix thorougly again
