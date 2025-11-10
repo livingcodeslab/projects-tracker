@@ -1,0 +1,78 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-11-10
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Integration
+
+** Extract Flat Regions from 07^{th} November 2025
+
+Taking the data from *28^{th} October 2025* and extracting only the flat regions
+after the drop was placed, we got the following data and plots:
+
+*** Drop 01
+
+[[file:static/20251110-drop01_flat_region.csv]]
+
+Plotting the data file, we get the plot:
+
+#+CAPTION: Drain Resistance: Drop01 Flat Region
+#+NAME: drop01-flat-region-drain-resistance
+[[file:static/20251110-drop01_flat_region.svg]]
+
+where it can be seen that the "flat part" gradually rises within the bounds of
+12MΩ and 13MΩ.
+
+The start of the plot shows the bounce back up from the sudden drop in
+resistance that is caused by putting a drop of water on the chip. This rise is
+present for all plots, but the values for each are different.
+
+*** Drop 02
+
+[[file:static/20251110-drop02_flat_region.csv]]
+
+This gave the plot
+
+#+CAPTION: Drain Resistance: Drop02 Flat Region
+#+NAME: drop02-flat-region-drain-resistance
+[[file:static/20251110-drop02_flat_region.svg]]
+
+Here, the gradual rise is somewhere between 10MΩ and 12MΩ.
+
+*** Drop 03
+
+[[file:static/20251110-drop03_flat_region.csv]]
+
+This gave the plot
+
+#+CAPTION: Drain Resistance: Drop03 Flat Region
+#+NAME: drop03-flat-region-drain-resistance
+[[file:static/20251110-drop03_flat_region.svg]]
+
+Here, the gradual rise is somewhere between 15MΩ and 16MΩ.
+
+*** Drop 04
+
+[[file:static/20251110-drop04_flat_region.csv]]
+
+This gave the plot
+
+#+CAPTION: Drain Resistance: Drop04 Flat Region
+#+NAME: drop04-flat-region-drain-resistance
+[[file:static/20251110-drop04_flat_region.svg]]
+
+In this one, there is instead, a gradual drop in resistance somewhere between 20MΩ and 19MΩ.
+
+*** Conclusion
+
+We do not get a perfectly flat output of values for the drops of water i.e. the
+resistance varies over time with the same drop of liquid.
+
+This is consistent with most of the observations from *07^{th} November 2025*.
+
+
+
