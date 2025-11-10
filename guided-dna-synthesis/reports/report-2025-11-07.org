@@ -1,0 +1,150 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-11-07
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Integration
+
+** Dilution
+
+- Clean and dry 3 vials:
+  - One 60mL vial for the wash reagent (distilled water)
+  - Two 40mL vials for the diluted PBS: label each before dilution.
+
+Dilute the 1X PBS according to yesterday's plan.
+
+** Code Update
+
+Interleave different concentrations and do multiple reps.
+
+** Run experiment
+
+Initialise devices
+
+#+begin_src shell
+  python3 fluid_detection.py initialise-microfluidics-device \
+          --microfluidics-serial-port /dev/ttyACM0
+  python3 fluid_detection.py initialise-source-measure-unit \
+          --smu-visa-address ASRL/dev/ttyUSB0::INSTR
+#+end_src
+
+Read continuosly from the SMU
+
+#+begin_src shell
+  python3 read_smu_continuously.py \
+          --smu-visa-address ASRL/dev/ttyUSB0::INSTR \
+          --line-frequency 60 \
+          --nplc 6.25025 \
+          --gate-voltage 0.6 | \
+      tee fd-test-01/2025-11-07/pbs-nplc-6.25025-gate-0.6V-readings.csv
+#+end_src
+
+Run the fluid flows
+
+#+begin_src shell
+  python3 fluid_buffer_flows.py run-fluid-flows \
+          --microfluidics-serial-port /dev/ttyACM0 | \
+      tee fd-test-01/2025-11-07/pbs-nplc-6.25025-gate-0.6V-events.txt
+#+end_src
+
+And then plot the results
+
+#+begin_src shell
+  python3 fluid_detection.py plot-file \
+          fd-test-01/2025-11-07/pbs-nplc-6.25025-gate-0.6V-readings.csv \
+          fd-test-01/2025-11-07/pbs-nplc-6.25025-gate-0.6V-readings.svg \
+          --plottitle "Drain Resistance Characteristics (Gate Voltage=0.6V, Drain Voltage=0.05V, NPLC=6.25025, Frequency=60Hz, PBS Concentrations=(0.001X, 0.0005X)" \
+          --ylabel "Resistance (KΩ)" \
+          --legend_title "Drain resistance"
+#+end_src
+
+There is no observed difference between the solutions 😭. Something is not right.
+
+#+CAPTION: Drain Resistance, Gate 0.6V, Drain 50mV, NPLC 6.25025
+[[file:static/20251107-pbs-nplc-6.25025-gate-0.6V-readings.svg]]
+
+Search online: possible high voltage on gate might be a cause. Recommendation is to use a gate voltage of between 10-20mV Drop it significantly, try 15mV
+
+#+begin_src shell
+  python3 read_smu_continuously.py \
+          --smu-visa-address ASRL/dev/ttyUSB0::INSTR \
+          --line-frequency 60 \
+          --nplc 6.25025 \
+          --gate-voltage 0.015 | \
+      tee fd-test-01/2025-11-07/pbs-nplc-6.25025-gate-0.015V-readings.csv
+  python3 fluid_buffer_flows.py run-fluid-flows \
+          --microfluidics-serial-port /dev/ttyACM0 | \
+      tee fd-test-01/2025-11-07/pbs-nplc-6.25025-gate-0.015V-events.txt
+  python3 fluid_detection.py plot-file \
+          fd-test-01/2025-11-07/pbs-nplc-6.25025-gate-0.015V-readings.csv \
+          fd-test-01/2025-11-07/pbs-nplc-6.25025-gate-0.015V-readings.svg \
+          --plottitle "Drain Resistance Characteristics (Gate Voltage=0.015V, Drain Voltage=0.05V, NPLC=6.25025, Frequency=60Hz, PBS Concentrations=(0.001X, 0.0005X)" \
+          --ylabel "Resistance (KΩ)" \
+          --legend_title "Drain resistance"
+#+end_src
+
+Now the resistance drops in a quasi-asymptotic curve.
+
+#+CAPTION: Drain Resistance, Gate 15mV, Drain 50mV, NPLC 6.25025
+[[file:static/20251107-pbs-nplc-6.25025-gate-0.015V-readings.svg]]
+
+The literature<<<citations go here>>> indicates that the gate voltage can be
+anything in the range [-1V, 1V].
+
+Trying 0.2V since it is a very common value in the literature:
+
+#+begin_src shell
+  python3 read_smu_continuously.py \
+          --smu-visa-address ASRL/dev/ttyUSB0::INSTR \
+          --line-frequency 60 \
+          --nplc 6.25025 \
+          --gate-voltage 0.2 | \
+      tee fd-test-01/2025-11-07/pbs-nplc-6.25025-gate-0.2V-readings.csv
+  python3 fluid_buffer_flows.py run-fluid-flows \
+          --microfluidics-serial-port /dev/ttyACM0 | \
+      tee fd-test-01/2025-11-07/pbs-nplc-6.25025-gate-0.2V-events.txt
+  python3 fluid_detection.py plot-file \
+          fd-test-01/2025-11-07/pbs-nplc-6.25025-gate-0.2V-readings.csv \
+          fd-test-01/2025-11-07/pbs-nplc-6.25025-gate-0.2V-readings.svg \
+          --plottitle "Drain Resistance Characteristics (Gate Voltage=0.2V, Drain Voltage=0.05V, NPLC=6.25025, Frequency=60Hz, PBS Concentrations=(0.001X, 0.0005X)" \
+          --ylabel "Resistance (KΩ)" \
+          --legend_title "Drain resistance"
+#+end_src
+
+and now, we have a slighly different plot
+
+#+CAPTION: Drain Resistance, Gate 0.2V, Drain 50mV, NPLC 6.25025
+[[file:static/20251107-pbs-nplc-6.25025-gate-0.2V-readings.svg]]
+
+There's a drop in resistance, but it's not sudden as I'd expect, rather it's a
+long drop as can be seen from the plot.
+
+There is only a single drop, which is a problem.
+
+It is possible the seal on the GFET might be too tight, leading to slow flow,
+and the addition of a purposefully designed channel to induce turbulent flow
+might just have led to mixin of the multiple 5-seconds long plugs with the
+buffers, which could explain the long drop.
+
+Test the speed of flow through GFET line:
+- Vent the GFET line completely.
+- Use stopwatch to check how long from command-issue to output at waste line:
+  - approximately 1 minute 14.47 seconds
+  - That indicates the plugs should have flowed past the sensor and out to waste
+    by the time the system completed its run.
+
+** Discussion with @erikg
+
+- Recommendation to look at nanopore sequencing — specifically the values
+  they get out of the system, and how they skew over time
+- Look into running the sensing with AC rather than DC bias
+
+** Catridge (Dis/Re)assembly
+
+- Disassemble the catridge and reassemble for verification
+  - Retain only one spacer from the two that previously existed: too tight: flow
+    is impeded.
