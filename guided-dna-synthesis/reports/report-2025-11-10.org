@@ -9,6 +9,14 @@
 
 * Integration
 
+** Read up on Oxford Nanopore Technologies
+
+- https://bmcgenomics.biomedcentral.com/articles/10.1186/s12864-024-10440-w
+-
+
+It seems that the basecalling algorithms make use of machine-learning to extract
+meaningful results from the electrical signals received from the nanopores.
+
 ** Extract Flat Regions from 07^{th} November 2025
 
 Taking the data from *28^{th} October 2025* and extracting only the flat regions
@@ -72,7 +80,16 @@ In this one, there is instead, a gradual drop in resistance somewhere between 20
 We do not get a perfectly flat output of values for the drops of water i.e. the
 resistance varies over time with the same drop of liquid.
 
-This is consistent with most of the observations from *07^{th} November 2025*.
+It seems, in general, that the resistance of the chip will vary over time as
+doping occurs due to the voltage across the drain-source terminals.
 
+The observations from *07^{th} November 2025*, when put together with the
+results of zooming in to the "flat regions" of the plot from
+*28^{th} October 2025* seem to indicate that there needs to be a massive
+difference in the composition(s) of the reagent(s) and the buffer solution (wash)
+in order to have a detectible output with the current paradigm I am using.
 
+We need to try a different paradigm:
 
+- Maybe flip channel voltage between reads?
+- Sweep the gate voltage? — what would the results mean?
