@@ -1,0 +1,91 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-11-11
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Integration
+
+
+** Change Paradigm
+
+We attempted flowing fluid through the microfluidics system and in parallel,
+reading values from the SMU continuosly — that did not work as expected.
+
+A new paradigm in consideration is sweeping the gate voltage over a range, while
+flipping the channel voltage (drain-source voltage) from positive to negative
+and back. The microfluidics system will not be run continuously as before,
+rather, it will run in starts and stops with the readings from the SMU
+occurring while the microfluidics system is stopped.
+
+There is much more synchronisation needed for this. It might need to be a set of
+sequential steps, e.g.
+
+- Initialise SMU
+- Initialise microfluidics device
+- =Loop00=: (list of channels):
+  - =Loop01=: (number of seconds):
+    - init var: =elapsed_seconds= to zero (0)
+    - Pull in fluid from current channel for a second
+    - Take readings from SMU (gate sweep with flipping channel)
+    - increment =elapsed_seconds= by 1
+    - Is number of seconds elapsed?
+      - No: Jump to =Loop01=
+      - Yes: Jump to =Loop00=
+  - =Loop02=: (number of seconds):
+    - init var: =elapsed_seconds= to zero (0)
+    - Pump buffer solution (wash) for 1 second
+    - Take readings from SMU (gate sweep with flipping channel)
+    - Increment =elapsed_seconds= by 1
+    - Is =elapsed_seconds= greater than or equal to "number of seconds"?
+      - No: Jump to =Loop02=
+      - Yes: exit =Loop02=
+  - Have we looped through all provided channels?
+    - No: Jump to =Loop00=
+    - Yes: exit =Loop00=
+- =Loop03=: (number of seconds):
+  - init var: =elapsed_seconds= to zero (0)
+  - Pump buffer solution (wash) for 1 second
+  - Take readings from SMU (gate sweep with flipping channel)
+  - Increment =elapsed_seconds= by 1
+  - Is =elapsed_seconds= greater than or equal to "number of seconds"?
+    - No: Jump to =Loop03=
+    - Yes: exit =Loop03=
+- End program
+
+Other auxilliary tasks that might be necessary are:
+- Save readings to file
+- Plot outputs (positive channel, negative channel, combined channel)
+  
+Looking at the steps listed above, it is apparent that there are repetitive
+tasks that could be pulled out into reusable functions. Examples of these are:
+- The "pump for 1 second"-"pause"-"take readings" task
+- The "loop for =n= seconds" task
+
+The "take readings" tasks in not specified to completion here, but will involve
+sweeping the gate voltage from some minimum to some maximum. At each point
+during the gate voltage sweep, we take 2 readings, one when the channel voltage
+is positive and one when the channel voltage is negative.
+
+
+*** Test/Debug New Code
+
+Initialise the microfluidics device
+
+#+begin_src shell
+  python3 fluid_detection.py initialise-microfluidics-device \
+          --microfluidics-serial-port /dev/ttyACM0
+#+end_src
+
+Debug the code and run initial test
+
+#+begin_src shell
+  python3 isswisafre.py --log-level=debug | tee /tmp/sample_output.csv
+#+end_src
+
+*** Run Experiment
+
+Left the experiment running overnight.
