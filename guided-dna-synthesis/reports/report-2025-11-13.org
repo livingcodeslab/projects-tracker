@@ -1,0 +1,30 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-11-13
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Integration
+
+Work on processing the data. Main tasks:
+
+- Separate lines in results file into 2 separate files, one for positive channel
+  (drain-source) voltage, and one for negative channel voltage.
+- Plot the results.
+
+After separating the data and plotting, we get the following plot:
+
+#+CAPTION: Current Changes: Gate current sweep (0V to 1V), Drain voltages (50mv and -50mV)
+[[file:static/20251113-currents-with-gate-sweep-and-positive-and-negative-drain.svg]]
+
+We see from the plot that the incessant drop in current (indicated by rise in
+resistance) no longer seems to be present. The values seem to swing wildly over
+a relatively "flat" middle.
+
+Further analysis might be required to clean up the data and draw useful results
+from it.
+
+
