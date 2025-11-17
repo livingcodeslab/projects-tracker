@@ -1,0 +1,35 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-11-14
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Integration
+
+** Review Plots Again
+
+In the region of the plots where the outputs were relatively flat, when we zoom
+in on the variation, we note steep (near vertical) rises in the current. This
+must be where we switch back the gate voltage to 0.0V.
+
+The rise is followed by a sloping drop in current (with some stuttering), that
+for some reason, does not bottom out and start rising, as would be expected.
+
+** Rework Code
+
+We rework the code to only turn the SMU channels off after every sweep, rather
+than after every reading.
+
+** Clean Chips
+
+After some analysis, discussion with @erikg and verification of the Dirac point
+and zero-point voltage, it seems like the chip we are using might actually be
+way too doped since we observe an expected drop in current, but never the
+bottomming out, and subsequent rise we would expect while sweeping the gate
+voltage.
+
+I left the chips soaked in acetone. Rinsing in IPA will be done the following
+day, 2025-11-15, followed by drying in Nitrogen and storing away in a vacuum.
