@@ -1,0 +1,99 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-11-18
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Integration
+
+** Verify Chip Integrity
+
+Since the data we got from yesterday's experiments was mostly inconclusive and
+did not trend towards what was expected, I'll begin by verifying the integrity of
+the sensor chip.
+
+I'll:
+- disassemble the cartridge
+- restore the stock reservoir/adapter
+- use drop method to try and find the dirac point/zero voltage
+
+The result of this is that I'll know whether or not the chip I am using is okay,
+or otherwise.
+
+If the chip is okay, and has  a dirac point around the expected region, then we
+know the problems we are experiencing might be caused by the interaction wit the
+microfluidics device.
+
+*** Disassembly and verification: Results
+
+We replace the flow-type reservoir (used with the microfluidics device) with the
+stock drop-type reservoir.
+
+Now run the sweep:
+#+begin_src shell
+  python3 sweep.py --range=0.0,1.0,0.01 | tee \
+                                              fd-test-01/2025-11-18/drop-type-sweep-gate-0.0to1.0-channel-0.05.csv;
+  python3 isswisafre.py process-data \
+          fd-test-01/2025-11-18/drop-type-sweep-gate-0.0to1.0-channel-0.05.csv \
+          fd-test-01/2025-11-18/;
+  python3 plotter.py \
+          --xaxis provided_gate_voltage \
+          --xlabel gate_voltage \
+          --plottitle 'Current Characteristics\n{/=16 Gate voltage sweep: 0.0V to 1.0V with 0.01v step; Channel voltage: -50mV and 50mV.}' \
+          fd-test-01/2025-11-18/drop-type-sweep-gate-0.0to1.0-channel-0.05-positive.svg \
+          fd-test-01/2025-11-18/drop-type-sweep-gate-0.0to1.0-channel-0.05_positive.csv;
+  python3 plotter.py \
+          --xaxis provided_gate_voltage \
+          --xlabel gate_voltage \
+          --plottitle 'Current Characteristics\n{/=16 Gate voltage sweep: 0.0V to 1.0V with 0.01v step; Channel voltage: -50mV and 50mV.}' \
+          fd-test-01/2025-11-18/drop-type-sweep-gate-0.0to1.0-channel-0.05-negative.svg \
+          fd-test-01/2025-11-18/drop-type-sweep-gate-0.0to1.0-channel-0.05_negative.csv;
+  python3 plotter.py \
+          --xaxis provided_gate_voltage \
+          --xlabel gate_voltage \
+          --plottitle 'Current Characteristics\n{/=16 Gate voltage sweep: 0.0V to 1.0V with 0.01v step; Channel voltage: -50mV and 50mV.}' \
+          fd-test-01/2025-11-18/drop-type-sweep-gate-0.0to1.0-channel-0.05-combined.svg \
+          fd-test-01/2025-11-18/drop-type-sweep-gate-0.0to1.0-channel-0.05_positive.csv \
+          fd-test-01/2025-11-18/drop-type-sweep-gate-0.0to1.0-channel-0.05_negative.csv;
+#+end_src
+
+and the sweep gives us:
+
+#+CAPTION:Current Characteristics
+#+NAME: chip001-current-xristics-gv0to1-50mv-switching
+[[file:static/20251118-drop-type-sweep-gate-0.0to1.0-channel-0.05-combined-chip001.svg]]
+
+We see from this that we are not able to get the dirac point for this chip as
+[[file:report-2025-05-06.org][we previously did]].
+
+Try another chip, this time sweeping from -1.0V to 1.0V with a channel voltage
+alternating between -/+50mV.
+
+#+CAPTION:Current Characteristics
+#+NAME: chip002-current-xristics-gvneg1to1-50mv-switching
+[[file:static/20251118-drop-type-sweep-gate-neg1.0topos1.0-channel-0.05-combined-chip002.svg]]
+
+This is nothing like what we would have expected.
+
+Do the same for the last of the old chips, sweeping from -1.0V to 1.0V with a
+channel voltage alternating between -/+50mV.
+#+CAPTION:Current Characteristics
+#+NAME: chip003-current-xristics-gvneg1to1-50mv-switching
+[[file:static/20251118-drop-type-sweep-gate-neg1.0topos1.0-channel-0.05-combined-chip003.svg]]
+
+We see that this chip also gives an unexpected output.
+
+*** Results Verification
+
+Before I make the conclusion that the three chips are all broken, I will also do
+the following verifications:
+
+- Check signal lines
+  - verify that the conductors in the cabling are connected as expected and are
+    not broken
+  - verify that the signal lines in the cartridge are not broken
+  - check entire length of connections from cable terminal at the SMU to the
+    pogo-pins in the cartridge
