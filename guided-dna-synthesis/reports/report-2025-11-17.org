@@ -1,0 +1,141 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-11-17
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Integration
+
+** Inspect new Reservoirs
+
+- Much cleaner and crisper finish
+- No threads on intake/outflow ports — no way to interface with current
+  microfluidics device.
+- Might be a skew in the square part of the reservoir — migth be a little
+  trapezoidal
+
+
+** Reassemble the Cartridge
+
+Reassemble cartridge with one of the clean chips.
+
+Re-initialise the microfluidics device:
+
+#+begin_src shell
+  python3 fluid_detection.py \
+          initialise-microfluidics-device \
+          --microfluidics-serial-port /dev/ttyACM
+#+end_src
+
+Now read new values:
+
+#+begin_src shell
+  python3 isswisafre.py run-experiment \
+          --smu-visa-address ASRL/dev/ttyUSB0::INSTR \
+          --line-frequency 60 \
+          --nplc 12.5005 \
+          --microfluidics-serial-port /dev/ttyACM0 \
+          --max-gate-voltage 1.0 \
+          --channel-voltage 0.05 \
+          2>fd-test-01/2025-11-17/events.log  | \
+      tee fd-test-01/2025-11-17/readings.csv
+#+end_src
+
+Process the outputs:
+
+#+begin_src shell
+  python3 isswisafre.py process-data \
+          fd-test-01/2025-11-17/readings.csv \
+          fd-test-01/2025-11-17/
+#+end_src
+
+And plot the values:
+
+#+begin_src shell
+  python3 plotter.py \
+          --xaxis timestamp \
+          fd-test-01/2025-11-17/positive-readings.svg \
+          fd-test-01/2025-11-17/readings_positive.csv
+  python3 plotter.py \
+          --xaxis timestamp \
+          fd-test-01/2025-11-17/negative-readings.svg \
+          fd-test-01/2025-11-17/readings_negative.csv
+  python3 plotter.py \
+          --xaxis timestamp \
+          fd-test-01/2025-11-17/combined-readings.svg \
+          fd-test-01/2025-11-17/readings_positive.csv \
+          fd-test-01/2025-11-17/readings_negative.csv
+#+end_src
+
+
+We get a similar output as last time. That's not nice.
+
+Maybe, try getting single sweeps:
+
+#+begin_src shell
+  python3 sweep.py | tee \
+                         fd-test-01/2025-11-17/sweep-gate-0.0to1.0-channel0.05.csv
+  python3 isswisafre.py process-data \
+          fd-test-01/2025-11-17/sweep-gate-0.0to1.0-channel0.05.csv \
+          fd-test-01/2025-11-17/
+  python3 plotter.py \
+          --xaxis provided_gate_voltage \
+          --xlabel gate_voltage \
+          fd-test-01/2025-11-17/sweep-gate-0.0to1.0-channel0.05-positive.svg \
+          fd-test-01/2025-11-17/sweep-gate-0.0to1.0-channel0.05_positive.csv
+  python3 plotter.py \
+          --xaxis provided_gate_voltage \
+          --xlabel gate_voltage \
+          fd-test-01/2025-11-17/sweep-gate-0.0to1.0-channel0.05-negative.svg \
+          fd-test-01/2025-11-17/sweep-gate-0.0to1.0-channel0.05_negative.csv
+  python3 plotter.py \
+          --xaxis provided_gate_voltage \
+          --xlabel gate_voltage \
+          fd-test-01/2025-11-17/sweep-gate-0.0to1.0-channel0.05-combined.svg \
+          fd-test-01/2025-11-17/sweep-gate-0.0to1.0-channel0.05_positive.csv \
+          fd-test-01/2025-11-17/sweep-gate-0.0to1.0-channel0.05_negative.csv
+#+end_src
+
+Okay. That did not work.
+
+<<<plot goes here>>>
+
+Try a larger range:
+
+#+begin_src shell
+  python3 sweep.py --range=0.0,1.7,0.01 | tee \
+                                              fd-test-01/sweep-gate-0.0to1.7-step0.01-channel0.05.csv
+  python3 plotter.py \
+          --xaxis provided_gate_voltage \
+          --xlabel gate_voltage \
+          fd-test-01/2025-11-17/sweep-gate-0.0to1.7-step0.01-channel0.05-positive.svg \
+          fd-test-01/2025-11-17/sweep-gate-0.0to1.7-step0.01-channel0.05_positive.csv
+  python3 plotter.py \
+          --xaxis provided_gate_voltage \
+          --xlabel gate_voltage \
+          fd-test-01/2025-11-17/sweep-gate-0.0to1.7-step0.01-channel0.05-negative.svg \
+          fd-test-01/2025-11-17/sweep-gate-0.0to1.7-step0.01-channel0.05_negative.csv
+  python3 plotter.py \
+          --xaxis provided_gate_voltage \
+          --xlabel gate_voltage \
+          fd-test-01/2025-11-17/sweep-gate-0.0to1.7-step0.01-channel0.05-combined.svg \
+          fd-test-01/2025-11-17/sweep-gate-0.0to1.7-step0.01-channel0.05_positive.csv \
+          fd-test-01/2025-11-17/sweep-gate-0.0to1.7-step0.01-channel0.05_negative.csv
+#+end_src
+
+That doesn't work either.
+
+<<<plot goes here>>>
+
+** Look at Reservoir/Adapter Measurements
+
+*** Stock Adapter/Reservoir
+
+- Height: 19.13mm, 19.06mm, 19.04mm, 19.02mm
+- Width: 28.88mm, 28.91mm, 29.01mm, 28.83mm
+- 
+
+
