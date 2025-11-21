@@ -1,0 +1,133 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-11-20
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Integration
+
+** Test Conductors
+
+Testing for continuity with the multimeter, I found that there was no continuity
+in one of the contacts of the cartridge. Further inspection showed that a solder
+joint in the 8-wire circular female connector was broken.
+
+I fixed the joint, and tested the continuity again. All lines have expected continuity.
+
+I also checked the continuity and routing of the lines from the SMU connectors
+all the way  to the 8-wire circular male connector. Everything works fine for that.
+
+** Run Experiment — Again
+
+After fixing the conductors, and verifying, we run the experiment again, with
+one of the broken chips, just to verify results.
+
+#+begin_src shell
+  python3 sweep.py --range=0.0,1.0,0.01 | tee \
+                                              fd-test-01/2025-11-20/drop-type-sweep-gate-0.0to1.0-channel-0.05.csv;
+  python3 isswisafre.py process-data \
+          fd-test-01/2025-11-20/drop-type-sweep-gate-0.0to1.0-channel-0.05.csv \
+          fd-test-01/2025-11-20/;
+  python3 plotter.py \
+          --xaxis provided_gate_voltage \
+          --xlabel gate_voltage \
+          --plottitle 'Current Characteristics\n{/=16 Gate voltage sweep: 0.0V to 1.0V with 0.01v step; Channel voltage: -50mV and 50mV.}' \
+          fd-test-01/2025-11-20/drop-type-sweep-gate-0.0to1.0-channel-0.05-positive.svg \
+          fd-test-01/2025-11-20/drop-type-sweep-gate-0.0to1.0-channel-0.05_positive.csv;
+  python3 plotter.py \
+          --xaxis provided_gate_voltage \
+          --xlabel gate_voltage \
+          --plottitle 'Current Characteristics\n{/=16 Gate voltage sweep: 0.0V to 1.0V with 0.01v step; Channel voltage: -50mV and 50mV.}' \
+          fd-test-01/2025-11-20/drop-type-sweep-gate-0.0to1.0-channel-0.05-negative.svg \
+          fd-test-01/2025-11-20/drop-type-sweep-gate-0.0to1.0-channel-0.05_negative.csv;
+  python3 plotter.py \
+          --xaxis provided_gate_voltage \
+          --xlabel gate_voltage \
+          --plottitle 'Current Characteristics\n{/=16 Gate voltage sweep: 0.0V to 1.0V with 0.01v step; Channel voltage: -50mV and 50mV.}' \
+          fd-test-01/2025-11-20/drop-type-sweep-gate-0.0to1.0-channel-0.05-combined.svg \
+          fd-test-01/2025-11-20/drop-type-sweep-gate-0.0to1.0-channel-0.05_positive.csv \
+          fd-test-01/2025-11-20/drop-type-sweep-gate-0.0to1.0-channel-0.05_negative.csv;
+#+end_src
+
+And now we get the following plot:
+
+#+CAPTION: Current Characteristics: After Fixing Connections
+#+NAME: current-xristics-fixed-connectors-chip-003
+[[file:static/20251120-drop-type-sweep-gate-0.0to1.0-channel-0.05-combined.svg]]
+
+This is a whole different thing 🤦🏿‍♂️. At least, the positives and negatives are
+clearly separated from each other.
+
+** Switch Chip
+
+We break out one of the previously unused chips for use in testing the
+characteristics. In addition, we modify the code to actually sweep from negative
+to positive.
+
+
+
+#+begin_src shell
+  python3 sweep.py --gate-voltage 1.0 \
+          --sweep-interval 0.01 | tee \
+                                      fd-test-01/2025-11-20/chip-004-sideAsrc3-drop-type-sweep-gate-0.0to1.0-channel-0.05.csv;
+  python3 isswisafre.py process-data \
+          fd-test-01/2025-11-20/chip-004-sideAsrc3-drop-type-sweep-gate-0.0to1.0-channel-0.05.csv \
+          fd-test-01/2025-11-20/;
+  python3 plotter.py \
+          --xaxis provided_gate_voltage \
+          --xlabel gate_voltage \
+          --plottitle 'Current Characteristics\n{/=16 Gate voltage sweep: 0.0V to 1.0V with 0.01v step; Channel voltage: -50mV and 50mV.}' \
+          fd-test-01/2025-11-20/chip-004-sideAsrc3-drop-type-sweep-gate-0.0to1.0-channel-0.05-positive.svg \
+          fd-test-01/2025-11-20/chip-004-sideAsrc3-drop-type-sweep-gate-0.0to1.0-channel-0.05_positive.csv;
+  python3 plotter.py \
+          --xaxis provided_gate_voltage \
+          --xlabel gate_voltage \
+          --plottitle 'Current Characteristics\n{/=16 Gate voltage sweep: 0.0V to 1.0V with 0.01v step; Channel voltage: -50mV and 50mV.}' \
+          fd-test-01/2025-11-20/chip-004-sideAsrc3-drop-type-sweep-gate-0.0to1.0-channel-0.05-negative.svg \
+          fd-test-01/2025-11-20/chip-004-sideAsrc3-drop-type-sweep-gate-0.0to1.0-channel-0.05_negative.csv;
+  python3 plotter.py \
+          --xaxis provided_gate_voltage \
+          --xlabel gate_voltage \
+          --plottitle 'Current Characteristics\n{/=16 Gate voltage sweep: 0.0V to 1.0V with 0.01v step; Channel voltage: -50mV and 50mV.}' \
+          fd-test-01/2025-11-20/chip-004-sideAsrc3-drop-type-sweep-gate-0.0to1.0-channel-0.05-combined.svg \
+          fd-test-01/2025-11-20/chip-004-sideAsrc3-drop-type-sweep-gate-0.0to1.0-channel-0.05_positive.csv \
+          fd-test-01/2025-11-20/chip-004-sideAsrc3-drop-type-sweep-gate-0.0to1.0-channel-0.05_negative.csv;
+#+end_src
+
+We get a very confusing output:
+
+#+CAPTION: New Chip (004) SideASrc3: Current Characteristics
+#+NAME: chip-004-sideAsrc3-current-xristics-distilled-water
+[[file:static/20251120-chip-004-sideAsrc3-drop-type-sweep-gate-0.0to1.0-channel-0.05-combined.svg]]
+
+Switch the cartridge sides to confirm:
+
+#+CAPTION: New Chip (004) SideBSrc3: Current Characteristics
+#+NAME: chip-004-sideBsrc3-current-xristics-distilled-water
+[[file:static/20251120-chip-004-sideBsrc3-drop-type-sweep-gate-0.0to1.0-channel-0.05-combined.svg]]
+
+Nice!
+
+This is more along what we expected. [[file:static/20251120-chip-004-sideBsrc3-drop-type-sweep-gate-0.0to1.0-channel-0.05.csv][Here is the raw data]] for SideB. The
+separated plots for the positive and negative values are as follows:
+
+#+CAPTION: New Chip (004) SideBSrc3: Current Characteristics (+50mV)
+#+NAME: chip-004-sideBsrc3-current-xristics-distilled-water-pos50mV
+[[file:static/20251120-chip-004-sideBsrc3-drop-type-sweep-gate-0.0to1.0-channel-0.05-positive.svg]]
+
+#+CAPTION: New Chip (004) SideBSrc3: Current Characteristics (-50mV)
+#+NAME: chip-004-sideBsrc3-current-xristics-distilled-water-neg50mV
+[[file:static/20251120-chip-004-sideBsrc3-drop-type-sweep-gate-0.0to1.0-channel-0.05-negative.svg]]
+
+
+It seems like there is a contact/conductor problem for the wire connecting to
+the GFET on the chip labelled as "source 3" on the side of the cartridge I've
+labelled as "side A".
+
+** Rework Detection Experiment
+
+Now that we have verified that the new chip is okay, and we know one working
+contact, my focus shifts to improving the code for the entire experiment.
