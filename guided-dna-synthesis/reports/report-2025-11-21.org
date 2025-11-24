@@ -1,0 +1,61 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-11-21
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Integration
+
+** Run Experiment with New Chip
+
+Begin by assembling the cartridge with the new chip known to work.
+
+Run the experiment.
+
+#+begin_src shell
+  python3 isswisafre.py run-experiment \
+          --smu-visa-address ASRL/dev/ttyUSB0::INSTR \
+          --line-frequency 60 \
+          --nplc 12.5005 \
+          --microfluidics-serial-port /dev/ttyACM0 \
+          --max-gate-voltage 1.0 \
+          --sweep_interval 0.01 \
+          --channel-voltage 0.005 \
+          2>fd-test-01/2025-11-21/expt01-events.log | \
+      tee fd-test-01/2025-11-21/expt01-readings.csv
+#+end_src
+
+Oops! Forgot to initialise the microfluidics device!
+
+#+begin_src shell
+  python fluid_detection.py initialise-microfluidics-device \
+         --microfluidics-serial-port /dev/ttyACM0
+#+end_src
+
+And now, run the experiment:
+
+#+begin_src shell
+  python3 isswisafre.py run-experiment \
+          --smu-visa-address ASRL/dev/ttyUSB0::INSTR \
+          --line-frequency 60 \
+          --nplc 12.5005 \
+          --microfluidics-serial-port /dev/ttyACM0 \
+          --max-gate-voltage 1.0 \
+          --sweep_interval 0.01 \
+          --channel-voltage 0.005 \
+          2>fd-test-01/2025-11-21/expt02-events.log | \
+      tee fd-test-01/2025-11-21/expt02-readings.csv
+#+end_src
+
+
+The results were nothing like expected, as shown in the plot below:
+
+#+CAPTION: Current Characteristics: New chip, broken results
+#+NAME: 20251121-expt02-new-chip-broken-results
+[[file:static/20251121-expt02-readings-combined.svg]]
+
+It looks as if something "breaks" in a manner of speaking, whenever we use the
+microfluidics device to push the liquid through the adapter reservoir.
