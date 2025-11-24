@@ -1,0 +1,130 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-11-24
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Integration
+
+** Order: New Reservoirs for Cartridge
+
+- The body and the reservoir are produced from polyimide
+  - https://www.graphenea.com/blogs/graphene-news/graphenea-s-cartridge-s2x-makes-sensing-easy
+- Requires contacting Graphenea to order the cartridge and body, they are
+  not available on the online store directly.
+
+
+** Troubleshoot Reservoir
+
+First, using a syringe and luer lock plumbing, we push some nitrogen through the
+adapter to ensure that only air is present on the chip.
+
+We then run a sweep with nitrogen in the pipes:
+
+#+begin_src shell
+  python3 sweep.py \
+          --smu-visa-address ASRL/dev/ttyUSB0::INSTR \
+          --line-frequency 60 \
+          --nplc 12.5005 \
+          --gate-voltage 1.0 \
+          --sweep_interval 0.01 \
+          --channel-voltage 0.05 \
+          2>fd-test-01/2025-11-24/manual-push-nitrogen-events.log | \
+      tee fd-test-01/2025-11-24/manual-push-nitrogen-readings.csv
+#+end_src
+
+We do some processing on the data we get, and plot the results:
+
+#+begin_src shell
+  python3 isswisafre.py process-data \
+          fd-test-01/2025-11-24/manual-push-nitrogen-readings.csv \
+          fd-test-01/2025-11-24/;
+  python3 plotter.py \
+          --xaxis provided_gate_voltage \
+          --xlabel gate_voltage \
+          --plottitle 'Current Characteristics\n{/=16 Gate voltage sweep: 0.0V to 1.0V with 0.01v step; Channel voltage: -50mV and 50mV.}' \
+          fd-test-01/2025-11-24/manual-push-nitrogen-readings-positive.svg \
+          fd-test-01/2025-11-24/manual-push-nitrogen-readings_positive.csv;
+  python3 plotter.py \
+          --xaxis provided_gate_voltage \
+          --xlabel gate_voltage \
+          --plottitle 'Current Characteristics\n{/=16 Gate voltage sweep: 0.0V to 1.0V with 0.01v step; Channel voltage: -50mV and 50mV.}' \
+          fd-test-01/2025-11-24/manual-push-nitrogen-readings-negative.svg \
+          fd-test-01/2025-11-24/manual-push-nitrogen-readings_negative.csv;
+  python3 plotter.py \
+          --xaxis provided_gate_voltage \
+          --xlabel gate_voltage \
+          --plottitle 'Current Characteristics\n{/=16 Gate voltage sweep: 0.0V to 1.0V with 0.01v step; Channel voltage: -50mV and 50mV.}' \
+          fd-test-01/2025-11-24/manual-push-nitrogen-readings-combined.svg \
+          fd-test-01/2025-11-24/manual-push-nitrogen-readings_positive.csv \
+          fd-test-01/2025-11-24/manual-push-nitrogen-readings_negative.csv;
+#+end_src
+
+and the results are:
+
+#+CAPTION: Current Characteristics: Manual Push, N_{2}, Chip-source-2
+#+NAME: current-xristics-manual-push-n2-src2
+[[file:static/20251124-manual-push-nitrogen-readings-combined.svg]]
+
+This looks about normal for the open-circuit/air-gap state of the chip.
+
+Now let us push some distilled water through the reservoir using a syringe and
+attempt to read the results.
+
+
+#+begin_src shell
+  python3 sweep.py \
+          --smu-visa-address ASRL/dev/ttyUSB0::INSTR \
+          --line-frequency 60 \
+          --nplc 12.5005 \
+          --gate-voltage 1.0 \
+          --sweep_interval 0.01 \
+          --channel-voltage 0.005 \
+          2>fd-test-01/2025-11-24/manual-push-dwater-events.log | \
+      tee fd-test-01/2025-11-24/manual-push-dwater-readings.csv;
+  python3 isswisafre.py process-data \
+          fd-test-01/2025-11-24/manual-push-dwater-readings.csv \
+          fd-test-01/2025-11-24/;
+  python3 plotter.py \
+          --xaxis provided_gate_voltage \
+          --xlabel gate_voltage \
+          --plottitle 'Current Characteristics\n{/=16 Gate voltage sweep: 0.0V to 1.0V with 0.01v step; Channel voltage: -50mV and 50mV.}' \
+          fd-test-01/2025-11-24/manual-push-dwater-readings-positive.svg \
+          fd-test-01/2025-11-24/manual-push-dwater-readings_positive.csv;
+  python3 plotter.py \
+          --xaxis provided_gate_voltage \
+          --xlabel gate_voltage \
+          --plottitle 'Current Characteristics\n{/=16 Gate voltage sweep: 0.0V to 1.0V with 0.01v step; Channel voltage: -50mV and 50mV.}' \
+          fd-test-01/2025-11-24/manual-push-dwater-readings-negative.svg \
+          fd-test-01/2025-11-24/manual-push-dwater-readings_negative.csv;
+  python3 plotter.py \
+          --xaxis provided_gate_voltage \
+          --xlabel gate_voltage \
+          --plottitle 'Current Characteristics\n{/=16 Gate voltage sweep: 0.0V to 1.0V with 0.01v step; Channel voltage: -50mV and 50mV.}' \
+          fd-test-01/2025-11-24/manual-push-dwater-readings-combined.svg \
+          fd-test-01/2025-11-24/manual-push-dwater-readings_positive.csv \
+          fd-test-01/2025-11-24/manual-push-dwater-readings_negative.csv;
+#+end_src
+
+This time, we get a relentless drop in current (for positive channel voltage),
+that does not bottom out and start rising before we complete the sweep.
+
+The combined plot becomes:
+
+#+CAPTION: Current Characteristics: Manual Push, Distilled water, Chip-source-2
+#+NAME: current-xristics-manual-push-dwater-src2
+[[file:static/20251124-manual-push-dwater-readings-combined.svg]]
+
+Since in the combined plot the drop in current is not very clear, we zoom in to
+only when the channel voltage (drain) is positive:
+
+#+CAPTION: Current Characteristics: Manual Push, Distilled water, Chip-source-2, +50mV Channel voltage
+#+NAME: current-xristics-manual-push-dwater-src2-plus50mvchannel
+[[file:static/20251124-manual-push-dwater-readings-positive.svg]]
+
+The implication of these results, is that, something about the current flow-type
+adapter interacts with the voltages/currents in the system, leading to problems
+with the results we are getting.
