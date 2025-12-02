@@ -1,0 +1,56 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-12-01
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Integration
+
+** Explore New Chip Form Factor
+
+The GFET-S20 chips are nice, but we are having trouble finalising the
+integration with them.
+
+We are looking into using the newer =mGFET-4D=[fn:1] with the
+=Opentrons OT-2=[fn:2] platform to automate as much of the sensing process as
+possible.
+
+We will need the =Graphenea card=[fn:3] to interface with the chips.
+
+To make all the equipment mentioned above work together, we will need to make
+some sort of adapter for the Graphene card to sit securely in one of the labware
+bays provided by the OT-2 robot. In that respect, we look at the physical
+specifications for both the labware[fn:4] and the graphenea card[fn:5].
+
+The technical specifications indicate that it might be possible to create an
+adapter of sorts to hold the Graphenea card snugly inside the OT-2 robot and
+allow us to define some sort of custom labware that we would then use for the
+automation.
+
+
+** Housekeeping
+
+**** DONE Purge microfluidics device and store it away :livingcodeslab:housekeeping:important:not:urgent:
+**** TODO Do manual drop-push with the new adapters and see results :livingcodeslab:housekeeping:important:not:urgent:
+- Try pushing with a small pippette — should work.
+**** TODO Mod the adapter(s) from Mike: remove flange :livingcodeslab:housekeeping:important:not:urgent:
+**** DONE Look int o-ring cleaning with IPA or acetone :livingcodeslab:housekeeping:important:not:urgent:
+- Not compatible.
+- IPA has a "Minor to moderate effect" on the BN50 O-rings
+- Ethanolamine has a "Minor to moderate effect" on the BN50 O-rings
+- Acetone will cause the rings to swell, soften and degrade
+  - https://rubber-group.com/wp-content/uploads/2018/01/Chemical-Compatibility.pdf
+    A sample chemical compatibility chart with some details for various rubbers
+
+* Footnotes
+
+[fn:5] Graphenea card techical specs: https://cdn.shopify.com/s/files/1/0191/2296/files/2022_GrapheneaCard_v2_TDS_06-02-2023.pdf?v=1676466974 
+[fn:4] ANSI/SLAS Microplate Standards: https://www.slas.org/education/ansi-slas-microplate-standards/ 
+
+[fn:3] Graphenea Card: https://www.graphenea.com/collections/buy-gfet-models-for-sensing-applications/products/graphenea-card 
+[fn:2] Opentrons OT-2 Platform: https://opentrons.com/products/ot-2-robot?sku=999-00111,%20999-00002,%20999-00002
+
+[fn:1] Graphenea mGFET-4D Chip: https://www.graphenea.com/collections/buy-gfet-models-for-sensing-applications/products/mgfet-4d-for-sensing-appl
