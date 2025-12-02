@@ -128,3 +128,10 @@ only when the channel voltage (drain) is positive:
 The implication of these results, is that, something about the current flow-type
 adapter interacts with the voltages/currents in the system, leading to problems
 with the results we are getting.
+
+*** Possible Causes of the Issue
+
+- The material of the adapter
+- The material of the seal/O-ring
+- The volume of the fluid/reagent
+- Pressure on the chip
