@@ -1,0 +1,84 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-11-25
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Integration
+
+** Opentrons
+
+*** Labware Definition
+
+Custom labware definition files seem to need to be in the JSON file format[fn:1].
+
+The cartridge does not sit snugly in the opentrons' slots for labware and tools.
+Options:
+- Design a new cartridge from scratch with opentrons in mind (long-term)
+- Modify existing labware and cartridge to get usable mish-mash (short-term)
+
+Look at existing labware definitions from the opentrons code files:
+- There are none installed
+- Search online — get one from Google's AI:
+
+  #+begin_src json
+    {
+  "schemaVersion": "1.0.0",
+  "metadata": {
+    "displayName": "My Custom 96 Well Plate",
+    "displayCategory": "wellPlate",
+    "manufacturer": "MyLabware Inc.",
+    "productType": "wellPlate",
+    "productName": "MyCustom96",
+    "uuid": "e5a1a1f9-5e90-4b3c-8f8c-2f6b0d2b4a2f"
+  },
+  "wells": {
+    "A1": {
+      "center": [-130.0, -82.5, 5.0],
+      "dimensions": {"x": 8.0, "y": 8.0, "z": 10.0},
+      "shape": "round",
+      "depth": 10.0,
+      "height": 15.0,
+      "volume": 200
+    },
+    // ... more wells ...
+  },
+  "brand": {
+    "brand": "MyLabware Inc.",
+    "brandId": "myl"
+  },
+  "labwareExtensions": {
+    "type": "standard",
+    "wellType": "96_well",
+    "wellSpacing": "1.0",
+    "gridLength": 8,
+    "gridWidth": 12
+  },
+  "quirks": ["lidAlwaysOn"],
+  "groups": [
+    {
+      "name": "A1-H12",
+      "wells": [
+        // ... references to all wells ...
+      ]
+    }
+  ],
+  "wellMatrix": [
+    // ... 2D array of wells ...
+  ]
+}
+  #+end_src
+
+  or we can use [[https://labware.opentrons.com/#/create][the labware creator]] from Opentrons to define the customised
+  mishmash of parts we will use as our labware.
+
+Here is the link for [[https://docs.opentrons.com/flex/labware/definitions/][labware definitions for the Flex machine]].
+
+- https://github.com/Opentrons/opentrons/blob/03cd0336c6051c05fa66088fabec426c7b751a85/shared-data/labware/definitions/2/opentrons_96_deep_well_adapter_nest_wellplate_2ml_deep/1.json#L1108
+
+* Footnotes
+
+[fn:1] https://support.opentrons.com/s/article/What-is-a-labware-definition 
