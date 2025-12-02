@@ -1,0 +1,116 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-12-02
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Integration
+
+
+** Check Cleaned O-Ring
+
+What is the status of the O-ring cleaned with IPA yesterday?
+
+The ring does not seem to have any visible difference from before the cleaning,
+other than, perhaps, it's less oily.
+
+
+** Manual drop-push with new Adapters
+
+I apparently left the new chip in the cartridge, rather than storing it in a
+vacuum — begin by doing a quick clean with acetone and IPA, before running a
+basic re-characterisation with distilled water.
+
+#+begin_src shell
+  python3 sweep.py --log-level debug \
+          --smu-visa-address ASRL/dev/ttyUSB0::INSTR \
+          --line-frequency 60 \
+          --nplc 12.5005 \
+          --gate-voltage 1.0 \
+          --sweep-interval 0.01 \
+          --channel-voltage 0.05  \
+          2>fd-test-01/2025-12-02/open-air-characterisation-events.log | \
+      tee fd-test-01/2025-12-02/open-air-characterisation-data.csv
+#+end_src
+
+The recharacterisation is a little worrying: we get the following plot for gate
+voltages from -1.0V to +1.0V:
+
+#+CAPTION Chip Characterisation (Chip Source 1)
+#+NAME: chip-xristics-src01-2025-12-02
+[[file:static/20251202-src01-dwater-characterisation-data-combined.svg]]
+
+We see the drop in current, but it does not rise again before we get to +1.0V.
+
+Try with a different source/drain terminal — source03: This time we get a better
+result with the Dirac point falling somewhere around 0.45V.
+
+#+CAPTION Chip Characterisation (Chip Source 3)
+#+NAME: chip-xristics-src03-2025-12-02
+[[file:static/20251202-src03-dwater-characterisation-data-combined.svg]]
+
+Now that we have a channel that we know works, replace the cartridge adapter and
+attempt pushing a drop with the new adapters.
+
+I had to file the new adapter to get it to sit nicely within the cartridge. I
+also made use of the recently cleaned O-Ring for good measure.
+
+I pushed in distilled water into the cartridge using the 20µL pipette because it
+has a fine-enough tip to fit into the adapter holes. I pushed in water until I
+could see it come out the other end (approx 100µL).
+
+After running the sweep, we get the following plot:
+
+#+CAPTION Chip Characterisation — New Adapter (Chip Source 3)
+#+NAME: chip-xristics-src03-newadapter-2025-12-02
+[[file:static/20251202-newadapter-src03-dwater-characterisation-data-combined.svg]]
+
+Now, zooming in only on the positive values, the plot becomes:
+
+#+CAPTION Chip Characterisation — New Adapter (Chip Source 3, +50mV Channel)
+#+NAME: chip-xristics-src03-newadapter-2025-12-02-positive-values
+[[file:static/20251202-newadapter-src03-dwater-characterisation-data-positive.svg]]
+
+This is a very good result — it validates the use of the flow adapter.
+
+Now, run some N_{2} gas through the adapter as an attempt to dry the chip beneath
+and do a new sweep with the now (hopefully) dry chip.
+
+For that, we get the following plots for both +/-50mV channel voltages:
+
+#+CAPTION Chip Characterisation — New Adapter, Open Air (Chip Source 3)
+#+NAME: chip-xristics-src03-openair-newadapter-2025-12-02
+[[file:static/20251202-newadapter02-src03-openair-characterisation-data-combined.svg]]
+
+Zooming in to the positive part, the plot becomes:
+
+#+CAPTION Chip Characterisation — New Adapter, Open Air (Chip Source 3, +50mV Channel)
+#+NAME: chip-xristics-src03-openair-newadapter-2025-12-02-positive-values
+[[file:static/20251202-newadapter02-src03-openair-characterisation-data-positive.svg]]
+
+The current seemingly just keeps dropping as we sweep across from -1.0V to +1.0V.
+I expected a relatively flat plot for open-air values. It is possible the flush
+did not actually completely dry the chip as I'd expected it to.
+
+
+Try again with distilled water, just to verify whether we'll get a somewhat
+similar plot as before — we get:
+
+#+CAPTION Chip Characterisation — New Adapter, Distilled Water (Chip Source 3, +50mV Channel)
+#+NAME: chip-xristics-src03-dwater-newadapter-2025-12-02-combined
+[[file:static/20251202-newadapter02-src03-dwater-characterisation-data-combined.svg]]
+
+and zooming into the positive values, the plot becomes:
+
+[[file:static/20251202-newadapter02-src03-dwater-characterisation-data-positive.svg]]
+
+There a little more noise than in the first attempt, but overall, the results
+are good. They verify, at least, that the new adapter, combined with the
+IPA-cleaned o-ring works as expected.
+
+** Clean Chip
+
+Disassemble the cartridge and leave the chip in an acetone bath overnight.
