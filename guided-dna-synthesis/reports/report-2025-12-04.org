@@ -1,0 +1,98 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2025-12-04
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Integration
+
+** File down the Older Adapter
+
+I begin the day by closing off completed tasks and noting down what we learnt
+from previous experiments regarding the adapters.
+
+Next, I take one of the older adapters, and file it down to fit it more closely
+with the dimensions from Graphenea. I went too far 🤦🏿‍♂️!
+
+Put in a small piece of paper to act as spacer and occupy the few micro-metres I
+went over.
+
+*** Test Readings With Filed-Down Adapter
+
+Now take readings from the device with the filed-down adapter:
+
+#+begin_src shell
+  python3 sweep.py --log-level debug \
+          --smu-visa-address ASRL/dev/ttyUSB0::INSTR \
+          --line-frequency 60 \
+          --nplc 12.5005 \
+          --gate-voltage 1.0 \
+          --sweep-interval 0.01 \
+          --channel-voltage 0.05  \
+          2>fd-test-01/2025-12-04/dwater-characterisation-01-events.log | \
+      tee fd-test-01/2025-12-04/dwater-characterisation-01-data.csv
+#+end_src
+
+which gives the following combined (both positive and negative channel voltages):
+
+#+CAPTION: 20251204, Open Air Characteristics (combined), Old Adapter
+#+NAME: 20251204-open-air-xristics-01-combined
+[[file:static/20251204-open-air-characterisation-01-data-combined.svg]]
+
+Where we get what are seemingly relatively flat plots (this is a lie).
+
+Zooming in to the positive channel voltages, the plot becomes:
+
+#+CAPTION: 20251204, Open Air Characteristics (+50mV), Old Adapter
+#+NAME: 20251204-open-air-xristics-01-positive
+[[file:static/20251204-open-air-characterisation-01-data-positive.svg]]
+
+This is like the past results anyway.
+
+Now we push some distilled water using a 20µL pippette into the adapter. We push
+in approximately 100µL and run the sweep.
+
+The combined plot becomes
+
+#+CAPTION: 20251204, Distilled Water Characteristics (combined), Old Adapter
+#+NAME: 20251204-dwater-xristics-01-combined
+[[file:static/20251204-dwater-characterisation-01-data-combined.svg]]
+
+and the positive values give the plot:
+
+#+CAPTION: 20251204, Distilled Water Characteristics (+50mV), Old Adapter
+#+NAME: 20251204-dwater-xristics-01-positive
+[[file:static/20251204-dwater-characterisation-01-data-positive.svg]]
+
+From this, we see that the expected curve shows up, with the Dirac point being
+at around 0.7V.
+
+This verifies that the adapter itself is not the problem, and the issues we were
+encountering could have been coming from elsewhere.
+
+** Test Plumbing
+
+We checked the fluidic tubing and realised that one of the tubes might have some
+sort of internal blockage.
+
+The process followed was:
+- force air through the tube with a syringe to ensure there are no droplets of water in the tubing
+- connect one end of tubing to a balloon full of Nitrogen (N_{2})
+- dip the other end in a small "pool" of water
+- Watch for bubble as you gently apply pressure on the balloon
+
+
+With the process above, one of the tubing had effervescent bubbling — the other
+had no bubbling whatsoever, despite applying considerable pressure on the
+balloon.
+
+The conclusion thus, was that we might need more tubing and other plumbing parts
+for replacements. We also need to test each of the tubes separately to ensure
+that all tubing that we use is clear of blockage/kinks.
+
+** Order Parts
+
+Prepare list of parts to order, and send it out.
