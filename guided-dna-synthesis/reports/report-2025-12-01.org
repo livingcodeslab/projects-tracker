@@ -36,7 +36,11 @@ automation.
 **** DONE Purge microfluidics device and store it away :livingcodeslab:housekeeping:important:not:urgent:
 **** DONE Do manual drop-push with the new adapters and see results :livingcodeslab:housekeeping:important:not:urgent:
 - Try pushing with a small pippette — should work.
-**** TODO Mod the adapter(s) from Mike: remove flange :livingcodeslab:housekeeping:important:not:urgent:
+**** DONE Mod the adapter(s) from Mike: remove flange :livingcodeslab:housekeeping:important:not:urgent:
+From the results of the  manual drop-push test above, with the new adapter, it
+might not be necessary to actually remove the flange from the adapter. It might
+make more sense to fix the height issues with the existing adapters, and also
+clean the o-rings with IPA first.
 **** DONE Look int o-ring cleaning with IPA or acetone :livingcodeslab:housekeeping:important:not:urgent:
 - Not compatible.
 - IPA has a "Minor to moderate effect" on the BN50 O-rings
