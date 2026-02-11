@@ -1,0 +1,31 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2026-02-05
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Integration
+
+** Assemble new reservoir/flowcell
+
+The tasks:
+
+- Assemble a new flow cells into the cartridge together with one of the chips
+- Push liquid through the flowcell gently with a syringe
+- Check for leaks
+- If no leaks, see how flow is
+
+  The first flowcell did not couple nicely with the =flat-bottom PEEK with
+  compression ferule= fitting. There were leaks on both sides of the flowcell.
+  Disassembling the flowcell indicates that at least, there is no flow leakage
+  on the chip itself.
+
+  The second flowcell also did not couple nicely with the =flat-bottom PEEK with
+  compression ferule= fitting. We're still getting leaks.
+
+  Consider a  complete redesign of the flowcell: perhaps avoiding use of  the
+  =flat-bottom PEEK with compression ferule= altogether, replacing it with a
+  protruding barbed tube fitting, somewhat [[https://www.mcmaster.com/5463K36-2974K331/][reminiscent of this]].
