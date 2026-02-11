@@ -1,0 +1,64 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2026-02-11
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Integration
+
+** Mitigate Leaks
+
+The leaks discovered in the last attempt could be caused by one, or a
+combination of the following observed factors:
+
+- The compression ferrule is not sitting tight, and is not getting the
+  compression it needs to form a tight seal.
+- The "Flat Bottom Fitting Peek" not threading into the hole perpendicular to
+  the bottom, i.e. the fittings thread into the holes at an angle.
+
+There's not much we can do about the threads, save re-printing the flowcell
+without the threads and attempting a manual tapping of the threads to ensure no
+artifacts.
+
+We can, however, look into using septa to provide a better seal at the bottom of
+the hole.
+
+*** Tasks
+
+- Take measurements of the fitting:
+  - Threads outer diameter: ~6.21mm
+  - Threads inner diameter: unknown
+  - Diameter of "handle" part of the fitting: 9.23mm
+- Take measurements from the STL
+  - Hole
+    - Diameter of the bottom of the hole is 6.1502mm
+    - Threads
+      - Deepest part of thread in hole: 7.88763mm
+      - Shallowest part of thread in hole: 5.48763mm
+      - Difference (thread height): 2.4mm
+    - Diameter of flow channel: 0.9144mm (0.036" ==> approx 1/32")
+- Look at the septa-caps we have: too big, 9mm
+  - Cut to approximate size using the blade
+  - Poke a hole as close to centre as I can
+
+*** Notes
+
+It look like the flowcell is designed with a channel diameter of $\frac{1}{32}"$.
+The tubing used for the rest of the microfluidics system is $\frac{1}{16}"$
+
+Using a septa seems promising: I apparently did not poke the hole in the centre
+as I'd hoped, therefore, I was not successful pushing fluid through the hole
+blocked with the septa. I also, thankfully, did not get any leakage from the
+hole, despite pushing harder than usual. Maybe, using (a) punches might give us
+better results.
+
+I expanded the hole in the septa's middle, which allowed flow of liquid through
+the input port up to where the chip would be.
+
+Build new septa with the lessons learnt: now flow on other port is established.
+
+Test flow across entire flowcell, i.e. in through one port and out through the
+other: SUCCESS!!!!
