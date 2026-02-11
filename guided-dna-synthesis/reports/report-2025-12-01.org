@@ -52,7 +52,7 @@ clean the o-rings with IPA first.
 * Footnotes
 
 [fn:5] Graphenea card techical specs: https://cdn.shopify.com/s/files/1/0191/2296/files/2022_GrapheneaCard_v2_TDS_06-02-2023.pdf?v=1676466974 
-[fn:4] ANSI/SLAS Microplate Standards: https://www.slas.org/education/ansi-slas-microplate-standards/ 
+[fn:4] ANSI/SLAS Microplate Standards: https://www.slas.org/education/ansi-slas-microplate-standards/
 
 [fn:3] Graphenea Card: https://www.graphenea.com/collections/buy-gfet-models-for-sensing-applications/products/graphenea-card 
 [fn:2] Opentrons OT-2 Platform: https://opentrons.com/products/ot-2-robot?sku=999-00111,%20999-00002,%20999-00002
