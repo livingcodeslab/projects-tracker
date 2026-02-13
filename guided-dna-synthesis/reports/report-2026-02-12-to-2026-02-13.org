@@ -1,0 +1,156 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2026-02-12 to 2026-02-13
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Integration
+
+** Reassembly and Checking Flows
+
+The goal is to do a minimum verification of the flow across the chip when the
+fluid is being pushed by the microfluidics device, unlike earlier, where the
+flow was being pushed manually with a syringe.
+
+*** Tasks
+
+- [x] Hook up the cartridge onto the microfluidics device
+- [x] Initialise the device
+- [x] Send command to flow the wash across the chip out  to waste, and observe flow
+
+*** Notes
+
+I used the tools I wrote previously to initialise the device:
+
+#+begin_src shell
+  python3 fluid_detection.py initialise-microfluidics-device \
+          --microfluidics-serial-port=/dev/ttyACM0
+#+end_src
+
+With the device initialised, I can now send a command to flow the wash fluid (in
+this case, distilled water) across the chip and out to waste.
+
+#+begin_src shell
+  echo "WASH COLLECTION 0 -T 30 -R 36" > /dev/ttyACM0 # initial test
+  echo "WASH COLLECTION 0 -T 60 -R 36" > /dev/ttyACM0
+#+end_src
+
+The flow looks consistent, albeit a tad bit slower than the flow that goes out
+to waste before the GFET chip.
+
+The slower flow could be caused by the following:
+- The extra distance out to the GFET chip and back to the microfluidics manifold
+- The jerry-rigged seal might be constricting flow
+- Others...?
+
+
+** Disassemble cartridge
+
+With the flow across the chip, with the microfluidics device, being promising, I
+begin by resetting the microfluidics device.
+
+#+begin_src shell
+  python3 fluid_detection.py reset-microfluidics-device \
+          --microfluidics-serial-port=/dev/ttyACM0
+#+end_src
+
+This purges all fluid from the manifold channels and tubing in the microfluidics
+device.
+
+I follow up by disassembling the cartridge to clean the chip I was flowing the
+fluid across, for the last few days. Leave the chip soaking in acetone.
+
+** Detecting Flows
+
+Load a new chip into the cartridge, reassemble cartridge then run an automated
+experiment to get a general feeling for the operation of the device.
+
+I ran into troubles connecting to the SMU for some reason. Restart all devices.
+
+Forgot to hook up the cartridge to the SMU 🤦🏿‍♂️. Hook it up and run the reset the device.
+
+#+begin_src shell
+  # Reset the microfluidics device
+  python3 fluid_detection.py reset-microfluidics-device \
+          --microfluidics-serial-port=/dev/ttyACM0
+  # Initialise the device
+  python3 fluid_detection.py initialise-microfluidics-device \
+          --microfluidics-serial-port=/dev/ttyACM0
+  # Run automated experiment
+  exptts=$(date +"%Y-%m-%dT%H:%M:%SUTC%z") && \
+      python3 isswisafre.py run-experiment \
+              --smu-visa-address=ASRL/dev/ttyUSB0::INSTR \
+              --line-frequency=60 \
+              --nplc=12.5005 \
+              --microfluidics-serial-port=/dev/ttyACM0 \
+              --max-gate-voltage=1.0 \
+              --sweep-interval=0.01 \
+              --channel-voltage=0.05 \
+              2>"fd-test-01/2026-02-12/expt-${exptts}-events.log" | \
+          tee "fd-test-01/2026-02-12/expt-${exptts}-readings.log"
+#+end_src
+
+The experiment took slightly over 25 hours to complete.
+Now process the data and plot it out somewhere:
+
+#+begin_src shell
+  python3 isswisafre.py process-data \
+          "fd-test-01/2026-02-12/expt-${exptts}-readings.log" \
+          "fd-test-01/2026-02-12/" && \
+      python3 plotter.py \
+              --plottitle="Combined plot" \
+              --xaxis="timestamp" \
+              --yaxis="drain_current" \
+              --ylabel="Drain Current — I_D (A)" \
+              "fd-test-01/2026-02-12/expt-${exptts}-readings-combined-plot.svg" \
+              "fd-test-01/2026-02-12/expt-${exptts}-readings_positive.log" \
+              "fd-test-01/2026-02-12/expt-${exptts}-readings_negative.log" && \
+      python3 plotter.py \
+              --plottitle="Positive channel voltage plot" \
+              --xaxis="timestamp" \
+              --yaxis="drain_current" \
+              --ylabel="Drain Current — I_D (A)" \
+              "fd-test-01/2026-02-12/expt-${exptts}-readings-positive-plot.svg" \
+              "fd-test-01/2026-02-12/expt-${exptts}-readings_positive.log" && \
+      python3 plotter.py \
+              --plottitle="Negative channel voltage plot" \
+              --xaxis="timestamp" \
+              --yaxis="drain_current" \
+              --ylabel="Drain Current — I_D (A)" \
+              "fd-test-01/2026-02-12/expt-${exptts}-readings-negative-plot.svg" \
+              "fd-test-01/2026-02-12/expt-${exptts}-readings_negative.log";
+#+end_src
+
+That gives us the following combined plot:
+
+#+CAPTION Chip Characterisation (Combined)
+#+NAME: chip-xristics-combined
+[[file:static/expt-2026-02-12T12:15:11UTC-0600-readings-combined-plot.svg]]
+
+and extracting the plot for only the positive channel voltage (+50mV)
+
+#+CAPTION Chip Characterisation (+50mV)
+#+NAME: chip-xristics-positive-50mv
+[[file:static/expt-2026-02-12T12:15:11UTC-0600-readings-positive-plot.svg]]
+
+The raw data for the experiment is included in the following 2 text files:
+
+- [[file:static/expt-2026-02-12T12:15:11UTC-0600-readings.csv][the raw readings]]
+- [[file:static/expt-2026-02-12T12:15:11UTC-0600-events.log][events log]]
+
+The events log is maintained to help with estimating when the changes occured.
+
+** Further Analysis
+
+The plots above are for the raw data, and do not give us much information. Our goal is to extract the dirac points for the fluids and see whether or not we can detect any shift that would indicate differences in the fluids.
+
+The idea is to follow the following steps (modify as appropriate):
+- fetch data for each and every sweep (will probably require writing some code)
+- align the values to the changes in gate voltage (raw data includes the gate voltage values for each measure)
+- figure out what the dirac point voltage (gate voltage when drain current is lowest) for each sweep is
+- maybe also record current at the dirac voltage (useful metadata for final plot)
+- plot the changes in the dirac voltages, see whether there is a detectible shift
+- iterate: probably need to clean up the data somewhat to remove erroneous data.
