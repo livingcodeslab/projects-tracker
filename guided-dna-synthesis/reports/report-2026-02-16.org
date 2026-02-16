@@ -1,0 +1,86 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2026-02-16
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+
+* Integration
+
+** Extract Dirac Points
+
+I [[https://github.com/livingcodeslab/gfet-microfluidics-experiments/commit/c0d7fa88f3356c2b7d2ec80a251b983e43b0a541][wrote code]] to extract the dirac points from the raw data then plotted those values.
+
+This reduced the raw data down to [[https://github.com/livingcodeslab/gfet-microfluidics-experiments/commit/c0d7fa88f3356c2b7d2ec80a251b983e43b0a541][this list of dirac point]].
+
+Plotting these, we get
+
+#+CAPTION: Plot of Dirac Points with time
+#+NAME: raw-dirac-points-with-time
+[[file:static/20260216-raw-dirac-points.svg]]
+
+*** Explanation
+
+We began by priming the device followed by running [[https://github.com/livingcodeslab/gfet-microfluidics-experiments/blob/main/isswisafre.py#L124-L146][this experiment]].
+
+That means that, the GFET line starts off with the wash fluid (distilled water,
+in this case) in contact with the chip. This should show up at the immediate
+beginning of the plot.
+
+We follow that up by pumping 10 seconds worth of 0.0005X PBS, followed by 10
+seconds of the wash fluid, then 10 seconds worth of 0.001X PBS and finally 120
+seconds worth of the wash fluid.
+
+Knowing that, we can use the long tail of the plot to identify the expected
+dirac point for the wash fluid and use that to verify the small initial delay
+before the first plug of PBS reaches the chip. The plot shows a small, albeit
+noisy region with a number of values at a mostly similar value of around 0.98V.
+
+This is followed by a steep drop in the dirac voltage that fluctuates around
+0.89V. This is followed by a brief spike back up to around 0.98V then back down
+to fluctuate at around 0.91V before finally rising back to around 0.98V.
+
+*NOTE* The plot is noisy, and the values noted in the analysis above are quick
+and dirty estimates.
+
+*** Root-mean-square
+
+We try computing root-mean-square values for the dirac points and plotting the
+results to see whether we'll get a cleaner plot.
+
+We use a "window" of n readings around the reading of interest to compute the
+RMS value. This creates a problem for the edges of the plot, since the first n/2
+and the last n/2 readings will not have equal neighbours to each side. We
+mitigate that by simply taking more values to the right, for the starting edge
+and more values to the left for the trailing edge.
+
+Using a window of 3, we do:
+
+#+begin_src shell
+  python3 rms_diracs.py --window-size=3 ./diracs.csv > rms_diracs.csv && \
+      python3 plotter.py --plottitle="RMS Dirac Voltages" --xaxis "timestamp" \
+              --xlabel "Timestamp (S)" --yaxis "rms_gate_voltage" \
+              --ylabel "RMS Gate Voltage (V)" ./rms_diracs.svg ./rms_diracs.csv
+#+end_src
+
+and thus get [[file:static/20260216-rms-diracs.csv][these computed RMS dirac point values]] and from those, we get the
+following plot:
+
+#+CAPTION: Plot of RMS Dirac Points with time
+#+NAME: rms-dirac-points-with-time
+[[file:static/20260216-rms-diracs.svg]]
+
+This better disambiguation of the "sensing levels".
+
+** Further Work
+
+Some of the sweeps did not display clean bottoming out of the currents for
+distilled water — it seems the range of voltages we used might not have been
+sufficient to bottom out to the dirac point of distilled water. We might need to
+repeat the experiment with a slightly wider range of values (e.g. -1.5V to 1.5V)
+in order to be sure of the dirac point voltages for each sweep.
+
+We'll also need a way to detect and remove the spikes that lead to noisy data,
+which leads to the detection points not being nice clean levels.
