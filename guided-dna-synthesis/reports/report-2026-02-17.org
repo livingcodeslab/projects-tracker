@@ -1,0 +1,102 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2026-02-17
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+#+AUTO_TANGLE: t 
+* Integration
+
+** Clean Chip
+
+Clean the chip that was used in  recent experiment: leave it soaking in Acetone
+
+** Annotate Plot
+
+The recent plots are not necessarily easy to read. I will add annotations to
+them to make it easier to read and track the events.
+
+#+begin_src gnuplot :tangle ./20260217-raw-dirac-points-annotated.gp
+  # Set the terminal
+  set terminal svg size 1200,1000 dynamic mouse standalone # name Raw_Dirac_Point_Voltages
+  set termoption enhanced
+  set termoption font 'arial,12'
+  set termoption fontscale 1.0
+  # set termoption {linewidth <lw>}{lw <lw>}{dashlength <dl>}{dl <dl>}
+  # set termoption {pointscale <ps>}{ps <ps>}
+
+  # Specify output file
+  set output "./static/20260217-raw-dirac-points-annotated.svg"
+
+  # Set the options
+  set xtics border mirror in rotate by 270
+  set ytics border mirror out norotate
+  set grid xtics ytics
+
+  # Specify the key
+  set key on enhanced box
+  set key inside center right
+  set key title "Legend"
+
+  # Set up a sample label
+  # set label "my label text" at first 1770932181.051858,0.72
+  set arrow from 1770931580.575568,1.0 to 1770931580.575568,0.72 lc rgb '#FF0000' dashtype '-.' # '--..'
+  set label "0.0005X PBS" at 1770931580.575568,0.8 tc rgb '#FF0000' rotate by 270
+
+  set arrow from 1770937600.255203,1.0 to 1770937600.255203,0.72 lc rgb '#994400' dashtype '-.' # '--..'
+  set label "WASH" at 1770937600.255203,0.8 tc rgb '#994400' rotate by 270
+
+  set arrow from 1770943601.126401,1.0 to 1770943601.126401,0.72 lc rgb '#55A4FF' dashtype '-.' # '--..'
+  set label "0.001X PBS" at 1770943601.126401,0.8 tc rgb '#55A4FF' rotate by 270
+
+  set arrow from 1770949611.652283,1.0 to 1770949611.652283,0.72 lc rgb '#3333FF' dashtype '-.' # '--..'
+  set label "WASH" at 1770949611.652283,0.8 tc rgb '#3333FF' rotate by 270
+
+  # Plot the data
+  set title 'Raw Dirac Point Voltages (Annotated)' font ',30' textcolor lt -1 norotate
+  set xlabel "Timestamp (S)"
+  set ylabel "Dirac Point Voltage (V)"
+  set datafile separator ","
+  plot \
+       './static/20260216-raw-dirac-points.csv' \
+       using 'timestamp':'measured_gate_voltage' \
+       title 'Dirac Point Voltage (V)' \
+       with lines
+#+end_src
+
+
+This gives us the plot
+
+#+CAPTION: Annotated Raw Dirac Point Voltages
+#+NAME: raw-dirac-points-annotated
+[[file:static/20260217-raw-dirac-points-annotated.svg]]
+
+In the plot, I estimate it takes about 20 seconds to pull the very first
+=0.0005X PBS= reagent from its port to the surface of the chip. This places the
+annotation lines more to the right than I expected.
+
+If I shift manually 10 steps left (a step is the time taken to pump one second
+of a reagent, and then run a whole sweep — which comes to approximately 601
+seconds), the annotation lines seem to align with my original expectations.
+
+I need to verify how long it takes to pump a reagent from the primed reagent
+channel to the surface of the chip in order to better annotate the diagrams.
+
+** Verify Timings
+
+The 20 seconds estimate is for priming the device. I was approaching the
+annotations wrong.
+
+I need to do the following:
+
+- [x] prime the device
+- [x] do a purge on the GFET line (this purges the common line as well)
+
+After purging the manifold and tubing with air, it takes about 31 seconds to
+pump from channel to the surface of the GFET. If this holds even when working
+with completely primed channels, it implies my annotations should actually be
+shifted another 11 steps to the right.
+
+This implies that my initial conclusions might be completely wrong.
