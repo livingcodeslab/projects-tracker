@@ -1,0 +1,34 @@
+#+STARTUP: content
+#+AUTHOR: Frederick Muriuki Muriithi
+#+TITLE: Guided DNA Synthesis Project Documentation
+
+* Introduction
+
+This directory contains the project documentation, i.e. documentation on
+materials, consumables, models etc. that go toward making the project a success.
+
+* Microfluidics Device Documentation
+
+** TODO Remember to document this
+
+* Microfluidics Paper
+
+To build the paper you will need the dependencies listed in the included
+[[file:paper-manifest.scm][guix manifest]].
+
+#+INCLUDE "./paper-manifest.scm"
+
+If you are using GNU Guix, and your current working directory is this directory,
+then you can get a shell with:
+
+#+begin_src shell
+  guix shell --container --network \
+       --expose="$(dirname $(pwd))/reports/references.bib" \
+       --manifest=paper-manifest.scm
+#+end_src
+
+and in the resulting shell, you can build the paper with:
+
+#+begin_src shell
+  make -f Makepaper all
+#+end_src

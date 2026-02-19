@@ -1,0 +1,16 @@
+papername := 2026-02-17-paper
+generated_extensions := .aux .bbl .bcf .blg .dvi .log .out .pdf .run.xml .toc
+
+clean:
+	for ext in $(generated_extensions); do rm -fv $(papername)$$ext; done
+
+%.bcf: $(papername).tex
+	xelatex $(papername).tex
+
+%.bbl: $(papername).bcf
+	biber $(papername).bcf
+
+all: $(papername).tex $(papername).bcf $(papername).bbl
+	xelatex $(papername).tex
+	xelatex $(papername).tex
+	xelatex $(papername).tex

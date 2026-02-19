@@ -2,10 +2,10 @@
 
 ## TeX and LaTeX generated files
 **/*.pdf
-**/*.tex
+**/report*.tex
 **/*.pdf_tex
-**/*.aux
-**/*.bbl
-**/*.log
-**/*.out
-**/*.toc
+**/report*.aux
+**/report*.bbl
+**/report*.log
+**/report*.out
+**/report*.toc
