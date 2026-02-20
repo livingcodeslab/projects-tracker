@@ -80,7 +80,7 @@ We will need to plot the results, so let us set up some plot styles:
 
 We got the following readings
 
-#+INCLUDE "file:static/20260220-inert-readings.csv" src csv
+#+INCLUDE: "./static/20260220-inert-readings.csv" src csv
 
 the event log for the sweep can be [[file:static/20260220-inert-events.txt][viewed here]].
 
@@ -113,7 +113,7 @@ Which will give us the plot:
 
 We get the following readings:
 
-#+INCLUDE "file:static/20260220-water-readings.csv" src csv
+#+INCLUDE: "./static/20260220-water-readings.csv" src csv
 
 with the events log [[static/20260220-water-readings.svg][available here]].
 
@@ -146,7 +146,7 @@ we get
 
 The results are:
 
-#+INCLUDE "file:static/20260220-0-0005X-PBS-readings.csv" src csv
+#+INCLUDE: "./static/20260220-0-0005X-PBS-readings.csv" src csv
 
 and plotting that,
 
@@ -177,7 +177,7 @@ we get
 
 We got the following results
 
-#+INCLUDE "file:static/20260220-0-001X-PBS-readings.csv" src csv
+#+INCLUDE: "./static/20260220-0-001X-PBS-readings.csv" src csv
 
 and plotting that
 
