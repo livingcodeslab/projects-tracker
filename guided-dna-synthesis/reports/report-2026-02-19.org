@@ -1,0 +1,71 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2026-02-19
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+#+AUTO_TANGLE: t 
+
+* Integration
+
+** Verify Flow
+
+The goal of this is to verify that the liquid we expect flows to the surface of
+the chip. We'll also take this opportunity to verify some timings.
+
+The process is as follows:
+
+- [x] Prime the microfluidics device — this leaves the common and GFET lines
+  primed with the wash reagent (distilled water)
+- [ ] Pull in 1 second of air through the vent
+- [ ] Push more wash behind the plug of air until it gets to close the entry of
+  the flow cell
+- [ ] Review results
+
+
+*** Run the process
+
+Prime
+
+#+begin_src shell
+  python3 fluid_detection.py initialise-microfluidics-device \
+          --microfluidics-serial-port /dev/ttyACM0
+#+end_src
+
+Push 1 second of air
+
+#+begin_src shell
+  echo "PURGE ALL 0 -T 1 -R 36" > /dev/ttyACM0
+#+end_src
+
+Now push more wash to move the plug of air along the channel
+
+#+begin_src shell
+  echo "WASH COLLECTION 0 -T 20 -R 36" > /dev/ttyACM0
+  echo "WASH COLLECTION 0 -T 1 -R 36" > /dev/ttyACM0
+  echo "WASH COLLECTION 0 -T 1 -R 36" > /dev/ttyACM0
+  echo "WASH COLLECTION 0 -T 1 -R 36" > /dev/ttyACM0
+  echo "WASH COLLECTION 0 -T 1 -R 36" > /dev/ttyACM0
+  echo "WASH COLLECTION 0 -T 1 -R 36" > /dev/ttyACM0
+  echo "WASH COLLECTION 0 -T 1 -R 36" > /dev/ttyACM0
+  echo "WASH COLLECTION 0 -T 1 -R 36" > /dev/ttyACM0
+  echo "WASH COLLECTION 0 -T 1 -R 36" > /dev/ttyACM0
+  echo "WASH COLLECTION 0 -T 1 -R 36" > /dev/ttyACM0
+  echo "WASH COLLECTION 0 -T 1 -R 36" > /dev/ttyACM0
+  echo "WASH COLLECTION 0 -T 1 -R 36" > /dev/ttyACM0
+  echo "WASH COLLECTION 0 -T 1 -R 36" > /dev/ttyACM0
+  echo "WASH COLLECTION 0 -T 1 -R 36" > /dev/ttyACM0
+  echo "WASH COLLECTION 0 -T 1 -R 36" > /dev/ttyACM0
+  echo "WASH COLLECTION 0 -T 1 -R 36" > /dev/ttyACM0
+  echo "WASH COLLECTION 0 -T 1 -R 36" > /dev/ttyACM0
+  echo "WASH COLLECTION 0 -T 1 -R 36" > /dev/ttyACM0
+  echo "WASH COLLECTION 0 -T 1 -R 36" > /dev/ttyACM0
+#+end_src
+
+I was able to push a plug of air through the system, unfortunately, it does get
+broken apart as it goes through the system, such that we end up with multiple,
+smaller plugs of air of varying sizes.
+
+Overall, we need a better flow through the system.
