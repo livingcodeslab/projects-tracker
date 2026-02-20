@@ -78,9 +78,7 @@ We will need to plot the results, so let us set up some plot styles:
 
 *** Results: Inert Environment (N_{2} Gas)
 
-We got the following readings
-
-#+INCLUDE: "./static/20260220-inert-readings.csv" src csv
+We got [[file:static/20260220-inert-readings.csv][these readings]].
 
 the event log for the sweep can be [[file:static/20260220-inert-events.txt][viewed here]].
 
@@ -111,9 +109,7 @@ Which will give us the plot:
 
 *** Results: Distilled Water Environment (H_{2}O)
 
-We get the following readings:
-
-#+INCLUDE: "./static/20260220-water-readings.csv" src csv
+We get [[file:static/20260220-water-readings.csv][these readings]].
 
 with the events log [[static/20260220-water-readings.svg][available here]].
 
@@ -144,9 +140,7 @@ we get
 
 *** Results: 0.0005X PBS Environment
 
-The results are:
-
-#+INCLUDE: "./static/20260220-0-0005X-PBS-readings.csv" src csv
+The results are [[file:static/20260220-0-0005X-PBS-readings.csv][here]].
 
 and plotting that,
 
@@ -175,9 +169,7 @@ we get
 
 *** Results: 0.001X PBS Environment
 
-We got the following results
-
-#+INCLUDE: "./static/20260220-0-001X-PBS-readings.csv" src csv
+We got [[file:static/20260220-0-001X-PBS-readings.csv][these results]].
 
 and plotting that
 
