@@ -1,0 +1,218 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2026-02-20
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+#+AUTO_TANGLE: t
+#+OPTIONS: ^:{}
+
+* Integration
+
+** Manual Sweeps
+
+We verify the operation parameters of the flowcell by manually pushing fluid through the cell and taking readings.
+
+Steps: 
+- [x] disassemble the cartridge and dry the chip by running a stream of N_{2}
+  gas over it
+- [x] reassemble the cartridge
+- [x] connect cartridge to SMU
+- [x] Push N_{2} gas through the flowcell to ensure inert environment inside the
+  flowcell
+- [x] Run a sweep and take reading from SMU with inert environment
+- [x] Push distilled water with a syringe
+- [x] Run a sweep and take reading from SMU with distilled water
+- [x] Push 0.0005X PBS with a syringe
+- [x] Run a sweep and take reading from SMU with 0.0005X PBS
+- [x] Push distilled water with a syringe
+- [x] Run a sweep and take reading from SMU with distilled water
+- [x] Push 0.001X PBS with a syringe
+- [x] Run a sweep and take reading from SMU with 0.001X PBS
+- [x] Flush flowcell with distilled water
+- [x] Remove and soak chip in acetone
+
+The sweep will be run with a command like:
+
+#+begin_src shell
+  python3 sweep.py \
+          --log-level debug \
+          --smu-visa-address ASRL/dev/ttyUSB0::INSTR \
+          --line-frequency 60 \
+          --nplc 12.5005 \
+          --gate_voltage 1.0 \
+          --sweep_interval 0.01 \
+          --channel-voltage 0.05 \
+          > fd-test-01/2026-02-20/20260220-<sweep-name>-readings.csv \
+          2>fd-test-01/2026-02-20/20260220-<sweep-name>-events.txt
+#+end_src
+
+where =<sweep-name>= will take the values "inert", "water", "0-0005X-PBS", "0-001X-PBS"
+
+then we can process the data to extract values for positive channel (drain-source) voltages:
+
+#+begin_src shell
+  python3 isswisafre.py process-data \
+          fd-test-01/2026-02-20/20260220-<sweep-name>-readings.csv \
+          fd-test-01/2026-02-20/
+#+end_src
+
+We will need to plot the results, so let us set up some plot styles:
+
+#+begin_src gnuplot :tangle ./20260220-plotting-styles.gp
+  # Taken from report-2026-02-17
+  # Set the terminal
+  set terminal svg size 1200,1000 dynamic mouse standalone
+  set termoption enhanced
+  set termoption font 'arial,12'
+  set termoption fontscale 1.0
+
+  # Set the plot options
+  set xtics border mirror in rotate by 270
+  set ytics border mirror out norotate
+  set grid xtics ytics
+#+end_src
+
+
+*** Results: Inert Environment (N_{2} Gas)
+
+We got the following readings
+
+#+INCLUDE "file:static/20260220-inert-readings.csv" src csv
+
+the event log for the sweep can be [[file:static/20260220-inert-events.txt][viewed here]].
+
+Now we can plot that:
+
+#+begin_src gnuplot :tangle ./20260220-inert-readings.gp
+  load "./20260220-plotting-styles.gp"
+
+  set output "./static/20260220-inert-readings.svg"
+
+  set title "Sweep in Inert (N_{2}) Environment."
+  set xlabel "Gate Voltage (V)"
+  set ylabel "Drain Current (A)"
+  set datafile separator ","
+  plot \
+       "./static/20260220-inert-readings_positive.csv" \
+       using "measured_gate_voltage":"drain_current" \
+       title "Inert Environment Characteristics" \
+       with lines
+#+end_src
+
+Which will give us the plot:
+
+#+CAPTION: Inert Environment Characteristics
+#+NAME: 20260220-inert-env-xristics
+[[file:static/20260220-inert-readings.svg]]
+
+
+*** Results: Distilled Water Environment (H_{2}O)
+
+We get the following readings:
+
+#+INCLUDE "file:static/20260220-water-readings.csv" src csv
+
+with the events log [[static/20260220-water-readings.svg][available here]].
+
+Plotting that:
+
+#+begin_src gnuplot :tangle ./20260220-water-readings.gp
+  load "./20260220-plotting-styles.gp"
+
+  set output "./static/20260220-water-readings.svg"
+
+  set title "Sweep in Distilled-Water (H_{2}O) Environment."
+  set xlabel "Gate Voltage (V)"
+  set ylabel "Drain Current (A)"
+  set datafile separator ","
+  plot \
+       "./static/20260220-water-readings_positive.csv" \
+       using "measured_gate_voltage":"drain_current" \
+       title "Distilled-Water Environment Characteristics" \
+       with lines
+#+end_src
+
+we get
+
+#+CAPTION: Distilled Water Environment Characteristics
+#+NAME: 20260220-water-env-xristics
+[[file:static/20260220-water-readings.svg]]
+
+
+*** Results: 0.0005X PBS Environment
+
+The results are:
+
+#+INCLUDE "file:static/20260220-0-0005X-PBS-readings.csv" src csv
+
+and plotting that,
+
+#+begin_src gnuplot :tangle ./20260220-0-0005X-PBS-readings.gp
+  load "./20260220-plotting-styles.gp"
+
+  set output "./static/20260220-0-0005X-PBS-readings.svg"
+
+  set title "Sweep in 0-0005X-PBS (N_{2}) Environment."
+  set xlabel "Gate Voltage (V)"
+  set ylabel "Drain Current (A)"
+  set datafile separator ","
+  plot \
+       "./static/20260220-0-0005X-PBS-readings_positive.csv" \
+       using "measured_gate_voltage":"drain_current" \
+       title "0-0005X-PBS Environment Characteristics" \
+       with lines
+#+end_src
+
+we get
+
+#+CAPTION: 0.0005X PBS Environment Characteristics
+#+NAME: 20260220-0-0005X-PBS-env-xristics
+[[file:static/20260220-0-0005X-PBS-readings.svg]]
+
+
+*** Results: 0.001X PBS Environment
+
+We got the following results
+
+#+INCLUDE "file:static/20260220-0-001X-PBS-readings.csv" src csv
+
+and plotting that
+
+#+begin_src gnuplot :tangle ./20260220-0-001X-PBS-readings.gp
+  load "./20260220-plotting-styles.gp"
+
+  set output "./static/20260220-0-001X-PBS-readings.svg"
+
+  set title "Sweep in 0-001X-PBS (N_{2}) Environment."
+  set xlabel "Gate Voltage (V)"
+  set ylabel "Drain Current (A)"
+  set datafile separator ","
+  plot \
+       "./static/20260220-0-001X-PBS-readings_positive.csv" \
+       using "measured_gate_voltage":"drain_current" \
+       title "0-001X-PBS Environment Characteristics" \
+       with lines
+#+end_src
+
+we got
+
+#+CAPTION: 0.001X PBS Environment Characteristics
+#+NAME: 20260220-0-001X-PBS-env-xristics
+[[file:static/20260220-0-001X-PBS-readings.svg]]
+
+
+** Discussion
+
+I expected a mostly horizontal line for the inert environment, but instead, I
+got a curve.
+
+As for the other environments, I expected curves that would go down, bottom out
+at the dirac points for the various liquids then start rising.
+
+We did not get the curves we expected.
+
+Something about the system is not working/responding as it should, and I'll need
+to investigate this further.
