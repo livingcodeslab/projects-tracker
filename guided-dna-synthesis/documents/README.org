@@ -24,6 +24,7 @@ then you can get a shell with:
 #+begin_src shell
   guix shell --container --network \
        --expose="$(dirname $(pwd))/reports/references.bib" \
+       --expose="$(dirname $(pwd))/reports/manuals-and-technical-datasheets.bib" \
        --manifest=paper-manifest.scm
 #+end_src
 
@@ -31,4 +32,14 @@ and in the resulting shell, you can build the paper with:
 
 #+begin_src shell
   make -f Makepaper all
+#+end_src
+
+or, putting it all together, you can do it all in one command:
+
+#+begin_src shell
+  guix shell --container --network \
+       --expose="$(dirname $(pwd))/reports/references.bib" \
+       --expose="$(dirname $(pwd))/reports/manuals-and-technical-datasheets.bib" \
+       --manifest=paper-manifest.scm -- \
+       make -f Makepaper all
 #+end_src
