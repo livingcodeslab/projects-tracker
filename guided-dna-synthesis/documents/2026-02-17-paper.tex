@@ -34,16 +34,45 @@ Review some literature here, \textcite{xu2022719} \textcite{khan20211335}
 
 \subsection{Establishing Characteristics}
 
-\subsubsection{Graphenea GFET-S20 Chip}
-In order to verify the operation of the GFET-S20 chip, the operational
-characteristics \textcite{gfet-ds-s20} of the chip needed to be established in
-order to ensure that the device was being used in the correct configuration and
-as intended. The ``\textbf{Liquid Gating}'' properties \textcite{gfet-mphi-s2x}
-were particularly important, being the configuration in which the chip was
-used in.
+\subsubsection{Source-Measure Unit (SMU)}
 
-==> 2025-04-17 to 2025-04-24: Validate chip characteristics
+The Keithley 2602B source-measure unit (SMU) provided a source for the voltages/currents we needed and also acted as the measuring device. Its use and operational characteristics were established by reading the device's documentation \textcite{tektronix-2600B-dtsht} \textcite{tektronix-2600B-usrmn} \textcite{tektronix-2600B-refmn} \textcite{tektronix-2600B-qsg}.
+
+A simple astable multivibrator circuit was built and used to further improve understanding of the handling, use, and response of the source-measure unit.
+
+\subsubsection{Graphenea GFET-S20 Chip}
+
+In the ``liquid-gating'' mode, the plot of the resistance across the drain-source channel (R\textsubscript{DS}) of the Graphenea GFET-S20 chips forms a curve that rises as the the gate voltage (V\textsubscript{G}) increase from 0V, peaking at the dirac point voltage (i.e. the gate voltage value, at which the resistance peaks) before falling off as the gate voltage keeps increasing. The exact value of the dirac point voltage is determined by the chips doping and any ions/molecules adsorbed during operation.
+
+Adsorption of water molecules (and other adsorbates) can lead to the Dirac point voltage being shifted to more positive gate voltages \textcite{gfet-mphi-s2x} possibly leading to the Dirac voltage to exceed the specified range of <1V (less than 1V) \textcite{gfet-ds-s20}. In this case, the chip would be cleaned by immersing the chip in acetone for at least twelve hours then rinsing with iso-propyl alcohol.
+
+Initially, the voltage across the drain-source channel (V\textsubscript{DS}) was varied from -1.7V to +1.7V in 1V increments, and for each drain-source voltage level, the gate voltage (V\textsubscript{G}) was varied from -1.7V to +1.7V changing by 0.005V increments. This was done as a quick scan of useful operating points for the chip.
+
+\textbf{Air}
+
+Measurements were taken agaist open-air, and the plots generated were mostly flat, indicating that there was barely any change in the current flowing across the channel for each channel voltage (V\textsubscript{DS}) with a change in the gate voltage (V\textsubscript{G}).
+
+==> TODO: Include plot here.
+==> NOTE: The channel voltages here are too high
+
+\textbf{Distilled Water}
+
+==> TODO: Include plot here.
+==> NOTE: The channel voltages here are too high
+
+\textbf{Phosphate Buffered Solution (PBS)}
+
 --> TODO: Do we include the notes on breaking the chip, and cleaning it?
+Initially, a 1X PBS solution was used, missing the fact that the supplementary manual on ``Measurement Protocols and Handling Instructions'' for the GFET-S20 chip \textcite{gfet-mphi-s2x} used 0.001X PBS. This broke the characteristics of the chip significantly, necessitating cleaning the chip in an attempt to restore its characteristics. Thankfully, the same document contained cleaning instructions, that were followed, allowing recovery of the chip.
+
+==> TODO: Include plot(s) here.
+
+Subsequent validation operations were done with diluted PBS, specifically, 0.0005X and 0.001X PBS solutions.
+
+==> TODO: Include plot(s) here.
+
+\subsubsection{Microfluidics Device}
+==> 2025-05-20 to 2025-08-08: Microfluidics device
 
 \subsubsection{Opentrons}
 ==> 2025-04-30:
@@ -51,9 +80,6 @@ used in.
 --> litrev: GFET-S20: drain voltage <= 100mV
 ==> 2025-05-10: litrev: GFET-S20: drain voltage 50mV
 ==> 2025-05-06: Verify operating points (drain voltage <= 100mV): choose 50mV
-
-\subsubsection{Microfluidics Device}
-==> 2025-05-20 to 2025-08-08: Microfluidics device
 
 
 \subsection{Integration}
@@ -73,11 +99,11 @@ used in.
 \section{Discussion/Conclusions}
 
 %% References/Bibliography
-\printbibliography[heading=bibintoc]
-%% \printbibheading
-%% \printbibliography[type=article, title={Papers}, heading=subbibintoc]
-%% \printbibliography[
-%%   type=manual, title={Manuals and Technical Datasheets}, heading=subbibintoc]
+%% \printbibliography[heading=bibintoc]
+\printbibheading
+\printbibliography[type=article, title={Articles}, heading=subbibintoc]
+\printbibliography[
+  type=manual, title={Manuals and Technical Datasheets}, heading=subbibintoc]
 
 % \appendices{generate automatically, somehow}
 
