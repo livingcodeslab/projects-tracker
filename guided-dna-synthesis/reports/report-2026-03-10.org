@@ -1,0 +1,61 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2026-03-10
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+#+AUTO_TANGLE: t
+#+OPTIONS: ^:{}
+
+* Integration
+
+** Review Possible Causes for Breakages
+
+@erikg and I had a quick discussion on likely causes for the breakage of the chips. We do not think there is physical damage of the chip.
+
+We learnt, after some searching, that there is the possibility that the material of the flowcell might not have cured correctly, and is thus leaching plasticizers (and possibly other chemicals) into the water, leading to problems with the chip (surface-Chemistry problems :sob:).
+
+The Buna-N O-rings are also very dirty in the grand scheme of things, leaving huge amounts of residue on the chip.
+
+We decided to order new parts with a different material, this time
+
+#+begin_example
+- Technology: FDM
+- PA6-CF Carbon Fiber (20%) Nylon
+- Infill: 75%
+#+end_example
+
+We also avoid threads in the design, preferring to tap the threads to get more accurate sealing.
+
+*** Orders
+
+- [x] Silicone O-Rings
+  - https://oringsandmore.com/silicone-o-rings-4-x-1mm-minimum-25-pcs/
+- Generate new design with the unthreaded design
+  - [x] Trim the height
+  - [x] Generate STL
+  - [x] Make order
+    - FDM, PA6-CF (20%) Nylon, 75% infill
+  - [x] Send quote to @tbrock for payment
+
+Since we are using the non-threaded design, we need a way to add threads to the resulting flowcell. To do this, we need to know the following details regarding the threads:
+
+- Major diameter (outer diameter)
+- Minor diameter (Inner diameter)
+- Pitch (threads per inch [common units/Imperial] or distance between threads [metric])
+
+
+I ordered the CAD (Computer-Aided Design) for the [[https://www.idex-hs.com/store/product-detail/flangeless_fitting_short_peek_1_4_28_flat_bottom_for_1_16_od_natural_single/xp-235][XP-235, Short Flangeless PEEK fitting]]. Looking at the page, it looks like the fitting has a 1/4"-28 thread.
+
+We can get the following tools to enable us do the threading:
+
+- Threading/Rethreading Toolkit
+  - Preferred: https://www.amazon.com/Mitutoyo-188-151-Screw-Pitch-Gage/dp/B000X37XGS
+  - Fallback: https://www.amazon.com/60-Piece-Master-Tap-Die-Set/dp/B07TYXR42R
+- Thread pitch gauge
+  - https://www.amazon.com/Mitutoyo-188-151-Screw-Pitch-Gage/dp/B000X37XGS
+
+Order is sent out for the tools.
+
