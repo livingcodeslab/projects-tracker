@@ -1,0 +1,104 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2026-04-21
+#+AUTHOR: Frederick Muriuki Muriithi
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+#+AUTO_TANGLE: t
+#+OPTIONS: ^:{}
+
+* Integration
+
+** Regarding the SLA Parts
+
+The information I got from Protolabs, regading the finishing for the parts was as follows:
+
+#+begin_quote
+Fred,
+
+SLA parts get cleaned with Poly flush (SDS attached above) and Isopropyl Alcohol
+
+SDS attached for watershed too.
+
+Then they get cured in a UV chamber.
+
+There should not be any resin on the part, it all gets cleaned/cured in the post process.
+
+However, we do not have any data on any off gassing that may occur.
+
+Let me know what other questions you have.
+#+end_quote
+
+The safety data sheets (SDS) were downloaded and added to local list of SDS, for
+reference.
+
+** Testing new Flowcells
+
+*** Cutting Threads in Flowcell
+
+The flowcells require threads in order to attach the PEEK connector, and allow
+flow through. Thus, it was necessary to cut the threads in the connector.
+
+The thread cutting is made with using the 1/4"-28 thread tap, holding the
+flowcell in one hand and cutting with the other. This is not the best way to do
+this, but it will have to do for now.
+
+The threads were cut, relatively easily. I then rinsed off the flowcell with
+running water and dried it off.
+
+The SDS indicates that the SOMOS® WaterShed® XC 11122 material is an irritant to
+the eyes, and could cause allergic skin reactions. Only noted that after doing
+the cut. Mitigate any damage by washing the hands thoroughly.
+
+Next, I try to hook up the PEEK connectors: they seem to sit nicely, and from
+the fuzzy-see-through material of the flowcell, it looks like the ferrule is
+being compressed as expected.
+
+
+** Manual Tests:
+
+After hooking up the PEEK connectors, we do the first few manual tests for flow.
+
+First, I pushed distilled water through each channel using a syringe. There was
+good flow for each of the channels, with not much resistance.
+
+Second, I test the flow in through one channel and out the other for the entire
+flowcell. To do this, I need to mount flowcell onto cartridge.
+
+Start by disassembling the PEEK connector, and inspect the ferrule and tube.
+
+The inspection yielded a suspicious result; the tube was still peeking past the
+end of the ferrule, implying that the ferrule did not get pushed tight against
+the bottom of the hole.
+
+I compare agaist the original flowcells we got from Michael Cato. The comparison
+indicates that the PEEK connector is not going down deep enough. I attempt to
+cut the threads deeper - unfortunately, the thread-tap I have has a chamfer that
+prevents the tool from cutting the threads all the way to the bottom.
+
+Order the specific thread tap pointed to by Michael Cato.
+
+As we await the newly ordered thread cutter, we make use of the previously
+improvised seals (from the flowcells with 3D-printed threads), and test flow in
+through one channel of the flowcell and outh the other. The process was as
+follows:
+
+- [x] Assemble the flowcell
+  - [x] Mount a silicone o-rings on the flowcell: sits nicely
+  - [x] Put improvised seals in the holes, and mount the PEEK connectors as
+    tight as possible
+- [x] Mount flowcell onto cartridge
+- [x] Pick one of the broken chips and mount it on the cartridge
+  - [x] Push water from one end, observe flow out the other
+  - [x] Repeat flow, but in opposite direction 
+
+There was good flow observed though, slightly favouring one direction of flow
+over the other. There was also some leakage of liquid. Both of these issues can
+be ascribed to our imperfect seals, creating some sort of "valving" action in
+one direction, and not sealing the flows nicely.
+
+The exercise does, however, indicate that the flowcell prints did retain good
+channels for the flow of fluid.
