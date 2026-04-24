@@ -1,0 +1,176 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2026-04-24
+#+AUTHOR: Frederick Muriuki Muriithi
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+#+AUTO_TANGLE: t
+#+OPTIONS: ^:{}
+
+* Integration
+
+** Handle Residue on/from the Silicone O-Rings
+
+Since we want to minimise residue while working with the Graphene chips as much
+as possible, we need to "clean" the residue off of any o-rings we use with the
+chips. We have some silicone o-rings for this purpose, and this is an
+examination of what happens when we use Iso-propyl Alcohol (IPA) to clean any
+oils/residue off of the o-rings.
+
+We'll do it as follows:
+
+- [ ] Acquire a glass slide
+- [ ] Smoosh a new, uncleaned o-ring against the glass slide. This will act as
+  our baseline.
+- [ ] Put some IPA in a glass measuring cylinder
+- [ ] Pick a number of o-rings, and put them in the IPA
+- [ ] Leave the rings in the IPA and agitate/shake the cylinder gently
+- [ ] Pick out a ring from the IPA at the following approximate times:
+  - [ ] 1 minute
+  - [ ] 10 minutes
+  - [ ] 30 minutes
+  - [ ] 1 hour
+  - [ ] 2 hours
+- [ ] Inspect each o-ring and record its appearance
+- [ ] Smoosh the O-ring against the glass slide
+- [ ] Inspect glass slide under a microscope to see whether there's any relative
+  change in the amount of residue
+
+I have the opentrons heater-shaker module I could adapt to agitate the IPA in
+the cylinder for me, for the entire time - I just need to figure out how to run
+it outside of the OT-2 robot.
+
+*** Opentrons Heater-Shaker Module
+
+#+begin_src shell
+  sudo dmesg -Hw
+  ⋮
+  [Apr24 11:14] usb 1-6: new full-speed USB device number 9 using xhci_hcd
+  [  +0.128122] usb 1-6: New USB device found, idVendor=0483, idProduct=4853, bcdDevice= 2.00
+  [  +0.000023] usb 1-6: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+  [  +0.000008] usb 1-6: Product: Heater/Shaker FS
+  [  +0.000006] usb 1-6: Manufacturer: Opentrons
+  [  +0.000007] usb 1-6: SerialNumber: 49375DD42034
+  [  +0.179406] cdc_acm 1-6:1.0: ttyACM0: USB ACM device
+  [  +0.000046] usbcore: registered new interface driver cdc_acm
+  [  +0.000003] cdc_acm: USB Abstract Control Model driver for USB modems and ISDN adapters
+#+end_src
+
+Okay, so the device is visible to the computer. Now to figure out how to run the
+shaker.
+
+We lookup the [[https://docs.opentrons.com/heater-shaker/g-code-concepts/][Heater-Shaker G-Code]].
+
+Now let's begin: set up the baud rate
+
+#+begin_src shell
+  stty -F /dev/ttyACM0 115200
+#+end_src
+
+#+RESULTS:
+
+There is no output to that. Let's see whether that command was successful.
+
+#+begin_src shell
+  stty -F /dev/ttyACM0 speed
+#+end_src
+
+#+RESULTS:
+: 115200
+
+Okay, nice. Looks like things are working.
+
+Now, let's try getting the modules details
+
+#+begin_src shell
+  echo "M115" > /dev/ttyACM0
+#+end_src
+
+#+RESULTS:
+
+Hmm, no response. What does that mean?
+
+Let's try a different G-code
+
+#+begin_src shell
+  echo "G28" > /dev/ttyACM0
+#+end_src
+
+#+RESULTS:
+
+No response on the terminal, but the shaker moved a little then stopped. That
+bodes well for us.
+
+Now, let's attempt something more ambitious: set the RPM to 200, and shake for
+a while.
+
+#+begin_src shell
+  echo "M3 S200" > /dev/ttyACM0
+#+end_src
+
+#+RESULTS:
+
+Hmm, that shook the shaker for a small amount of time and stopped. Not what we
+are going for.
+
+I played around with the G-Code for a while on the terminal to no avail. It
+looks like sending the G-Code via the terminal leads to the error:
+
+#+begin_example
+ERR003:unhandled gcode OK
+#+end_example
+
+Maybe attempt writing code, which might set up a more pristine environment.
+
+Initialise a new python virtualenv and install =pyserial=
+
+#+begin_src shell
+  python3 -m venv .venv
+  pip install pyserial
+  python3
+#+end_src
+
+In the resulting REPL, let's attempt to connect and send the G-Code
+
+#+begin_src python :tangle connect_and_run_heater_shaker.py
+  import io
+  import time
+  import serial
+  import serial.tools.list_ports
+
+    def connect_to_device(vid: int, pid: int, baud: int = 115200) -> serial.Serial:
+        target_vid_pid = f"VID:PID={vid:04X}:{pid:04X}"
+        ports = tuple(
+            port for port in serial.tools.list_ports.comports()
+            if target_vid_pid in port.hwid)
+        if len(ports) == 1:
+            return serial.Serial(ports[0].device, baud)
+        raise serial.serialutil.SerialException(
+            f"Could not find port with {target_vid_pid}")
+
+
+    hsm = connect_to_device(0x0483, 0x4853, 115200, 2.0)
+    serialio = io.TextIOWrapper(io.BufferedRWPair(hsm, hsm))
+    # Init the device
+    serialio.write("G28 \n"); serialio.flush(); result = serialio.readline()
+    print(result)
+    # Read basic details
+    serialio.write("M115 \n"); serialio.flush(); result = serialio.readline()
+    print(result)
+    # Run shaker at 200RPM
+    serialio.write("M3 S200 \n"); serialio.flush(); result = serialio.readline()
+    print(result)
+    time.sleep(60) # sleep for 1 minute
+    # Stop the shaker
+    serialio.write("M3 S0 \n"); serialio.flush(); result = serialio.readline()
+    print(result)
+    hsm.close() # close the port
+#+end_src
+
+Okay! Nice, that worked. A few iterations indicate we need to pause for at least
+2 seconds after the device initialisation step.
+
+We can improve this to make the write-then-read cycle more friendly.
