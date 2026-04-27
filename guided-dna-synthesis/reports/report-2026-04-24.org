@@ -141,33 +141,33 @@ In the resulting REPL, let's attempt to connect and send the G-Code
   import serial
   import serial.tools.list_ports
 
-    def connect_to_device(vid: int, pid: int, baud: int = 115200) -> serial.Serial:
-        target_vid_pid = f"VID:PID={vid:04X}:{pid:04X}"
-        ports = tuple(
-            port for port in serial.tools.list_ports.comports()
-            if target_vid_pid in port.hwid)
-        if len(ports) == 1:
-            return serial.Serial(ports[0].device, baud)
-        raise serial.serialutil.SerialException(
-            f"Could not find port with {target_vid_pid}")
+  def connect_to_device(vid: int, pid: int, baud: int = 115200, timeout=2.0) -> serial.Serial:
+      target_vid_pid = f"VID:PID={vid:04X}:{pid:04X}"
+      ports = tuple(
+          port for port in serial.tools.list_ports.comports()
+          if target_vid_pid in port.hwid)
+      if len(ports) == 1:
+          return serial.Serial(ports[0].device, baud, timeout=timeout)
+      raise serial.serialutil.SerialException(
+          f"Could not find port with {target_vid_pid}")
 
 
-    hsm = connect_to_device(0x0483, 0x4853, 115200, 2.0)
-    serialio = io.TextIOWrapper(io.BufferedRWPair(hsm, hsm))
-    # Init the device
-    serialio.write("G28 \n"); serialio.flush(); result = serialio.readline()
-    print(result)
-    # Read basic details
-    serialio.write("M115 \n"); serialio.flush(); result = serialio.readline()
-    print(result)
-    # Run shaker at 200RPM
-    serialio.write("M3 S200 \n"); serialio.flush(); result = serialio.readline()
-    print(result)
-    time.sleep(60) # sleep for 1 minute
-    # Stop the shaker
-    serialio.write("M3 S0 \n"); serialio.flush(); result = serialio.readline()
-    print(result)
-    hsm.close() # close the port
+  hsm = connect_to_device(0x0483, 0x4853, 115200, 2.0)
+  serialio = io.TextIOWrapper(io.BufferedRWPair(hsm, hsm))
+  # Init the device
+  serialio.write("G28 \n"); serialio.flush(); result = serialio.readline()
+  print(result)
+  # Read basic details
+  serialio.write("M115 \n"); serialio.flush(); result = serialio.readline()
+  print(result)
+  # Run shaker at 200RPM
+  serialio.write("M3 S200 \n"); serialio.flush(); result = serialio.readline()
+  print(result)
+  time.sleep(60) # sleep for 1 minute
+  # Stop the shaker
+  serialio.write("M3 S0 \n"); serialio.flush(); result = serialio.readline()
+  print(result)
+  hsm.close() # close the port
 #+end_src
 
 Okay! Nice, that worked. A few iterations indicate we need to pause for at least
