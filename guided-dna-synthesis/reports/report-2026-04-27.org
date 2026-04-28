@@ -48,24 +48,33 @@ provide some agitation of the liquid without causing any spill-over issues.
 - [x] Put some IPA in a glass measuring cylinder
 - [x] Pick a number of o-rings, and put them in the IPA
 - [x] Leave the rings in the IPA and agitate/shake the cylinder gently
-- [-] Pick out a ring from the IPA at the following approximate times:
+- [x] Pick out a ring from the IPA at the following approximate times:
   - [x] 1 minute
   - [x] 10 minutes
   - [x] 30 minutes
-  - [ ] 1 hour
-  - [ ] 2 hours
-- [-] Inspect each o-ring and record its appearance
+  - [x] 1 hour
+  - [x] 2 hours
+- [x] Inspect each o-ring and record its appearance
   - [-] Take photo
-  - [-] Describe appearance
-- [-] Smoosh the O-ring against the glass slide
-- [ ] Inspect glass slide under a microscope to see whether there's any relative
+  - [x] Describe appearance
+- [x] Smoosh the O-ring against the glass slide
+- [x] Inspect glass slide under a microscope to see whether there's any relative
   change in the amount of residue
+
+
+The o-rings after cleaning are as shown in the  image below:
+
+#+NAME:20260427-silicone-orings-residue-test
+#+CAPTION: Cleaning Silicone O-Rings with Isopropyl Alcohol (IPA): The o-rings are as follows, (0) uncleaned, (1) cleaned for 1 minute, (2) cleaned for 10 minutes, (3) cleaned for 30 minutes, (4) Cleaned for 56 minutes, (5) cleaned for 120 minutes.
+[[file:static/20260427_silicone_orings_residue_test_annotated.png]]
 
 
 **** Uncleaned O-Ring
 
 - No obviously visible residue with the naked eye on the glass
-- <<<Image on glass slide under microscope>>>
+
+
+[[file:static/20260427_silicone_oring_unclean.jpeg]]
 
 **** 1 minute
 
@@ -73,8 +82,9 @@ provide some agitation of the liquid without causing any spill-over issues.
 - Still as springy as the uncleaned o-ring
 - After settling for a while, we see a faint outline of the silicone O-ring with
   the naked eye on the slide.
-- <<<Image on glass slide under microscope>>>
 
+
+[[file:static/20260427_silicone_oring_1min_in_IPA.jpeg]]
 
 **** 10 minutes
 
@@ -82,25 +92,45 @@ provide some agitation of the liquid without causing any spill-over issues.
 - Still as springy as the other o-rings
 - After settling for a while, we see an outline of the silicone O-ring with the
   naked eye on the slide.
-- <<<Image on glass slide under microscope>>>
+
+
+[[file:static/20260427_silicone_oring_10min_in_IPA.jpeg]]
 
 **** 30 minutes
 
 - No obvious size difference
 - Still as springy as the other o-rings
 - No obvious outline of silicone O-ring on the glass, event after quite a while.
-- <<<Image on glass slide under microscope>>>
+
+
+[[file:static/20260427_silicone_oring_30min_in_IPA.jpeg]]
 
 **** 1 hour (really 56 minutes)
 
 - No obvious size difference
 - Still as springy as the other o-rings
 - No obvious outline of silicone O-ring on the glass, even after quite a while
-- <<<Image on glass slide under microscope>>>
+
+
+[[file:static/20260427_silicone_oring_56min_in_IPA.jpeg]]
 
 **** 2 hours
 
 - No obvious size difference
 - Still as springy as the other o-rings
 - No obvious outline of silicone O-ring on the glass, even after quite a while
-- <<<Image on glass slide under microscope>>>
+
+
+[[file:static/20260427_silicone_oring_120min_in_IPA.jpeg]]
+
+
+*** Conclusions
+
+The silicone o-rings seem fairly resistant to the IPA, in that they do not seem
+to deform even after leaving them soaking for up to 2 hours.
+
+They also, generally seem to be relatively clean, (i.e. not much residue). It is
+possible that some of the residue we observe came from handling.
+
+Overall, it seems like there is, generally speaking, no harm in rinsing the
+silicone o-rings in IPA before using them with the GFET.
