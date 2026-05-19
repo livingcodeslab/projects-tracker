@@ -1,0 +1,60 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2026-05-04
+#+AUTHOR: Frederick Muriuki Muriithi
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+#+AUTO_TANGLE: t
+#+OPTIONS: ^:{}
+
+* Integration
+
+** Test new Flowcell
+
+I received the new thread tap with no chamfer, and can now cut threads all the
+way to the bottom. That should allow a tighter connection.
+
+I decided to start with the flowcell I had cut using the chamfered tap, and
+simply extend the threads to the bottom. I do expect that there might be
+leaks caused by the chamfer in the previous tap, having ground against the
+bottom of the hole; hopefully though, that will not be a big issue.
+
+I began by disassembling the cartrigde, to take out the flowcell.
+
+I cut the threads all the way to the bottom: From visual inspection, the threads
+look good.
+
+Test seating of the ferrule: I extend the tube slightly past the edge of the
+ferrule and then tighten the PEEK connector. I then untigten the connector and
+inspect. The tube is pushed flush against the edge of the ferrule. This bodes
+very well for us.
+
+Now we can test both individual flows through the holes (for good measure) and
+complete flow through the flowcell, both using a syringe to push distilled water.
+There's flow through each individual hole. There is flow through the entire
+flowcell too. This is good!
+
+*** Testing with Microfluidics device
+
+Now that manual tests have shown there's flow across the flowcell, I test flows
+with the microfluidics device, to verify that that will also work.
+
+#+begin_src shell
+  stty -F /dev/ttyACM0 9600
+  echo "PURGE COMMON 0 -T 60 -R 36" > /dev/ttyACM0; # Vent common line
+  echo "PURGE ALL 0 -T 60 -R 36" > /dev/ttyACM0; # Vent GFET live
+  echo "PRIME CHEM_WASH 0 -T 60 -R 36" > /dev/ttyACM0; # prime wash line.
+  echo "WASH COLLECTION 0 -T 60 -R 36" > /dev/ttyACM0; # Wash GFET line
+  echo "PURGE ALL 0 -T 60 -R 36" > /dev/ttyACM0; # Vent GFET live
+  echo "PURGE COMMON 0 -T 60 -R 36" > /dev/ttyACM0; # Vent common line
+#+end_src
+
+Visually, the flow looks good. There was some sudden jerking when venting the
+GFET lane after flowing fluid, which might indicate some problems with the
+pressures involved, but overall, it looks mostly good.
+
+We have seen this jerking previously, mostly when the cartridge is tightly
+sealed. This is avoided by avoiding mixing liquid and gas flows.
