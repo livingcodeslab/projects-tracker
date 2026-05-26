@@ -165,8 +165,71 @@ and plotting
 
 we get
 
-#+CAPTION: Chip Characteristics with distilled-water after switching to side A of the cartridge.
+#+CAPTION: Chip Characteristics with distilled-water after switching to side A of the cartridge, and drain-source channel 3 (source 3).
 #+NAME: 20260526-003-water-readings-positive
 [[file:static/20260526-003-water-readings-positive.svg]]
 
 which is a much better curve, but just like before, the dirac point seems to be past the usual [-1.0V, +1.0V) range.
+
+Next, we'll try with the drop-type reservoir, for good measure. We begin by resetting the device.
+
+#+begin_src shell
+  python3 fluid_detection.py \
+          reset-microfluidics-device \
+          --microfluidics-serial-port /dev/ttyACM0
+#+end_src
+
+Next, we disassemble the cartridge and replace the flowcell-type reservoir with the drop-type reservoir. We can then drop some distilled water (~60µL) into the reservoir and run the sweep.
+
+#+begin_src shell
+  python3 sweep.py \
+          --log-level debug \
+          --smu-visa-address ASRL/dev/ttyUSB0::INSTR \
+          --line-frequency 60 \
+          --nplc 12.5005 \
+          --gate_voltage 1.0 \
+          --sweep_interval 0.01 \
+          --channel-voltage 0.05 \
+          --raise-keithley-errors \
+          > "fd-test-01/$(date +'%Y%m%d')/$(date +'%Y%m%d')-004-water-readings.csv" \
+          2> "fd-test-01/$(date +'%Y%m%d')/$(date +'%Y%m%d')-004-water-events.txt" && \
+      python3 isswisafre.py process-data \
+              "fd-test-01/$(date +'%Y%m%d')/$(date +'%Y%m%d')-004-water-readings.csv" \
+              "fd-test-01/$(date +'%Y%m%d')/"
+#+end_src
+
+and plotting
+
+#+begin_src gnuplot :tangle ./20260526-004-water-readings.gp
+  load "./20260220-plotting-styles.gp"
+
+  set output "./static/20260526-004-water-readings-positive.svg"
+
+  set title "Sweep in Distilled Water Environment."
+  set xlabel "Gate Voltage (V)"
+  set ylabel "Drain Current (A)"
+  set datafile separator ","
+  plot \
+       "./static/20260526-004-water-readings_positive.csv" \
+       using "measured_gate_voltage":"drain_current" \
+       title "Distilled Water Environment Characteristics" \
+       with lines
+#+end_src
+
+we get
+
+#+CAPTION: Chip Characteristics with distilled-water on side A of the cartridge, using drop-type reservoir, and drain-source channel 3 (source 3).
+#+NAME: 20260526-004-water-readings-positive
+[[file:static/20260526-004-water-readings-positive.svg]]
+
+Aaargh. This is not good.
+
+We should test with the drop-type reservoir for more of the chip's drain-source channels.
+
+** Conclusions
+
+It looks like the over-voltage broke the powered side of the chip completely.
+
+The other side that was not powered during the over-voltage seems to be mostly okay, other than the fact that the dirac point is not within the acceptable range.
+
+Running the sweep with the drop-type reservoir gives completeley unexpected results and the currents are completely out of range.
