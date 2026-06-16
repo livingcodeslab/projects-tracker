@@ -1,0 +1,85 @@
+{
+    "_comment_labware_definition_links": [
+        "https://docs.opentrons.com/ot-2/labware/definitions/",
+        "https://docs.opentrons.com/flex/labware/definitions/"],
+    "ordering": [["A1", "B1"]],
+    "brand": {
+        "brand": "LivingCodesLab",
+        "brandId": []
+    },
+    "metadata": {
+        "displayName": "LivingCodesLab: Graphenea Card Adapter",
+        "displayCategory": "wellPlate",
+        "_comment_displayCategory": "Review this as necessary",
+        "displayVolumeUnits": "µL"
+    },
+    "dimensions": {
+        "_comment": "verify these: I just lazily used vernier calipers",
+        "xDimension": 127.14,
+        "_comment_xDimension": "I took largest length",
+        "yDimension": 85.02,
+        "_comment_yDimension": "I took largest width",
+        "zDimension": 25,
+        "_comment_zDimension": "from bottom to top of SMA connectors"
+    },
+    "wells": {
+        "A1": {
+            "depth": 2,
+            "_comment_depth": "The value here is pure guess-work",
+            "x": 32.01,
+            "_comment_x": "x-offset from bottom of labware",
+            "y": 66.46,
+            "_comment_y": "???",
+            "z": 23,
+            "_comment_z": "?? probably zDimension minus depth",
+            "totalLiquidVolume": 60,
+            "_comment_totalLiquidVolume": "in µL. 20µL is probably a better value. Review this.",
+            "diameter": 5,
+            "_comment_diameter": "Value is guess-work",
+            "shape": "circular"
+        },
+        "B1": {
+            "_comment_B1": "Comments for value in A1 apply here too.",
+            "depth": 2,
+            "x": 32.01,
+            "y": 26.46,
+            "z": 23,
+            "_comment_z": "?? probably zDimension minus depth",
+            "totalLiquidVolume": 60,
+            "diameter": 5,
+            "shape": "circular"
+        }
+    },
+    "groups": [{
+        "wells": ["A1", "B1"],
+        "metadata": {
+            "displayName": "mGFET Chip in LCC Socket",
+            "wellBottomShape": "flat",
+            "brand": {
+                "brand": "Graphenea",
+                "brandId": ["mGFET-4D for Sensing Applications"],
+                "links": [
+                    "https://www.graphenea.com/products/mgfet-4d-for-sensing-applications",
+                    "https://cdn.shopify.com/s/files/1/0191/2296/files/2026_mGFET-D_4x4_v6_TDS_02-03-2026.pdf?v=1776930189",
+                    "https://cdn.shopify.com/s/files/1/0191/2296/files/2026_Measurement_Protocols_mGFET_v3_27-02-2026.pdf?v=1776929336"
+                ]
+            }
+        }
+    }],
+    "parameters": {
+        "format": "irregular",
+        "quirks": [],
+        "isTiprack": false,
+        "isMagneticModuleCompatible": false,
+        "loadName": "livingcodeslab_graphenea_card_adapter"
+    },
+    "namespace": "uthsc_livingcodeslab_grapheneacard",
+    "version": 1,
+    "schemaVersion": 2,
+    "_comment_allowedRoles": ["labware"],
+    "cornerOffsetFromSlot": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+    }
+}
