@@ -1,0 +1,211 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2026-06-16
+#+AUTHOR: Frederick Muriuki Muriithi
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+#+AUTO_TANGLE: t
+#+OPTIONS: ^:{}
+
+* Integration
+
+** Goals
+
+We have previously defined a [[file:OT2_labware_definition_graphenea_card.json][labware definition]] for the Graphenea card, for
+use with the Opentrons OT-2 robot.
+
+The goals moving forward are:
+
+- Establish and understand the control and working of the OT-2 robot
+- Improve the dimensions in the labware definition(s) from results of running
+  the robot
+- Get appropriate plugs/terminals for the Graphenea card
+
+
+** Graphenea Card I/O plugs
+
+From the datasheet, the card uses coaxial miniBNC connectors.
+
+We thus need the following materials to hook the card up to the SMU:
+
+The cable recommendations from Google's AI are
+- Coaxial BNC to BNC cables (typically 50 Ω or 75 Ω depending on your source
+  measure unit) to connect directly to standard benchtop test equipment like a
+  Keysight or Keithley SMU.
+- BNC to Triaxial adapters if you are performing highly sensitive, low-current
+  sub-picoamp measurements and need guarding.
+
+
+Unfortunately, I cannot seem to find the appropriate connector that would mate
+to those on the card. I've sent an email to Graphenea to try and get more
+information on the card.
+
+
+** Opentrons OT-2 Robot
+
+Looks like there might be a way to get more fine-grained control of the robot's
+motors/axes: https://docs.opentrons.com/python-api/reference/robot-motors/.
+
+Let us start by setting up the environment:
+
+#+begin_src shell
+  cd .../opentrons/
+  python3 -m venv .venv
+  source .venv/bin/activate
+  pip install --upgrade opentrons
+#+end_src
+
+#+begin_comment
+replace the ellipsis in command ~cd .../opentrons/~ with the correct path.
+#+end_comment
+
+Now we have a virtual environment with opentrons installed. We can begin to
+explore [[https://docs.opentrons.com/python-api/][Opentrons Python API Reference]] documents to figure out how to control
+the device.
+
+#+begin_src shell
+  $ python3
+  Python 3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0] on linux
+  Type "help", "copyright", "credits" or "license" for more information.
+  >>> import opentrons
+  >>> dir(opentrons)
+  ['HERE', '__version__', 'config', 'containers', 'instruments', 'labware', 'modules', 'reset', 'robot', 'version']
+  >>> opentrons.version
+  '9.0.0'
+  >>> from opentrons import protocol_api
+  >>> dir(protocol_api)
+  ['ALL', 'ASPIRATE_ACTION', 'AbsorbanceReaderContext', 'BLOWOUT_ACTION', 'COLUMN', 'CSVParameter', 'DISPENSE_ACTION', 'Deck', 'FlexStackerContext', 'HeaterShakerContext', 'InstrumentContext', 'Labware', 'Liquid', 'LiquidClass', 'MAX_SUPPORTED_VERSION', 'MIN_SUPPORTED_VERSION', 'MIN_SUPPORTED_VERSION_FOR_FLEX', 'MagneticBlockContext', 'MagneticModuleContext', 'ModuleContext', 'OFF_DECK', 'OffDeckType', 'PARTIAL_COLUMN', 'PLUNGER_BLOWOUT', 'PLUNGER_BOTTOM', 'PLUNGER_DROPTIP', 'PLUNGER_TOP', 'ParameterContext', 'Parameters', 'ProtocolContext', 'ProtocolEngineCoreRequiredError', 'ROW', 'RobotContext', 'RuntimeParameterRequiredError', 'SINGLE', 'Task', 'TemperatureModuleContext', 'ThermocyclerContext', 'TrashBin', 'VacuumModuleContext', 'WasteChute', 'Well', '__all__', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__path__', '__spec__', '_liquid', '_liquid_properties', '_nozzle_layout', '_parameter_context', '_parameters', '_transfer_liquid_validation', '_types', 'config', 'core', 'create_protocol_context', 'deck', 'disposal_locations', 'instrument_context', 'labware', 'module_contexts', 'module_validation_and_errors', 'protocol_context', 'robot_context', 'tasks', 'validation']
+  >>> dir(protocol_api.robot_context)
+  ['APIVersion', 'AxisMapType', 'AxisType', 'DeckLocation', 'HardwareManager', 'Labware', 'LegacyBroker', 'Location', 'ModuleContext', 'Mount', 'NamedTuple', 'Optional', 'PipetteActionTypes', 'PlungerPositionTypes', 'Point', 'ProtocolCore', 'RobotContext', 'RobotCore', 'StringAxisMap', 'SyncHardwareAPI', 'Union', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__spec__', 'cmds', 'publisher', 'requires_version', 'validation']
+#+end_src
+
+Okay, so quick exploration tells us we can get nearly everything we require via
+the ~opentrons.protocol_api~ package.
+
+Quick overall decisions on labware we will use:
+
+- tip rack: We'll use tiny volumes, so say the 20µL pipette tips
+  - =opentrons_96_tiprack_20ul=
+  - Put it on =slot 1= on the deck
+- well plate: This is our graphenea card mounted on its adapter
+  - Put it on =slot 3= on the deck
+
+Some basic settings we need to setup in all code that follows:
+
+Try this on the CLI
+
+#+begin_src python :tangle jupyter_ot2_test_retrieving_robot_context.py
+  import sys
+  import json
+  from opentrons.execute import get_protocol_api
+  from opentrons.protocols.api_support.types import APIVersion
+
+  print("Reading the labware definition: ", end="")
+  with open("OT2_labware_definition_graphenea_card.json",
+            encoding="utf-8",
+            mode="r") as fl:
+      graphenea_card_definition = json.loads(fl.read())
+      print("OK.")
+
+  print("Retrieving the API context: ", end="")
+  context = get_protocol_api(version=APIVersion(major=2, minor=16),
+                             extra_labware={
+                                 "livingcodeslab_graphenea_card_adapter": graphenea_card_definition
+                             })
+  context.home()
+  print("OK.")
+
+  print("Setting up labware: ", end="")
+  tip_rack = context.load_labware("opentrons_96_tiprack_20ul", 1)
+  graphenea_card = context.load_labware("livingcodeslab_graphenea_card_adapter", 3)
+  print("OK.")
+#+end_src
+
+The code fails when attempting to retrieve the protocol API. Reading up a little
+bit more, it looks like the ~get_protocol_api()~ function shoud be used in a
+Jupyter notebook.
+
+I started looking into how that should work. In the process, I had to update
+both the Opentrons appimage binary on my development machine and also the robots
+firmware. The updates went through without a problem.
+
+I also tried to figure out accessing the device remotely: I had to figure out
+how to connect to the device via eduroam network. This was also successful.
+
+After figuring out how to connect to the robot remotely and getting the Jupyter
+notebook interface, I ran into a problem with the labware definition. Trying to
+import it fails with ~Invalid labware definition~.
+
+On the Jupyter notebook the error is more verbose. The issues caught were:
+
+- Typo: was ~isTipRack~, should have been ~isTiprack~
+
+Now, the code seems to be running.
+
+We can now attempt to get the ~RobotContext~
+
+#+begin_src python :tangle jupyter_ot2_test_retrieving_robot_context.py
+  print("Retrieving the robot context: ", end="")
+  # minimum API version for this to work: version 2.22
+  robot = context.robot()
+  print("OK.")
+#+end_src
+
+Okay, that does not work, since it requires API version 2.22. Changing it in
+code and running it again:
+
+#+begin_quote
+Reading the labware definition: OK.
+Retrieving the API context: OK.
+Setting up labware: OK.
+Retrieving the robot context: 
+
+---------------------------------------------------------------------------
+RobotTypeError                            Traceback (most recent call last)
+Cell In[6], line 26
+     23 print("OK.")
+     25 print("Retrieving the robot context: ", end="")
+---> 26 robot = context.robot()
+     27 print("OK.")
+
+File /usr/lib/python3.12/site-packages/opentrons/protocols/api_support/util.py:390, in requires_version.<locals>._set_version.<locals>._check_version_wrapper(*args, **kwargs)
+    383     name = getattr(decorated_obj, "__qualname__", str(decorated_obj))
+    385     raise APIVersionError(
+    386         api_element=name,
+    387         until_version=added_in,
+    388         current_version=current_version,
+    389     )
+--> 390 return decorated_obj(*args, **kwargs)
+
+File /usr/lib/python3.12/site-packages/opentrons/protocol_api/protocol_context.py:242, in ProtocolContext.robot(self)
+    240 """The [`RobotContext`][opentrons.protocol_api.RobotContext] for the protocol."""
+    241 if self._core.robot_type != "OT-3 Standard" or not self._robot:
+--> 242     raise RobotTypeError("The RobotContext is only available on Flex robots.")
+    243 return self._robot
+
+RobotTypeError: Error 4003 NOT_SUPPORTED_ON_ROBOT_TYPE (RobotTypeError): The RobotContext is only available on Flex robots.
+#+end_quote
+
+Ahh! 😭 It only works on the =Flex= robots not =OT-2=. Back to the drawing board!
+
+When we resume, maybe begin with the [[https://docs.opentrons.com/python-api/advanced-control/jupyter/#setting-labware-offsets][Setting labware offsets]] page. It looks
+promising for the goal of getting the correct x, y and z positions for the
+graphenea card "wells".
+
+For now, we begin by writing the dummy protocol:
+
+#+begin_src python :tangle dummy_protocol.py
+  metadata = {"apiLevel": "2.16"}
+  def run(protocol):
+      tiprack = protocol.load_labware("opentrons_96_tiprack_20ul", 1)
+      plate = protocol.load_labware("livingcodeslab_graphenea_card_adapter", 3)
+      p20 = protocol.load_instrument("p20_single_gen2", "left", tip_racks=[tiprack])
+      p20.pick_up_tip()
+      p20.return_tip()
+#+end_src
+
+This code expects a =P20= pipette, so we'll have to mount that pipette onto the
+machine.
