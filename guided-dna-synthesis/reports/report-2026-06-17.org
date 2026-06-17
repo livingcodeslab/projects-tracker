@@ -1,0 +1,70 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2026-06-17
+#+AUTHOR: Frederick Muriuki Muriithi
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+#+AUTO_TANGLE: t
+#+OPTIONS: ^:{}
+
+* Integration
+
+** Goals
+
+The main goals of the day are:
+
+- [x] Mount and calibrate the =P20= pipette onto the robot
+  - [x] Mount the =P20= pipette
+  - [x] Calibrate the pipette/robot
+- [x] Look into [[https://docs.opentrons.com/python-api/advanced-control/jupyter/#setting-labware-offsets][setting labware offsets]].
+
+
+** Opentrons OT-2 Robot
+
+*** Mount and Calibrate Pipette
+
+We begin the day by figuring out how to mount the =P20= pipette onto the robot.
+
+Once mounted, it requires calibration - here, we ran into an issue with
+non-responsiveness in the robot. I tried restarting the robot to see whether
+that would help. It did.
+
+I then proceeded to actually calibrate the robot.
+
+I looked into live-streaming: the OT-2 cannot do that according to the
+[[https://docs.opentrons.com/ot-2/opentrons-app/features-summary/#built-in-camera][device's documentation]].
+
+*** Labware Offsets
+
+We begin by trying to upload the dummy  protocol. The upload is successful, but
+the protocol validation steps fail due to missing labware.
+
+I attempt to import the custom labware, but the Opentrons App raises the error
+=Invalid labware definition=. After looking around, I discovered the
+[[https://github.com/Opentrons/opentrons/tree/edge/shared-data/labware/schemas][labware definition schemas]]. I use the version 2 schema on to validate the
+definition and fix bugs.
+
+These 2 commits fix the labware definition:
+
+- https://github.com/livingcodeslab/projects-tracker/commit/17a0f7674ad54fc4bf75a19d3feb1ac38a765c90
+- https://github.com/livingcodeslab/projects-tracker/commit/7b3abee11b89484e14cdca500995f207707550fe
+
+
+Now that the labware definition is imported successfully, we can begin
+fine-tuning the =x=, =y= and =z= offsets to ensure the robot works successfully
+with our definition. In that respect, the following commits include the results
+of the fine-tuning:
+
+- https://github.com/livingcodeslab/projects-tracker/commit/a5afe22933e3ef53650f8c7f6fa5c8cb1d5223d3
+- https://github.com/livingcodeslab/projects-tracker/commit/27cbb0c95f7fc0b1c246b20637c5bf7fcbe40098
+- https://github.com/livingcodeslab/projects-tracker/commit/7f03ef06328907e989424a2f478473161899df6b
+- https://github.com/livingcodeslab/projects-tracker/commit/e6c9fe254b78a90204b74754fc10851771b9a697
+
+
+There might be a subtle bug with the =zDimension= and =depth= information; we
+can troubleshoot this later, with the chip mounted on the card.
+
+
