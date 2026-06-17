@@ -38,16 +38,16 @@
         "wells": ["A1", "B1"],
         "metadata": {
             "displayName": "mGFET Chip in LCC Socket",
-            "wellBottomShape": "flat",
-            "brand": {
-                "brand": "Graphenea",
-                "brandId": ["mGFET-4D for Sensing Applications"],
-                "links": [
-                    "https://www.graphenea.com/products/mgfet-4d-for-sensing-applications",
-                    "https://cdn.shopify.com/s/files/1/0191/2296/files/2026_mGFET-D_4x4_v6_TDS_02-03-2026.pdf?v=1776930189",
-                    "https://cdn.shopify.com/s/files/1/0191/2296/files/2026_Measurement_Protocols_mGFET_v3_27-02-2026.pdf?v=1776929336"
-                ]
-            }
+            "wellBottomShape": "flat"
+        },
+        "brand": {
+            "brand": "Graphenea",
+            "brandId": ["mGFET-4D for Sensing Applications"],
+            "links": [
+                "https://www.graphenea.com/products/mgfet-4d-for-sensing-applications",
+                "https://cdn.shopify.com/s/files/1/0191/2296/files/2026_mGFET-D_4x4_v6_TDS_02-03-2026.pdf?v=1776930189",
+                "https://cdn.shopify.com/s/files/1/0191/2296/files/2026_Measurement_Protocols_mGFET_v3_27-02-2026.pdf?v=1776929336"
+            ]
         }
     }],
     "parameters": {
