@@ -17,8 +17,8 @@
     "wells": {
         "A1": {
             "depth": 2,
-            "x": 32.01,
-            "y": 66.46,
+            "x": 94.01,
+            "y": 62.22,
             "z": 23,
             "totalLiquidVolume": 20,
             "diameter": 5,
@@ -26,8 +26,8 @@
         },
         "B1": {
             "depth": 2,
-            "x": 32.01,
-            "y": 26.46,
+            "x": 94.01,
+            "y": 22.22,
             "z": 23,
             "totalLiquidVolume": 20,
             "diameter": 5,
