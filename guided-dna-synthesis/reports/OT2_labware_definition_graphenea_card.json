@@ -41,7 +41,7 @@
             "wellBottomShape": "flat"
         },
         "brand": {
-            "brand": "Graphenea",
+            "brand": "LivingCodesLab",
             "brandId": ["mGFET-4D for Sensing Applications"],
             "links": [
                 "https://www.graphenea.com/products/mgfet-4d-for-sensing-applications",
@@ -57,7 +57,7 @@
         "isMagneticModuleCompatible": false,
         "loadName": "livingcodeslab_graphenea_card_adapter"
     },
-    "namespace": "uthsc_livingcodeslab_grapheneacard",
+    "namespace": "livingcodeslab",
     "version": 1,
     "schemaVersion": 2,
     "cornerOffsetFromSlot": {
