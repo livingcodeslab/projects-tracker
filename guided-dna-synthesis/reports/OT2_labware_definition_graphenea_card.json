@@ -21,7 +21,7 @@
             "y": 63.52,
             "z": 21.4,
             "totalLiquidVolume": 20,
-            "diameter": 5,
+            "diameter": 3,
             "shape": "circular"
         },
         "B1": {
@@ -30,7 +30,7 @@
             "y": 23.52,
             "z": 21.4,
             "totalLiquidVolume": 20,
-            "diameter": 5,
+            "diameter": 3,
             "shape": "circular"
         }
     },
