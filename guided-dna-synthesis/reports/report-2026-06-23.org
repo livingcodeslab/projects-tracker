@@ -1,0 +1,299 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2026-06-23
+#+AUTHOR: Frederick Muriuki Muriithi
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+#+AUTO_TANGLE: t
+#+OPTIONS: ^:{}
+
+* Integration
+
+** Goals
+
+- [ ] Write a protocol and run it on the robot but without the liquids or chip
+  attached.
+  This will act as a proof-of-concept, while also helping fine-tune the
+  dimensions further.
+- [x] Read up on, and try hand in controlling the OT-2 robot via ssh.
+  If this can be done, especially if we can control the movements independent of
+  writing an entire protocol, then this would open up the robot to significantly
+  more utility in this project, and possibly future ones.
+
+
+** SSH Control
+
+First, I connect to the =eduroam= network, since the OT-2 robot is connected there.
+
+Next, I ssh into it:
+
+#+begin_src sh
+  ssh root@<the-robots-ip-address> -i </path/to/my/ssh/key/to/ot2/robot>
+#+end_src
+
+After that, start python on the robot.
+
+#+begin_src shell
+  python3
+#+end_src
+
+Now, I can issue near-raw commands from that.
+
+#+begin_src python
+  import opentrons.hardware_control as hc
+
+  # For APIv2, build ThreadManager context
+  from opentrons.hardware_control import ThreadManager
+
+  # Connect to hardware layer
+  api = ThreadManager(hc.API.build_hardware_controller).sync
+  api.home()# Begin by homing robot.
+#+end_src
+
+From this point, the following are explorations into using the robot.
+
+#+begin_src python
+  api.get_attached_pipettes# A dict with lots of info
+  api.get_attached_pipettes.keys()# ==> dict_keys([<Mount.LEFT: 1>, <Mount.RIGHT: 2>])
+#+end_src
+
+Okay, we can now access the mounts. Our =OT-2= has 2 mounts only, so we can
+simply assign them to variables.
+
+#+begin_src python
+  left_mount, right_mount = tuple(api.get_attached_pipettes.keys())
+  api.get_attached_pipettes[left_mount].keys()# Lots of info
+  api.get_attached_pipettes[left_mount]["name"]# => 'p20_single_gen2'
+  api.get_attached_pipettes[right_mount]["name"]# => 'p300_single_gen2'
+#+end_src
+
+the "mounts" from what I can tell, are important to the general operation of the
+API, and we need access to them.
+
+Looking at the [[https://docs.opentrons.com/python-api/][API documentation for the OT-2]], however, it does not document
+this interface. For now, explore the documented interface, and we can come back
+to this one later.
+
+We begin by getting a ~ProtocolContext~ using the same process as with the
+[[https://docs.opentrons.com/python-api/advanced-control/jupyter/#protocol-structure][Jupyter notebook]] process.
+#+begin_src python
+  import opentrons.execute
+  pc = opentrons.execute.get_protocol_api("2.28")
+  pc.home()# home the robot.
+#+end_src
+
+We cannot use the ~pc.robot~ interface because we are on the =OT-2= platform not
+the =Flex= platform.
+
+Let us begin by loading the tip rack and specifying the pipette:
+
+#+begin_src python
+  tips_20uL = pc.load_labware(load_name="opentrons_96_tiprack_20ul", location=10)
+  p20 = pc.load_instrument("p20_single_gen2", mount="left", tip_racks=[tips_20uL])
+#+end_src
+
+Okay, now we have an ~InstrumentContext~ object pointing to our =P20= pipette.
+
+Now let's attempt loading the Graphenea card+adapter onto the robot:
+
+#+begin_src python
+  gcadapter = pc.load_labware(load_name="livingcodeslab_graphenea_card_adapter", location=1)
+#+end_src
+
+*ERROR*: This fails with an error!
+
+#+begin_quote
+Execution of 17eb41ad-95df-412d-b8f5-9a68549fb068 failed
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/site-packages/opentrons/protocol_engine/state/labware.py", line 562, in get_definition_by_uri
+    return self._state.definitions_by_uri[uri]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+KeyError: 'opentrons/livingcodeslab_graphenea_card_adapter/1'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/site-packages/opentrons/protocol_engine/execution/equipment.py", line 163, in load_definition_for_details
+    self._state_store.labware.get_definition_by_uri(definition_uri),
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/site-packages/opentrons/protocol_engine/state/labware.py", line 564, in get_definition_by_uri
+    raise errors.LabwareDefinitionDoesNotExistError(
+opentrons.protocol_engine.errors.exceptions.LabwareDefinitionDoesNotExistError: Error 4000 GENERAL_ERROR (LabwareDefinitionDoesNotExistError): Labware definition for matching opentrons/livingcodeslab_graphenea_card_adapter/1 not found.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/lib/python3.12/site-packages/opentrons/protocol_engine/execution/command_executor.py", line 157, in execute
+    result = await command_impl.execute(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/site-packages/opentrons/protocol_engine/commands/load_labware.py", line 147, in execute
+    loaded_labware = await self._equipment.load_labware(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/site-packages/opentrons/protocol_engine/execution/equipment.py", line 334, in load_labware
+    definition, definition_uri = await self.load_definition_for_details(
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/site-packages/opentrons/protocol_engine/execution/equipment.py", line 167, in load_definition_for_details
+    definition = await self._labware_data_provider.get_labware_definition(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/site-packages/opentrons/protocol_engine/resources/labware_data_provider.py", line 42, in get_labware_definition
+    return await to_thread.run_sync(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/site-packages/anyio/to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 2470, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "/usr/lib/python3.12/site-packages/anyio/_backends/_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/site-packages/opentrons/protocol_engine/resources/labware_data_provider.py", line 54, in _get_labware_definition_sync
+    get_labware_definition(load_name, namespace, version)
+  File "/usr/lib/python3.12/site-packages/opentrons/protocols/labware.py", line 82, in get_labware_definition
+    return _get_standard_labware_definition(load_name, namespace, version)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/site-packages/opentrons/protocols/labware.py", line 282, in _get_standard_labware_definition
+    raise FileNotFoundError(
+FileNotFoundError: Labware "livingcodeslab_graphenea_card_adapter" not found with version 1 in namespace "opentrons".
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/lib/python3.12/site-packages/opentrons/protocols/api_support/util.py", line 390, in _check_version_wrapper
+    return decorated_obj(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/site-packages/opentrons/protocol_api/protocol_context.py", line 576, in load_labware
+    labware_core = self._core.load_labware(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/site-packages/opentrons/protocol_api/core/engine/protocol.py", line 240, in load_labware
+    load_result = self._engine_client.execute_command_without_recovery(
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/site-packages/opentrons/protocol_engine/clients/sync_client.py", line 168, in execute_command_without_recovery
+    return self._transport.execute_command(create_request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/site-packages/opentrons/protocol_engine/clients/transports.py", line 85, in execute_command
+    raise ProtocolCommandFailedError(
+opentrons.protocol_engine.errors.error_occurrence.ProtocolCommandFailedError: Error 4000 GENERAL_ERROR (ProtocolCommandFailedError): PythonException: FileNotFoundError: Labware "livingcodeslab_graphenea_card_adapter" not found with version 1 in namespace "opentrons".
+#+end_quote
+
+Okay, so the code cannot seem to find the labware definition. Search for how it's supposed to load them.
+
+Attempt to manually load the labware from the definition. First, put the
+definition at =/data/labware/v2/custom_definitions= on the robot. Now, attempt
+to load the definition by name.
+
+#+begin_src python
+  gcadapter = pc.load_labware_by_name(load_name="livingcodeslab_graphenea_card_adapter", location=1)
+#+end_src
+
+That still fails. Try explicitly setting the directory:
+
+#+begin_src python
+  gcadapter = pc.load_labware(
+      load_name="livingcodeslab_graphenea_card_adapter",
+      location=1,
+      namespace="livingcodeslab",
+  )
+#+end_src
+
+Okay, that works. We now have access to the graphenea card on the OT2 robot.
+
+From here, we can pick up a pipette.
+
+#+begin_src python
+  p20.pick_up_tip()
+#+end_src
+
+Nice. The robot picked up the tip as expected.
+
+Now, how do I move to the graphenea card?
+
+#+begin_src python
+  p20.move_to(gcadapter["A1"].top())
+#+end_src
+
+Okay, nice.
+
+*NOTE*: It looks like each of the commands above return the same ~InstrumentContext~, meaning we could have done something like:
+
+#+begin_src python
+  p20.pick_up_tip().move_to(gcadapter["A1"].top()). ...
+#+end_src
+
+In any case, that will be explored at a future date.
+
+Now, we mount a chip onto the Graphenea card and start verifying the dimensions
+we defined in the custom definition.
+
+#+begin_src python
+  import opentrons
+  _orig = gcadapter["A1"].top()
+  _small=opentrons.types.Point(z=-0.1)
+  _large=opentrons.types.Point(z=-1.0)
+  p20.move_to(gcadapter["A1"].top().move(_large))
+#+end_src
+
+Still not touching the device, but I do not think we can do another whole millimetre.
+
+Reset position and try again:
+
+#+begin_src python
+  p20.move_to(_orig)
+  p20.move_to(_orig.move(_large + _small))# not there yet
+  p20.move_to(_orig.move(_large + _small + _small))# nope
+  p20.move_to(_orig.move(_large + _small + _small + _small))# nope
+  p20.move_to(_orig.move(_large + _small + _small + _small + _small))# Almost...
+  p20.move_to(_orig.move(_large + _small + _small + _small + _small + _small))# Yay!
+#+end_src
+
+Okay, so our depth will need to be modified to 1.5mm from the original value of 2mm.
+
+The diameter of the well will also need to be modified from 5mm to about 3mm.
+
+- https://github.com/livingcodeslab/projects-tracker/commit/86461ab8e0c251db7df50faa3d399632495aa3f7
+- https://github.com/livingcodeslab/projects-tracker/commit/c87b806a7f1bb850b28e97ad52981cb5cc670db3
+
+Oh, I also just ran into https://docs.opentrons.com/http/api_reference.html. It
+looks promising, but we'll explore it another day.
+
+** Write Protocol
+
+Now that we have verified the values in our custom labware definition, we can
+begin writing our first protocol using it.
+
+#+begin_src python :tangle ot2_protocol_test000_20260623.py
+  from opentrons import protocol_api
+
+  metadata = {
+      "apiLevel": "2.28",
+      "protocolName": "LiCoLa_graphenea_card_test000",
+      "description": """This protocol is the zeroth test for the use of the
+      custom labware definition in a somewhat useful protocol. We might actually
+      use this to also validate the volumes in use.""",
+      "author": "Frederick Muriuki Muriithi"
+  }
+  requirement = {"robotType": "OT-2", "apiLevel": "2.28"}
+
+
+  def run(pc: protocol_api.ProtocolContext):
+      tips_20uL = pc.load_labware(load_name="opentrons_96_tiprack_20ul",
+                                  location=10)
+      reservoir = protocol.load_labware(load_name="nest_12_reservoir_15ml",
+                                        location=11)
+      p20 = pc.load_instrument("p20_single_gen2",
+                               mount="left",
+                               tip_racks=[tips_20uL])
+      gcadapter = pc.load_labware(
+          load_name="livingcodeslab_graphenea_card_adapter",
+          location=1,
+          namespace="livingcodeslab",
+      )
+
+      p20.transfer(20, reservoir["A1"], gcadapter["A1"])
+
+      pc.delay(60)
+      p20.transfer(20, gcadapter["A1"], reservoir["A2"])# Trash the liquid
+#+end_src
+
+I'll test the protocol another day.
