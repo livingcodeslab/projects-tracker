@@ -297,3 +297,18 @@ begin writing our first protocol using it.
 #+end_src
 
 I'll test the protocol another day.
+
+** Coupling Cables and Terminators
+
+We need the following to connect the Graphenea card to the SMU
+
+- https://my.rs-online.com/web/p/coaxial-cable/8861046
+  That's an RG58 coaxial cable with a male SMA connector on one end and a male
+  BNC connector on the other.
+
+The other option is to get the raw components themselves:
+
+- RG58 connectors page: https://www.mcmaster.com/products/rg-58-coaxial-connectors/
+- RG58 SMA connector: https://www.mcmaster.com/5467T13/
+- RG58 BNC connector: https://www.mcmaster.com/71115K14/
+- RG58 cable: https://www.mcmaster.com/products/connectors/for-coaxial-cable-type~rg-58-u/
