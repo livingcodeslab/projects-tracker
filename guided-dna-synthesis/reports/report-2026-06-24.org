@@ -1,0 +1,153 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2026-06-24
+#+AUTHOR: Frederick Muriuki Muriithi
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+#+AUTO_TANGLE: t
+#+OPTIONS: ^:{}
+
+* Integration
+
+** Goals
+
+- [x] Order the SMA to BNC cables
+- [x] Figure out the usable volumes of liquid with the new chips
+- [ ] Start looking into orchestration
+
+
+** Volumes
+
+Yesterday, I wrote [[file:report-2026-06-23.org::*Write Protocol][a simple protocol]] to use to test that the OT-2 robot can be
+used for the microfluidics transfers onto and out of the chip.
+
+Unfortunately, I did not establish whether or not the 20µL I specified as the
+=totalLiquidVolume= will work with the new chips. It could be too much for these
+newer chips. The goal is to establish a good amount that does not lead to
+overflows.
+
+We will do this manually; begin with the same basics as yesterday:
+
+#+begin_src python
+  import opentrons.execute
+  pc = opentrons.execute.get_protocol_api("2.28")
+  pc.home()
+  tips_20uL = pc.load_labware(load_name="opentrons_96_tiprack_20ul", location=10)
+  gcadapter = pc.load_labware(
+      load_name="livingcodeslab_graphenea_card_adapter",
+      location=1,
+      namespace="livingcodeslab",
+  )
+  p20 = pc.load_instrument("p20_single_gen2", mount="left", tip_racks=[tips_20uL])
+#+end_src
+
+With that in place, we define the position of the reservoir.
+
+#+begin_src python
+  reservoir = pc.load_labware(load_name="nest_12_reservoir_15ml", location=11)
+#+end_src
+
+and now, we can attempt the manual transfer of specific volumes. We begin with
+the original amount we'd defined (i.e. 20µL) and from there work out what volume
+works well with the new chips.
+
+#+begin_src python
+  p20.pick_up_tip()# Pick up tip once...
+
+  p20.aspirate(# Take from reservoir
+      volume=20,
+      location=reservoir["A1"])
+  p20.dispense(# dispense on chip
+      volume=20,
+      location=gcadapter["A1"])
+
+  p20.aspirate(# Take from chip
+      volume=20,
+      location=gcadapter["A1"])
+  p20.dispense(# dispense in reservoir's trash well
+      volume=20,
+      location=reservoir["A2"])
+  p20.blow_out(
+      location=reservoir["A2"])
+#+end_src
+
+Okay, 20µL looks to be on the higher end of acceptable volumes. Iterating to get
+the sweet-spot:
+
+#+name: manual-iteration-code
+#+begin_src python
+  _vol = 10
+  p20.aspirate(# Take {_vol}µL from reservoir
+      volume=_vol,
+      location=reservoir["A1"]
+  ).dispense(# dispense on chip
+      volume=_vol,
+      location=gcadapter["A1"]
+  ).home()# add the `.home()' after "splashdown"
+
+  p20.aspirate(# take from chip
+      volume=_vol,
+      location=gcadapter["A1"]
+  ).dispense(# dispense in reservoir's trash well
+      volume=_vol,
+      location=reservoir["A2"]
+  ).blow_out(
+      location=reservoir["A2"]
+  ).home()# add the `.home()' after "splashdown"
+#+end_src
+
+Lesson learnt! *DO NOT* run the robot with your computer nearby and/or with the
+front hood of the =OT-2= open. I ended up splashing water on m computer's
+keyboard and had to spend a lot of time doing crleanup before I could resume
+work. Also, I inadvertently ended up breaking my keyboard - I'll need to replace
+that.
+
+After iterating [[manual-iteration-code][the code above]] a few times, we have the following results:
+
+- We should not exceed 20µL on the chip. It's arguably too much to even use this
+  volume on the chip in the first place
+- 5µL to 10µL looks like a good sweet spot for the tests
+- 2µL to 4µL also seem to work
+- 1µL is too little to pick back up
+
+
+*** Challenges
+
+All of the volumes seem to leave a very thin layer of liquid on the chip. I
+think this is because (today) the chip is lying somewhat off the horizontal plane.
+
+I  might have to push the chip all the way to the bottom of the chip holder and
+recalibrate the  =zDimension=, =depth=, and =z= values in the custom labware
+definition. Pushing the chip all the way will also hopefully avoid small
+discrepancies in how flat the pipette tip sits on the surface of the chip as it
+dispenses/aspirates fluid.
+
+** Orchestration
+
+We want use the SMU to take readings after a liquid is put on the chip, not
+before. We also do not want to run the SMU after liquid has been taken away from
+the chip for disposal or collection.
+
+This leads to the need for a "control computer" that will orchestrate the
+various events, e.g.
+
+- aspiration of liquid from reservoir(s)
+- dispensing liquid on chip
+- Run sweeps with SMU and take readings
+- dispose/collect liquid off of the the chip
+
+
+In this respect, we need to look for a way to interface with the OT-2 device,
+such that we can specify what's on the deck, and run the
+"aspirate->dispense->dispose/collect" cycles as appropriate, interleaved with
+the sweeps and data collection.
+
+We start by looking at https://docs.opentrons.com/http/api_reference.html
+
+The HTTP API docs can be accessed at http://<robot-ip-address>:31950/redoc. The
+=Run Management= section looks promising for setting up and running the API.
+
+*FIND-OUT*: Can we create a run, do setup, and "play" it, then add commands as we go?
