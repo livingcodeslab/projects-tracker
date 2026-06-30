@@ -1,0 +1,38 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2026-06-30
+#+AUTHOR: Frederick Muriuki Muriithi
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+#+AUTO_TANGLE: t
+#+OPTIONS: ^:{}
+
+* Integrations
+
+** Notes for Resuming in August
+
+At this point, we have a proof-of-concept of the basic operations of the OT-2
+robot with the Graphenea card and it's adapter. Moving forward, the following
+are the goals to look into beginning August 2026:
+
+- Recalibrate operations with chip pushed to bottom of the socket
+  The previous exercises with calibration and testing the use of the OT-2 and
+  Graphenea card were done with the chip inserted just enough to be almost flush
+  with the top of the chip socket. This, unfortunately, was found to lead to
+  slight uneven flatness of the chip. To try and mitigate this, we should
+  explore actually pushing the chip all the way to the bottom of the chip holder,
+  and recalibrating the device to work with the chip in that configuration.
+- Orchestration of the devices
+  The OT-2 will aspirate and dispense liquid volumes to and from the chip. When
+  said volume(s) are on the chip, we'll need  to run some data collection with
+  the SMU.
+  This, therefore, will involve orchestrating the devices such that the OT-2
+  does not take the liquid away during data collection, and the SMU does not try
+  acquiring data from a chip without liquid.
+  Review the [[file:report-2026-06-24.org::*Orchestration][Report from June 24, 2026]] to get started with attempts at this.
+  Tasks:
+  - [ ] Pick up delivery of SMA to BNC cables
+  - [ ] Experiment with creating protocols on the fly via the HTTP API
