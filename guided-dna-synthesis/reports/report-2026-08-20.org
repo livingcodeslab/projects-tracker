@@ -1,0 +1,61 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2026-08-20
+#+AUTHOR: Frederick Muriuki Muriithi
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+#+AUTO_TANGLE: t
+#+OPTIONS: ^:{}
+
+* Integrations
+
+Delivery of the SMA to BNC cables was confirmed.
+
+Next, the Graphenea card and the SMA-to-BNC cables were hooked up together.
+
+There's a little curve in the cables. That, and their weight lead to the
+graphenea card not sitting quite right on the adapter. The issue is minor at
+this point, and I doubt that it will cause an issue, but we'll keep that in mind.
+
+
+The OT-2 Robot failed to turn on.
+
+Investigating, looks like the power-brick that was connected to the OT-2 is
+broken. It seems the power-brick was left connected to power, and the OT-2 was
+shutdown, but the physical switch at the back left in the "ON" position (
+realised that when going to unplug the power-brick and try a different one).
+
+The power-brick that was connected to the OT-2 was tested with the shaker
+module -- the module simply blinks on and off, and does not do the calibration
+shake as expected. Testing the module with a different brick, the module does
+the expected calibration shake.
+
+Trying a new power-brick on the OT-2 did not help matters -- the OT-2 does not
+power on at all. Looks like something might have damaged the device. THe failing
+power-brick was labelled to distinguish it from the rest.
+
+Start looking into troubleshooting the device:
+
+- https://support.opentrons.com/s/article/Hardware-troubleshooting-on-the-OT-2
+- https://support.opentrons.com/s/article/Investigating-the-OT-2-s-electronic-boards
+
+After going through the links above and doing a number of online searches, it
+turns out that there might have been a power fault/surge that might have fried
+the Raspberry Pi.
+
+We'll need to replace the Raspberry Pi and maybe even get a new SD card.
+
+- Replacement Raspberry Pi 3B+
+  - https://www.sparkfun.com/raspberry-pi-3-b.html?src=raspberrypi
+  - https://vilros.com/products/raspberry-pi-3-b-motherboard?src=raspberrypi&_su_rec=vc4U64drEAtKeZNPBmXDtWnJbkHceKdTwAXAP20e77I_1S2SowfuL_xw5LlUmqTEuX0dggmTQ1tvEyum_j9R8_oMctaYXqn2HyH2tesqoo7z1FlOX-axy9TtmxnsMh8dZTMBEYqm_LjV7cS44z_gjWjpjWahOGCi6wt0d5k_W7HkQoT-Gk7AP-py6teCDJ0izzHX4JA3BDgarJj0oa-tgU-9-wIaGACugLNcR1qpaTtA5CzZe1m5fWiNebs&_su_rec_id=9abc455a-7bf0-4282-ae94-7936f04351fc-1787251014
+  - https://www.tme.com/us/en-us/details/sc0073/raspberry-pi-minicomputers/raspberry-pi/raspberry-pi-3-model-b-1gb-ram/
+  - https://www.adafruit.com/product/3775?src=raspberrypi
+- Replacement SD Card
+  - https://www.sandisk.com/products/memory-cards/microsd-cards/sandisk-high-endurance-uhs-i-microsd?sku=SDSQQNR-032G-GN6IA
+  - https://www.newegg.com/sandisk-32gb-microsdhc-uhs-i-u3-class-10-v30/p/N82E16820173220
+  - https://www.newegg.com/p/0DF-0005-01ED2
+  - https://www.amazon.com/SanDisk-Endurance-microSDHC-Adapter-Monitoring/dp/B07P14QHB7
+
