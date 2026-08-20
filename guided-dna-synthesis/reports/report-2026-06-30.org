@@ -34,5 +34,5 @@ are the goals to look into beginning August 2026:
   acquiring data from a chip without liquid.
   Review the [[file:report-2026-06-24.org::*Orchestration][Report from June 24, 2026]] to get started with attempts at this.
   Tasks:
-  - [ ] Pick up delivery of SMA to BNC cables
+  - [X] Pick up delivery of SMA to BNC cables
   - [ ] Experiment with creating protocols on the fly via the HTTP API
