@@ -1,0 +1,281 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2026-09-09
+#+AUTHOR: Frederick Muriuki Muriithi
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+#+AUTO_TANGLE: t
+#+OPTIONS: ^:{}
+
+* Integrations
+
+** Troubleshoot SD Card Issues
+
+We begin by trying to write the card again with balenaEtcher.
+This is still failing at validation of the image.
+
+Update the GNOME settings to prevent auto-mounting and try again.
+
+#+begin_src shell
+  gsettings set org.gnome.desktop.media-handling automount false
+  gsettings set org.gnome.desktop.media-handling automount-open false
+#+end_src
+
+Try again: still fails.
+
+Searching online to see how to get more information on failure.
+
+Pressing the Ctrl+Shift+I gives the console logs for balenaEtcher. Run again:
+
+#+begin_example
+⋮
+Verifying 1 device, 93% at 17.80 MB/s (total 17.80 MB/s) eta in 3s with 0 failed devices
+index.js:2 Verifying 1 device, 95% at 17.80 MB/s (total 17.80 MB/s) eta in 2s with 0 failed devices
+index.js:2 Verifying 1 device, 98% at 17.20 MB/s (total 17.20 MB/s) eta in 1s with 0 failed devices
+index.js:2 fail event
+index.js:2 {size: 33554432000, isVirtual: false, enumerator: 'lsblk:json', logicalBlockSize: 512, raw: '/dev/mmcblk0', …}
+index.js:2 {name: 'Error', message: 'Source and destination checksums do not match: 630d84ddb2123299 !== d4a35616444b625a', stack: 'Error: Source and destination checksums do not mat…jections (node:internal/process/task_queues:95:5)', code: 'EVALIDATION'}
+index.js:2 Flash results {}
+index.js:2 {}
+index.js:2 Error: The writer process ended unexpectedly
+    at i (index.js:353:5238)
+    at t.createUserError (index.js:353:6464)
+    at p (index.js:140:43913)
+    at index.js:140:44229
+    at I.<anonymous> (index.js:140:41218)
+    at I.emit (node:events:518:28)
+    at e.exports.W (index.js:2:2198728)
+    at e.exports.emit (node:events:518:28)
+    at index.js:2:2174548
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+(anonymous) @ index.js:2
+t.logException @ index.js:140
+S @ index.js:140
+processTicksAndRejections @ node:internal/process/task_queues:105
+await in processTicksAndRejections
+tryFlash @ index.js:140
+callback @ index.js:140
+Ue @ index.js:2
+Ge @ index.js:2
+(anonymous) @ index.js:2
+Or @ index.js:2
+Tr @ index.js:2
+(anonymous) @ index.js:2
+De @ index.js:2
+(anonymous) @ index.js:2
+Rr @ index.js:2
+Xt @ index.js:2
+Zt @ index.js:2
+t.unstable_runWithPriority @ index.js:2
+qi @ index.js:2
+Ie @ index.js:2
+Yt @ index.js:2
+r @ index.js:2
+media/icon.png:1  GET file:///home/frederick/livingcodeslab/opentron-OT-2/balenaEtcher-linux-x64/resources/app.asar/.webpack/renderer/main_window/media/icon.png net::ERR_FILE_NOT_FOUND
+index.js:2 Verifying 1 device, 100% at 17.30 MB/s (total 17.30 MB/s) eta in 0s with 0 failed devices
+index.js:2 CHILD: flash done {results: {…}}
+index.js:2 Flash results {results: {…}}
+#+end_example
+
+The error "… 'Source and destination checksums do not match: 630d84ddb2123299 !== d4a35616444b625a', …" hints at the problem.
+
+Okay, stop udisk2.service
+
+#+begin_src shell
+  sudo systemctl stop udisks2.service
+#+end_src
+
+Try etching again: fails the same way.
+
+Remove balena-etcher installed via apt, and dowload zip version from balena-etcher site (balenaEtcher-linux-x64-2.1.6.zip).
+
+Extract and run without sandbox
+
+#+begin_src shell
+  ./balena-etcher --no-sandbox
+#+end_src
+
+Same failure.
+
+Okay, quit and go CLI-man on it 😠.
+
+Extract the zip file of the image and write it:
+
+#+begin_src shell
+  cd /home/frederick/livingcodeslab/opentron-OT-2
+  unzip ot2-fullimage-7.3.0.zip
+  sudo dd if=/home/frederick/livingcodeslab/opentron-OT-2/sdcard.img of=/dev/mmcblk0 bs=4M status=progress oflag=direct,sync
+#+end_src
+
+which gives the output
+
+#+begin_example
+834666496 bytes (835 MB, 796 MiB) copied, 212 s, 3.9 MB/s
+199+0 records in
+199+0 records out
+834666496 bytes (835 MB, 796 MiB) copied, 211.888 s, 3.9 MB/s
+#+end_example
+
+Okay, good. Looks like the image is written. Now to verify the image manually:
+
+Get the size:
+
+#+begin_src shell
+  stat -c %s /home/frederick/livingcodeslab/opentron-OT-2/sdcard.img
+#+end_src
+
+which gives:
+
+#+begin_example
+834666496
+#+end_example
+
+Okay, now compute the sha256 sum of the written image:
+
+#+begin_src shell
+  sudo head -c 834666496 /dev/mmcblk0 | sha256sum
+#+end_src
+
+Which gives:
+
+#+begin_example
+68f8c2de1d3da193c50fbdfe405e7a201e13aa89a7c7a5f731db9bdf3f89b69b  -
+#+end_example
+
+Now compute the sha256 sum of the original image:
+
+#+begin_src shell
+  sha256sum /home/frederick/livingcodeslab/opentron-OT-2/sdcard.img
+#+end_src
+
+which gives:
+
+#+begin_example
+49780c63ccefc5ecc59d13ce5a4126423645b6df3d4ee5d443ca3941941fc465  /home/frederick/livingcodeslab/opentron-OT-2/sdcard.img
+#+end_example
+
+Okay, definitely a mismatch! 😭
+
+Okay, let us start by verifying the SD card is good:
+
+#+begin_src shell
+  sudo badblocks -vws -b 4096 -c 1024 /dev/mmcblk0 203776 2>&1 | tee /tmp/sdcard-health-check.log
+#+end_src
+
+This gives the output:
+
+#+begin_example
+Checking for bad blocks in read-write mode
+From block 0 to 203776
+Testing with pattern 0xaa: done                                                 
+Reading and comparing:
+⋮
+done                                                 
+Testing with pattern 0x55: done                                                 
+Reading and comparing: done                                                 
+Testing with pattern 0xff: done                                                 
+Reading and comparing: done                                                 
+Testing with pattern 0x00: done                                                 
+Reading and comparing: done                                                 
+Pass completed, 140288 bad blocks found. (0/0/140288 errors)
+#+end_example
+
+As that ran, I decided to look up the built-in SD-Card reader I am using to etch the image.
+
+There are two possible issues here:
+
+- The new SanDisk High Endurance Card I got came "dead-on-arrival" with too many
+  dead memory cells. This might necessitate a warranty claim.
+- My inbuilt card-reader hardware might be irretrievably broken.
+
+
+Okay, try the health check with the old SD card that was in the robot originally
+for good measure.
+
+#+begin_src shell
+  sudo badblocks -vws -b 4096 -c 1024 /dev/mmcblk0 203776 2>&1 | tee /tmp/sdcard-health-check.log
+#+end_src
+
+This gives the output:
+
+#+begin_example
+Checking for bad blocks in read-write mode
+From block 0 to 203776
+Testing with pattern 0xaa: done                                                 
+Reading and comparing: done                                                 
+Testing with pattern 0x55: done                                                 
+Reading and comparing: done                                                 
+Testing with pattern 0xff: done                                                 
+Reading and comparing: done                                                 
+Testing with pattern 0x00: done                                                 
+Reading and comparing: done                                                 
+Pass completed, 0 bad blocks found. (0/0/0 errors)
+#+end_example
+
+Oh, boy! Looks like that card might be good!
+
+Looks like the power only corrupted the image on it, but did not kill the card.
+
+It also looks like the new card is broken and requires a warranty claim.
+
+Now, let us try writing the image on the older card. Start with balenaEtcher:
+
+#+begin_src shell
+  ./balena-etcher --no-sandbox
+#+end_src
+
+Okay, this time the image verification passed. We are successful!
+
+Remount the SD-card on the robot and attempt boot:
+
+Nice, we are now  getting indication that the device is coming up:
+
+- Activity light on Raspberry Pi is blinking periodically
+- Power button light on the OT-2R blinks now, turns solid after a while
+
+
+Now, let's continue setup of the robot according to the
+[[https://support.opentrons.com/s/article/Reflashing-the-OT-2-s-SD-card][Opentrons OT-2 support pages]].
+
+- Start the Opentrons App
+  - App forced update from 9.0.0 to 9.1.2
+  - Update was wrong, and expected Flex robot
+  - Download app for OT-2 robot: Opentrons-OT-2-v26.6.0-linux-b10562.AppImage
+  - After getting correct app, the app insists on updating the robot software
+    - Success
+  - Rename the robot according to instructions
+  - Run script to set up the serial number
+    - Insists on calibrating the device: Run device calibration
+      - Deck calibration
+      - Left mount pipette
+        - Tip length calibration
+        - Pipette offset calibration
+      - Right mount pipette
+        - Requires 300µL pipettes to calibrate, we have 200µL pipettes available
+          - Skip for now
+    - Serial number setup success
+
+
+At this point, the robot should be ready for operation.
+
+Looking in the "Advanced" tab in the "Robot Settings" page, we get the following
+information about the robot:
+
+- Robot Server Version: v26.6.0
+- Robot Serial Number: OT2CEP20221010R03
+- Firmware version: v1.1.0-25e5cea
+- Supported Protocol API Versions: v2.0 - v2.28
+
+
+The robot is now back online, save for the remaining calibration data.
+
+Now, let us [[https://support.opentrons.com/s/article/Setting-up-SSH-access-to-your-OT-2][set up ssh access]] to the device, at least over wired connection:
+- Test SSH connection: success!
+
+
+The remaining tasks are:
+- [ ] Setup the Networking to allow access to the device over WiFi
+- [ ] Acquire 300µL pipette tips and use them to calibrate remaining pipette
