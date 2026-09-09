@@ -12,7 +12,9 @@
 
 * Integrations
 
-** Troubleshoot SD Card Issues
+** OT-2R Robot
+
+*** Troubleshoot SD Card Issues
 
 We begin by trying to write the card again with balenaEtcher.
 This is still failing at validation of the image.
@@ -279,3 +281,15 @@ Now, let us [[https://support.opentrons.com/s/article/Setting-up-SSH-access-to-y
 The remaining tasks are:
 - [ ] Setup the Networking to allow access to the device over WiFi
 - [ ] Acquire 300µL pipette tips and use them to calibrate remaining pipette
+
+
+*** Networking
+
+Basic networking and SSH access over the wired connection is already done and
+working. Now, we need to set up the robot such that it is accessible over WiFi.
+
+Successfully set up and connected the robot to the UTHSC WiFi.
+
+The robot is reachable. The documentation for the HTTP API is reachable via the
+=/redoc= endpoint on the robot's port 31950.
+
