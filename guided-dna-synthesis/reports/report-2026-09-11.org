@@ -1,0 +1,484 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2026-09-11
+#+AUTHOR: Frederick Muriuki Muriithi
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+#+AUTO_TANGLE: t
+#+OPTIONS: ^:{}
+
+* Integrations
+
+** Explore Setting up Protocol via HTTP API
+
+We begin by attempting to upload the previously defined labware onto the robot:
+success.
+
+With the labware thus uploaded, we can begin exploring the HTTP API.
+
+#+begin_src shell
+  curl http://OT2CEP20221010R03:31950/networking/status
+#+end_src
+
+#+RESULTS:
+| {"message":"header.opentrons-version: Field required" | errorCode:"4000"} |
+
+We get an error response; that's promising. At least we are receiving a response,
+rather than a HTTP error.
+
+Now, provide the header:
+
+#+begin_src shell
+  curl --header "opentrons-version: 2.28" http://OT2CEP20221010R03:31950/networking/status
+#+end_src
+
+#+RESULTS:
+| {"message":"header.opentrons-version.literal['*']: Input should be '*'; header.opentrons-version.int: Input should be a valid integer | unable to parse string as an integer" | errorCode:"4000"} |
+
+Ahh, an integer, okay. Try that:
+
+#+begin_src shell
+  curl --header "opentrons-version: 2" http://OT2CEP20221010R03:31950/networking/status
+#+end_src
+
+#+RESULTS:
+| {"status":"full" | interfaces:{"wlan0":{"ipAddress":"172.x.x.x/21"     | macAddress:"B8:XX:XX:XX:XX:XX" | gatewayAddress:"172.x.x.x"    | state:"connected" | type:"wifi"} | eth0:{"ipAddress":null | macAddress:"B8:XX:XX:XX:XX:XX" | gatewayAddress:"" | state:"unavailable" | type:"ethernet"}}} |
+
+Sweet! We get the networking information just fine (actual addresses obfuscated).
+
+We have established that it is possible to interact with the robot over the HTTP
+protocol, albeit to fetch information about the robot.
+
+Now, let us try something more substantial — let us blink the lights!
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" --header "opentrons-version: 2" http://OT2CEP20221010R03:31950/identify?seconds=10
+#+end_src
+
+#+RESULTS:
+| {"message":"Method Not Allowed" | errorCode:"4000"} |
+
+Oh, wrong method...  Ahh, should be POST. Try again:
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" --header "opentrons-version: 2" -X POST http://OT2CEP20221010R03:31950/identify?seconds=10
+#+end_src
+
+#+RESULTS:
+: {"message":"identifying"}
+
+Nice! The  power-button light (gantry lights?) blinks for 10 seconds.
+
+Now, let us home the robot...
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" --header "opentrons-version: 2" -X POST http://OT2CEP20221010R03:31950/robot/home -d '{"target": "robot"}'
+#+end_src
+
+#+RESULTS:
+: {"message":"Homing robot."}
+
+We observe the robot's axes moving to the home edge.
+
+One last, minor test - let us turn the rail lights on …
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" --header "opentrons-version: 2" -X POST http://OT2CEP20221010R03:31950/robot/lights -d '{"on": true}'
+#+end_src
+
+#+RESULTS:
+: {"on":true}
+
+… and off
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" --header "opentrons-version: 2" -X POST http://OT2CEP20221010R03:31950/robot/lights -d '{"on": false}'
+#+end_src
+
+#+RESULTS:
+: {"on":false}
+
+
+Okay, both are successful.
+
+we have established we can accomplish minor tasks, and can now move on to more
+complex tasks/commands.
+
+The [[https://docs.opentrons.com/http/api_reference.html#tag/Run-Management][Run Management]] section of the HTTP API is probably what we need to look at.
+
+Let us attempt setting up a run:
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST http://OT2CEP20221010R03:31950/runs \
+       -d '{
+  "data": {
+  "protocolId": "202a8a9d-2854-450a-95a5-8858fe5c3944",
+  "labwareOffsets": {
+  "definitionUri": "https://github.com/livingcodeslab/projects-tracker/blob/main/guided-dna-synthesis/reports/OT2_labware_definition_graphenea_card.json"
+  "location": {"slotName": "1", "moduleModel": null, "definitionUri": null},
+  "vector": {"x": 0, "y": 0, "z": 0}},
+  "runTimeParameterValues": null,
+  "runTimeParameterFiles": null
+  }
+  }'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"9ceb54e1-7f27-46cb-b318-e3918de8e727" | ok:true | createdAt:"2026-09-11T16:26:34.752400Z" | status:"idle" | current:true | actions:[] | errors:[] | hasEverEnteredErrorRecovery:false | pipettes:[] | modules:[] | labware:[] | liquids:[] | liquidClasses:[] | labwareOffsets:[] | runTimeParameters:[] | outputFileIds:[]}} |
+
+Looks like we have a run, created. There are some things of note:
+
+- The =protocolId= we provided (~202a8a9d-2854-450a-95a5-8858fe5c3944~) is not
+  the same as the =id= returned (~9ceb54e1-7f27-46cb-b318-e3918de8e727~).
+  Maybe, leave it as ~null~ next time.
+- The =labwareOffsets= field does not set up any of the labware. It is not
+  entirely clear to me what the field does, but it is required. It cannot be
+  ~null~, as far as I can tell.
+
+
+Now, that we got a response, let us see whether the run was actually created:
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X GET http://OT2CEP20221010R03:31950/runs/9ceb54e1-7f27-46cb-b318-e3918de8e727
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"9ceb54e1-7f27-46cb-b318-e3918de8e727" | ok:true | createdAt:"2026-09-11T16:26:34.752400Z" | status:"idle" | current:true | actions:[] | errors:[] | hasEverEnteredErrorRecovery:false | pipettes:[] | modules:[] | labware:[] | liquids:[] | liquidClasses:[] | labwareOffsets:[] | runTimeParameters:[] | outputFileIds:[]}} |
+
+Yep! That's the same data as received from creating the run. That implies the run exists.
+
+Now, let us delete the run, and try again.
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X DELETE http://OT2CEP20221010R03:31950/runs/9ceb54e1-7f27-46cb-b318-e3918de8e727
+#+end_src
+
+#+RESULTS:
+: {}
+
+Verify the run is gone:
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X GET http://OT2CEP20221010R03:31950/runs/9ceb54e1-7f27-46cb-b318-e3918de8e727
+#+end_src
+
+#+RESULTS:
+| {"errors":[{"id":"RunNotFound" | title:"Run Not Found" | detail:"Error 4000 GENERAL_ERROR (RunNotFoundError): Run 9ceb54e1-7f27-46cb-b318-e3918de8e727 was not found." | errorCode:"4000"}]} |
+
+Good.
+
+Now, let us try setting up a new run:
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST http://OT2CEP20221010R03:31950/runs \
+       -d '{
+    "data": {
+        "labwareOffsets": {
+            "definitionUri": "livingcodeslab/livingcodeslab_graphenea_card_adapter/1"
+            "location": {"slotName": "1"},
+            "vector": {"x": 0, "y": 0, "z": 0}
+        },
+        "runTimeParameterValues": null,
+        "runTimeParameterFiles": null
+    }
+}'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"43904d9e-bf1f-4076-b2dd-b4e6a9809de6" | ok:true | createdAt:"2026-09-11T17:10:33.516486Z" | status:"idle" | current:true | actions:[] | errors:[] | hasEverEnteredErrorRecovery:false | pipettes:[] | modules:[] | labware:[] | liquids:[] | liquidClasses:[] | labwareOffsets:[] | runTimeParameters:[] | outputFileIds:[]}} |
+
+Now we have the ID, let us load the labware:
+
+#+begin_src shell
+  # Enqueue a command
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST http://OT2CEP20221010R03:31950/runs/43904d9e-bf1f-4076-b2dd-b4e6a9809de6/commands \
+       -d '{
+    "data": {
+        "commandType": "loadLabware",
+        "params": {
+            "location": {
+                "slotName": "1"
+            },
+            "loadName": "livingcodeslab_graphenea_card_adapter",
+            "namespace": "livingcodeslab",
+            "version": 1,
+            "labwareId": "c9c762e1-8205-4ccd-be32-6535fd0e9514"
+        },
+        "intent": "setup"
+    }
+}'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"14fc2688-b3ed-4a58-94fd-d091f045bd4e" | createdAt:"2026-09-11T17:25:04.226206Z" | commandType:"loadLabware" | key:"14fc2688-b3ed-4a58-94fd-d091f045bd4e" | status:"queued" | params:{"location":{"slotName":"1"} | loadName:"livingcodeslab_graphenea_card_adapter" | namespace:"livingcodeslab" | version:1 | labwareId:"c9c762e1-8205-4ccd-be32-6535fd0e9514"} | intent:"setup" | commandAnnotationIds:[]}} |
+
+Now, let us see what the results of running that setup command was:
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X GET http://OT2CEP20221010R03:31950/runs/43904d9e-bf1f-4076-b2dd-b4e6a9809de6/commands/14fc2688-b3ed-4a58-94fd-d091f045bd4e
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"14fc2688-b3ed-4a58-94fd-d091f045bd4e" | createdAt:"2026-09-11T17:25:04.226206Z" | commandType:"loadLabware" | key:"14fc2688-b3ed-4a58-94fd-d091f045bd4e" | status:"failed" | params:{"location":{"slotName":"1"} | loadName:"livingcodeslab_graphenea_card_adapter" | namespace:"livingcodeslab" | version:1 | labwareId:"c9c762e1-8205-4ccd-be32-6535fd0e9514"} | error:{"id":"1d371b0a-4d5d-4b36-af53-d6326eba71b5" | createdAt:"2026-09-11T17:25:04.330322Z" | isDefined:false | errorType:"PythonException" | errorCode:"4000" | detail:"FileNotFoundError: Labware \"livingcodeslab_graphenea_card_adapter\" not found with version 1 in namespace \"livingcodeslab\"." | errorInfo:{"args":"('Labware \"livingcodeslab_graphenea_card_adapter\" not found with version 1 in namespace \"livingcodeslab\".' | )" | errno:"None" | filename:"None" | filename2:"None" | strerror:"None" | traceback:"  File \"/usr/lib/python3.12/site-packages/opentrons/protocol_engine/execution/command_executor.py\" | line 157 | in execute\n    result = await command_impl.execute(\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n  File \"/usr/lib/python3.12/site-packages/opentrons/protocol_engine/commands/load_labware.py\" | line 149 | in execute\n    definition | definition_uri = await self._equipment.load_definition_for_details(\n                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n  File \"/usr/lib/python3.12/site-packages/opentrons/protocol_engine/execution/equipment.py\" | line 169 | in load_definition_for_details\n    definition = await self._labware_data_provider.get_labware_definition(\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n  File \"/usr/lib/python3.12/site-packages/opentrons/protocol_engine/resources/labware_data_provider.py\" | line 42 | in get_labware_definition\n    return await to_thread.run_sync(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\n\n  File \"/usr/lib/python3.12/site-packages/anyio/to_thread.py\" | line 56 | in run_sync\n    return await get_async_backend().run_sync_in_worker_thread(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n  File \"/usr/lib/python3.12/site-packages/anyio/_backends/_asyncio.py\" | line 2470 | in run_sync_in_worker_thread\n    return await future\n           ^^^^^^^^^^^^\n\n  File \"/usr/lib/python3.12/site-packages/anyio/_backends/_asyncio.py\" | line 967 | in run\n    result = context.run(func | *args)\n             ^^^^^^^^^^^^^^^^^^^^^^^^\n\n  File \"/usr/lib/python3.12/site-packages/opentrons/protocol_engine/resources/labware_data_provider.py\" | line 54 | in _get_labware_definition_sync\n    get_labware_definition(load_name | namespace | version)\n\n  File \"/usr/lib/python3.12/site-packages/opentrons/protocols/labware.py\" | line 82 | in get_labware_definition\n    return _get_standard_labware_definition(load_name | namespace | version)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n  File \"/usr/lib/python3.12/site-packages/opentrons/protocols/labware.py\" | line 282 | in _get_standard_labware_definition\n    raise FileNotFoundError(\n" | class:"FileNotFoundError"} | wrappedErrors:[{"id":"1d371b0a-4d5d-4b36-af53-d6326eba71b5" | createdAt:"2026-09-11T17:25:04.330322Z" | isDefined:false | errorType:"PythonException" | errorCode:"4000" | detail:"opentrons.protocol_engine.errors.exceptions.LabwareDefinitionDoesNotExistError: Error 4000 GENERAL_ERROR (LabwareDefinitionDoesNotExistError): Labware definition for matching livingcodeslab/livingcodeslab_graphenea_card_adapter/1 not found." | errorInfo:{"args":"('Labware definition for matching livingcodeslab/livingcodeslab_graphenea_card_adapter/1 not found.' | )" | code:"ErrorCodes.GENERAL_ERROR" | detail:"{}" | message:"Labware definition for matching livingcodeslab/livingcodeslab_graphenea_card_adapter/1 not found." | wrapping:"[]" | traceback:"  File \"/usr/lib/python3.12/site-packages/opentrons/protocol_engine/execution/equipment.py\" | line 165 | in load_definition_for_details\n    self._state_store.labware.get_definition_by_uri(definition_uri) | \n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n  File \"/usr/lib/python3.12/site-packages/opentrons/protocol_engine/state/labware.py\" | line 575 | in get_definition_by_uri\n    raise errors.LabwareDefinitionDoesNotExistError(\n" | class:"LabwareDefinitionDoesNotExistError"} | wrappedErrors:[{"id":"1d371b0a-4d5d-4b36-af53-d6326eba71b5" | createdAt:"2026-09-11T17:25:04.330322Z" | isDefined:false | errorType:"PythonException" | errorCode:"4000" | detail:"KeyError: 'livingcodeslab/livingcodeslab_graphenea_card_adapter/1'" | errorInfo:{"args":"('livingcodeslab/livingcodeslab_graphenea_card_adapter/1' | )" | traceback:"  File \"/usr/lib/python3.12/site-packages/opentrons/protocol_engine/state/labware.py\" | line 573 | in get_definition_by_uri\n    return self._state.definitions_by_uri[uri]\n           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^\n" | class:"KeyError"} | wrappedErrors:[]} | {"id":"1d371b0a-4d5d-4b36-af53-d6326eba71b5" | createdAt:"2026-09-11T17:25:04.330322Z" | isDefined:false | errorType:"PythonException" | errorCode:"4000" | detail:"KeyError: 'livingcodeslab/livingcodeslab_graphenea_card_adapter/1'" | errorInfo:{"args":"('livingcodeslab/livingcodeslab_graphenea_card_adapter/1' | )" | traceback:"  File \"/usr/lib/python3.12/site-packages/opentrons/protocol_engine/state/labware.py\" | line 573 | in get_definition_by_uri\n    return self._state.definitions_by_uri[uri]\n           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^\n" | class:"KeyError"} | wrappedErrors:[]}]}]} | startedAt:"2026-09-11T17:25:04.228442Z" | completedAt:"2026-09-11T17:25:04.330322Z" | intent:"setup" | notes:[{"noteKind":"debugErrorRecovery" | shortMessage:"Handling this command failure with FAIL_RUN." | longMessage:"Handling this command failure with FAIL_RUN." | source:"execution"}] | commandAnnotationIds:[]}} |
+
+Ahh… the robot cannot find the labware definition. We need to load the labware definition to the run first:
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST http://OT2CEP20221010R03:31950/runs/43904d9e-bf1f-4076-b2dd-b4e6a9809de6/labware_definitions \
+       -d "{\"data\": $(cat ~/livingcodeslab/projects-tracker/guided-dna-synthesis/reports/OT2_labware_definition_graphenea_card.json)}"
+#+end_src
+
+#+RESULTS:
+: {"data":{"definitionUri":"livingcodeslab/livingcodeslab_graphenea_card_adapter/1"}}
+
+Okay, looks like the labware definition might have been successfully set up. Let us verify:
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X GET http://OT2CEP20221010R03:31950/runs/43904d9e-bf1f-4076-b2dd-b4e6a9809de6/loaded_labware_definitions
+#+end_src
+
+#+RESULTS:
+: {"data":[]}
+
+This does not bode well ...
+
+Let's try the =loadLabware= command again:
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST http://OT2CEP20221010R03:31950/runs/43904d9e-bf1f-4076-b2dd-b4e6a9809de6/commands \
+       -d '{
+    "data": {
+        "commandType": "loadLabware",
+        "params": {
+            "location": {
+                "slotName": "1"
+            },
+            "loadName": "livingcodeslab_graphenea_card_adapter",
+            "namespace": "livingcodeslab",
+            "version": 1,
+            "labwareId": "c9c762e1-8205-4ccd-be32-6535fd0e9514"
+        },
+        "intent": "setup"
+    }
+}'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"6a91fbc5-92ea-4636-8d01-eed0fbde8756" | createdAt:"2026-09-11T17:58:30.078623Z" | commandType:"loadLabware" | key:"6a91fbc5-92ea-4636-8d01-eed0fbde8756" | status:"queued" | params:{"location":{"slotName":"1"} | loadName:"livingcodeslab_graphenea_card_adapter" | namespace:"livingcodeslab" | version:1 | labwareId:"c9c762e1-8205-4ccd-be32-6535fd0e9514"} | intent:"setup" | commandAnnotationIds:[]}} |
+
+Okay, new command enqueued; now to see whether it actually loaded successfully:
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X GET http://OT2CEP20221010R03:31950/runs/43904d9e-bf1f-4076-b2dd-b4e6a9809de6/commands/6a91fbc5-92ea-4636-8d01-eed0fbde8756
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"6a91fbc5-92ea-4636-8d01-eed0fbde8756" | createdAt:"2026-09-11T17:58:30.078623Z" | commandType:"loadLabware" | key:"6a91fbc5-92ea-4636-8d01-eed0fbde8756" | status:"succeeded" | params:{"location":{"slotName":"1"} | loadName:"livingcodeslab_graphenea_card_adapter" | namespace:"livingcodeslab" | version:1 | labwareId:"c9c762e1-8205-4ccd-be32-6535fd0e9514"} | result:{"labwareId":"c9c762e1-8205-4ccd-be32-6535fd0e9514" | locationSequence:[{"kind":"onAddressableArea" | addressableAreaName:"1"} | {"kind":"onCutoutFixture" | possibleCutoutFixtureIds:["singleStandardSlot"] | cutoutId:"cutout1"}] | definition:{"schemaVersion":2 | version:1 | namespace:"livingcodeslab" | metadata:{"displayName":"LivingCodesLab: Graphenea Card Adapter" | displayCategory:"wellPlate" | displayVolumeUnits:"µL"} | brand:{"brand":"LivingCodesLab" | brandId:[]} | parameters:{"format":"irregular" | quirks:[] | isTiprack:false | loadName:"livingcodeslab_graphenea_card_adapter" | isMagneticModuleCompatible:false} | cornerOffsetFromSlot:{"x":0 | y:0 | z:0} | ordering:[["A1" | B1]] | dimensions:{"yDimension":85.02 | zDimension:25 | xDimension:127.14} | wells:{"A1":{"shape":"circular" | diameter:3 | depth:1.5 | totalLiquidVolume:20 | x:94.41 | z:21.4 | y:63.52} | B1:{"shape":"circular" | diameter:3 | depth:1.5 | totalLiquidVolume:20 | x:94.41 | z:21.4 | y:23.52}} | groups:[{"wells":["A1" | B1] | metadata:{"displayName":"mGFET Chip in LCC Socket" | wellBottomShape:"flat"} | brand:{"brand":"LivingCodesLab" | brandId:["mGFET-4D for Sensing Applications"] | links:["https://www.graphenea.com/products/mgfet-4d-for-sensing-applications" | https://cdn.shopify.com/s/files/1/0191/2296/files/2026_mGFET-D_4x4_v6_TDS_02-03-2026.pdf?v=1776930189 | https://cdn.shopify.com/s/files/1/0191/2296/files/2026_Measurement_Protocols_mGFET_v3_27-02-2026.pdf?v=1776929336]}}] | stackingOffsetWithLabware:{} | stackingOffsetWithModule:{} | allowedRoles:[] | gripperOffsets:{}}} | startedAt:"2026-09-11T17:58:30.080634Z" | completedAt:"2026-09-11T17:58:30.089063Z" | intent:"setup" | notes:[] | commandAnnotationIds:[]}} |
+
+Woot \o/! Looks like the =loadLabware= command succeeded this time. Now let's
+retry the =…/loaded_labware_definitions= endpoint again.
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X GET http://OT2CEP20221010R03:31950/runs/43904d9e-bf1f-4076-b2dd-b4e6a9809de6/loaded_labware_definitions
+#+end_src
+
+#+RESULTS:
+| {"data":[{"schemaVersion":2 | version:1 | namespace:"livingcodeslab" | metadata:{"displayName":"LivingCodesLab: Graphenea Card Adapter" | displayCategory:"wellPlate" | displayVolumeUnits:"µL"} | brand:{"brand":"LivingCodesLab" | brandId:[]} | parameters:{"format":"irregular" | quirks:[] | isTiprack:false | loadName:"livingcodeslab_graphenea_card_adapter" | isMagneticModuleCompatible:false} | cornerOffsetFromSlot:{"x":0 | y:0 | z:0} | ordering:[["A1" | B1]] | dimensions:{"yDimension":85.02 | zDimension:25 | xDimension:127.14} | wells:{"A1":{"shape":"circular" | diameter:3 | depth:1.5 | totalLiquidVolume:20 | x:94.41 | z:21.4 | y:63.52} | B1:{"shape":"circular" | diameter:3 | depth:1.5 | totalLiquidVolume:20 | x:94.41 | z:21.4 | y:23.52}} | groups:[{"wells":["A1" | B1] | metadata:{"displayName":"mGFET Chip in LCC Socket" | wellBottomShape:"flat"} | brand:{"brand":"LivingCodesLab" | brandId:["mGFET-4D for Sensing Applications"] | links:["https://www.graphenea.com/products/mgfet-4d-for-sensing-applications" | https://cdn.shopify.com/s/files/1/0191/2296/files/2026_mGFET-D_4x4_v6_TDS_02-03-2026.pdf?v=1776930189 | https://cdn.shopify.com/s/files/1/0191/2296/files/2026_Measurement_Protocols_mGFET_v3_27-02-2026.pdf?v=1776929336]}}] | stackingOffsetWithLabware:{} | stackingOffsetWithModule:{} | allowedRoles:[] | gripperOffsets:{}}]} |
+
+Okay, nice! Thing are looking up.
+
+Now let us load the "96 Filter Tip Rack 20µL" on slot 7
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST http://OT2CEP20221010R03:31950/runs/43904d9e-bf1f-4076-b2dd-b4e6a9809de6/commands \
+       -d '{
+    "data": {
+        "commandType": "loadLabware",
+        "params": {
+            "location": {
+                "slotName": "7"
+            },
+            "loadName": "opentrons_96_filtertiprack_20ul",
+            "namespace": "opentrons",
+            "version": 1,
+            "labwareId": "32dbb5b7-710d-428b-bff0-03e31351e25f"
+        },
+        "intent": "setup"
+    }
+}'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"33cbfd3f-2cb4-451d-aeed-5891d375381c" | createdAt:"2026-09-11T18:15:17.557991Z" | commandType:"loadLabware" | key:"33cbfd3f-2cb4-451d-aeed-5891d375381c" | status:"queued" | params:{"location":{"slotName":"7"} | loadName:"opentrons_96_filtertiprack_20ul" | namespace:"opentrons" | version:1 | labwareId:"32dbb5b7-710d-428b-bff0-03e31351e25f"} | intent:"setup" | commandAnnotationIds:[]}} |
+
+and finally the "NEST 12 Well Reservoir 15 mL" reservoir on slot 3
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST http://OT2CEP20221010R03:31950/runs/43904d9e-bf1f-4076-b2dd-b4e6a9809de6/commands \
+       -d '{
+    "data": {
+        "commandType": "loadLabware",
+        "params": {
+            "location": {
+                "slotName": "3"
+            },
+            "loadName": "nest_12_reservoir_15ml",
+            "namespace": "opentrons",
+            "version": 1,
+            "labwareId": "fe305793-e2b6-40ce-94d7-2b55549b1b57"
+        },
+        "intent": "setup"
+    }
+}'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"6bfc45f2-edc6-4ce2-ada2-cfa79c3373ea" | createdAt:"2026-09-11T18:19:41.539749Z" | commandType:"loadLabware" | key:"6bfc45f2-edc6-4ce2-ada2-cfa79c3373ea" | status:"queued" | params:{"location":{"slotName":"3"} | loadName:"nest_12_reservoir_15ml" | namespace:"opentrons" | version:1 | labwareId:"fe305793-e2b6-40ce-94d7-2b55549b1b57"} | intent:"setup" | commandAnnotationIds:[]}} |
+
+
+Now, let us look at the state of the run, thus far:
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X GET http://OT2CEP20221010R03:31950/runs/43904d9e-bf1f-4076-b2dd-b4e6a9809de6
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"43904d9e-bf1f-4076-b2dd-b4e6a9809de6" | ok:true | createdAt:"2026-09-11T17:10:33.516486Z" | status:"idle" | current:true | actions:[] | errors:[] | hasEverEnteredErrorRecovery:false | pipettes:[] | modules:[] | labware:[{"id":"c9c762e1-8205-4ccd-be32-6535fd0e9514" | loadName:"livingcodeslab_graphenea_card_adapter" | definitionUri:"livingcodeslab/livingcodeslab_graphenea_card_adapter/1" | location:{"slotName":"1"}} | {"id":"32dbb5b7-710d-428b-bff0-03e31351e25f" | loadName:"opentrons_96_filtertiprack_20ul" | definitionUri:"opentrons/opentrons_96_filtertiprack_20ul/1" | location:{"slotName":"7"}} | {"id":"fe305793-e2b6-40ce-94d7-2b55549b1b57" | loadName:"nest_12_reservoir_15ml" | definitionUri:"opentrons/nest_12_reservoir_15ml/1" | location:{"slotName":"3"}}] | liquids:[] | liquidClasses:[] | labwareOffsets:[] | runTimeParameters:[] | outputFileIds:[]}} |
+
+Nice! We see all our defined labware is in place.
+
+We can simulate running useful commands now.
+
+First, we get a list of the available pipettes:
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X GET http://OT2CEP20221010R03:31950/pipettes
+#+end_src
+
+#+RESULTS:
+| {"left":{"model":"p20_single_v2.2" | name:"p20_single_gen2" | tip_length:0.0 | mount_axis:"z" | plunger_axis:"b" | id:"P20SV222022080201"} | right:{"model":"p300_single_v2.1" | name:"p300_single_gen2" | tip_length:0.0 | mount_axis:"a" | plunger_axis:"c" | id:"P3HSV212022080807"}} |
+
+We see we have only two pipettes. We want the 20µL pipette (P20) — it has the ID
+=P20SV222022080201= from the results above.
+
+Now, let us queue as =pickUpTip= command:
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST http://OT2CEP20221010R03:31950/runs/43904d9e-bf1f-4076-b2dd-b4e6a9809de6/commands \
+       -d '{
+    "data": {
+        "commandType": "pickUpTip",
+        "params": {
+            "pipetteId": "P20SV222022080201",
+            "labwareId": "32dbb5b7-710d-428b-bff0-03e31351e25f",
+            "wellName": "A1"
+        },
+        "intent": "protocol"
+    }
+}'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"86c5e28e-7648-4bb2-b009-cef52bd6718d" | createdAt:"2026-09-11T18:38:01.513636Z" | commandType:"pickUpTip" | key:"7fd55603151ada4f23432e2180ff2194" | status:"queued" | params:{"pipetteId":"P20SV222022080201" | labwareId:"32dbb5b7-710d-428b-bff0-03e31351e25f" | wellName:"A1" | wellLocation:{"origin":"top" | offset:{"x":0.0 | y:0.0 | z:0.0}}} | intent:"protocol" | commandAnnotationIds:[]}} |
+
+The command is queued but has not been run yet:
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X GET http://OT2CEP20221010R03:31950/runs/43904d9e-bf1f-4076-b2dd-b4e6a9809de6/commands/86c5e28e-7648-4bb2-b009-cef52bd6718d
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"86c5e28e-7648-4bb2-b009-cef52bd6718d" | createdAt:"2026-09-11T18:38:01.513636Z" | commandType:"pickUpTip" | key:"7fd55603151ada4f23432e2180ff2194" | status:"queued" | params:{"pipetteId":"P20SV222022080201" | labwareId:"32dbb5b7-710d-428b-bff0-03e31351e25f" | wellName:"A1" | wellLocation:{"origin":"top" | offset:{"x":0.0 | y:0.0 | z:0.0}}} | intent:"protocol" | commandAnnotationIds:[]}} |
+
+To run the command, we need to actually "play" the run.
+
+First, clear the robot, ensure all the labware is put in the right positions: done!
+
+Now, play the run, and observe what happens:
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST http://OT2CEP20221010R03:31950/runs/43904d9e-bf1f-4076-b2dd-b4e6a9809de6/actions \
+       -d '{
+    "data": {
+        "actionType": "play"
+    }
+}'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"f64b415b-3c44-4473-aee5-b92ce294593d" | createdAt:"2026-09-11T18:46:32.958077Z" | actionType:"play"}} |
+
+The robot responds, but all it does is home its axes. Why? What did I do wrong?
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X GET http://OT2CEP20221010R03:31950/runs/43904d9e-bf1f-4076-b2dd-b4e6a9809de6/commands/86c5e28e-7648-4bb2-b009-cef52bd6718d
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"86c5e28e-7648-4bb2-b009-cef52bd6718d" | createdAt:"2026-09-11T18:38:01.513636Z" | commandType:"pickUpTip" | key:"7fd55603151ada4f23432e2180ff2194" | status:"failed" | params:{"pipetteId":"P20SV222022080201" | labwareId:"32dbb5b7-710d-428b-bff0-03e31351e25f" | wellName:"A1" | wellLocation:{"origin":"top" | offset:{"x":0.0 | y:0.0 | z:0.0}}} | error:{"id":"6ac7b451-ca17-4456-a259-b665c5ab087c" | createdAt:"2026-09-11T18:46:51.036607Z" | isDefined:false | errorType:"PythonException" | errorCode:"4000" | detail:"KeyError: 'P20SV222022080201'" | errorInfo:{"args":"('P20SV222022080201' | )" | traceback:"  File \"/usr/lib/python3.12/site-packages/opentrons/protocol_engine/execution/command_executor.py\" | line 157 | in execute\n    result = await command_impl.execute(\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n  File \"/usr/lib/python3.12/site-packages/opentrons/protocol_engine/commands/pick_up_tip.py\" | line 130 | in execute\n    nozzle_map=self._state_view.pipettes.get_nozzle_configuration(\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n  File \"/usr/lib/python3.12/site-packages/opentrons/protocol_engine/state/pipettes.py\" | line 768 | in get_nozzle_configuration\n    return self._state.nozzle_configuration_by_id[pipette_id]\n           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^\n" | class:"KeyError"} | wrappedErrors:[]} | startedAt:"2026-09-11T18:46:51.018783Z" | completedAt:"2026-09-11T18:46:51.036607Z" | intent:"protocol" | notes:[{"noteKind":"debugErrorRecovery" | shortMessage:"Handling this command failure with FAIL_RUN." | longMessage:"Handling this command failure with FAIL_RUN." | source:"execution"}] | commandAnnotationIds:[]}} |
+
+Hmm, it's saying the "P20SV222022080201" key does not exist. Why? It clearly does.
+
+
+So, after searching a while, we apparently need to =loadPipette= before we can
+use it, kinda like we =loadLabware=.
+
+The bare minimum of things we need to load for each run before we can achieve
+success are the
+
+- labware (=loadLabware=)
+- pipette(s) (=loadPipette=)
+- liquid definitions (=loadLiquid=)
+
+Other things we could load include
+
+- modules (=loadModule=)
+- …
+
+
+We'll try this again later, this time ensuring to load the pipette in the
+"setup" stage.
+  
