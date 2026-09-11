@@ -481,4 +481,10 @@ Other things we could load include
 
 We'll try this again later, this time ensuring to load the pipette in the
 "setup" stage.
-  
+
+
+** After Care
+
+- [X] Shutdown the robot
+- [X] Turn off the power switch
+- [X] Disconnect power brick from robot and from power socket
