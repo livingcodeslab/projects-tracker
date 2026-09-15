@@ -1,0 +1,975 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2026-09-15
+#+AUTHOR: Frederick Muriuki Muriithi
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+#+AUTO_TANGLE: t
+#+OPTIONS: ^:{}
+
+* Integrations
+
+** Explore Setting up Protocol with HTTP API (continued)
+
+[[file:report-2026-09-11.org::*Integrations][Last time]], we explored the API from basics and encountered some issues. Today,
+we will do the same, but this time, fix the issues we encountered and see how
+much we'll be able to achieve.
+
+*** Run Management
+
+Let us begin by creating a run and setting up the deck.
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+         --header "opentrons-version: 2" \
+         -X POST http://OT2CEP20221010R03:31950/runs \
+         -d '{
+      "data": {
+          "labwareOffsets": [],
+          "runTimeParameterValues": null,
+          "runTimeParameterFiles": null
+      }
+  }'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"300a96d7-ecd1-4f14-8e5e-d5595a963928" | ok:true | createdAt:"2026-09-15T14:05:50.521097Z" | status:"idle" | current:true | actions:[] | errors:[] | hasEverEnteredErrorRecovery:false | pipettes:[] | modules:[] | labware:[] | liquids:[] | liquidClasses:[] | labwareOffsets:[] | runTimeParameters:[] | outputFileIds:[]}} |
+
+Upload the definition for the custom labware onto the OT-2R robot
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST http://OT2CEP20221010R03:31950/runs/300a96d7-ecd1-4f14-8e5e-d5595a963928/labware_definitions \
+       -d "{\"data\": $(cat ~/livingcodeslab/projects-tracker/guided-dna-synthesis/reports/OT2_labware_definition_graphenea_card.json)}"
+#+end_src
+
+#+RESULTS:
+: {"data":{"definitionUri":"livingcodeslab/livingcodeslab_graphenea_card_adapter/1"}}
+
+We can now specify the labware our run will use, and where on the deck they are mounted.
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST http://OT2CEP20221010R03:31950/runs/300a96d7-ecd1-4f14-8e5e-d5595a963928/commands \
+       -d '{
+    "data": {
+        "commandType": "loadLabware",
+        "params": {
+            "location": {
+                "slotName": "1"
+            },
+            "loadName": "livingcodeslab_graphenea_card_adapter",
+            "namespace": "livingcodeslab",
+            "version": 1,
+            "labwareId": "c9c762e1-8205-4ccd-be32-6535fd0e9514"
+        },
+        "intent": "setup"
+    }
+}'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"5e2f03a6-f597-4545-aac4-ffd93f2636b7" | createdAt:"2026-09-15T14:07:37.355864Z" | commandType:"loadLabware" | key:"5e2f03a6-f597-4545-aac4-ffd93f2636b7" | status:"queued" | params:{"location":{"slotName":"1"} | loadName:"livingcodeslab_graphenea_card_adapter" | namespace:"livingcodeslab" | version:1 | labwareId:"c9c762e1-8205-4ccd-be32-6535fd0e9514"} | intent:"setup" | commandAnnotationIds:[]}} |
+
+that loads the custom labware to slot 1. Next, we load the pipette tip rack …
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST http://OT2CEP20221010R03:31950/runs/300a96d7-ecd1-4f14-8e5e-d5595a963928/commands \
+       -d '{
+    "data": {
+        "commandType": "loadLabware",
+        "params": {
+            "location": {
+                "slotName": "7"
+            },
+            "loadName": "opentrons_96_filtertiprack_20ul",
+            "namespace": "opentrons",
+            "version": 1,
+            "labwareId": "32dbb5b7-710d-428b-bff0-03e31351e25f"
+        },
+        "intent": "setup"
+    }
+}'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"00a4e982-5205-4381-941e-575a93afc6bf" | createdAt:"2026-09-15T14:07:58.074819Z" | commandType:"loadLabware" | key:"00a4e982-5205-4381-941e-575a93afc6bf" | status:"queued" | params:{"location":{"slotName":"7"} | loadName:"opentrons_96_filtertiprack_20ul" | namespace:"opentrons" | version:1 | labwareId:"32dbb5b7-710d-428b-bff0-03e31351e25f"} | intent:"setup" | commandAnnotationIds:[]}} |
+
+… then the reservoir for the liquids …
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST http://OT2CEP20221010R03:31950/runs/300a96d7-ecd1-4f14-8e5e-d5595a963928/commands \
+       -d '{
+    "data": {
+        "commandType": "loadLabware",
+        "params": {
+            "location": {
+                "slotName": "3"
+            },
+            "loadName": "nest_12_reservoir_15ml",
+            "namespace": "opentrons",
+            "version": 1,
+            "labwareId": "fe305793-e2b6-40ce-94d7-2b55549b1b57"
+        },
+        "intent": "setup"
+    }
+}'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"343bdea6-96c0-472c-8816-0e95f546f9d0" | createdAt:"2026-09-15T14:08:07.712569Z" | commandType:"loadLabware" | key:"343bdea6-96c0-472c-8816-0e95f546f9d0" | status:"queued" | params:{"location":{"slotName":"3"} | loadName:"nest_12_reservoir_15ml" | namespace:"opentrons" | version:1 | labwareId:"fe305793-e2b6-40ce-94d7-2b55549b1b57"} | intent:"setup" | commandAnnotationIds:[]}} |
+
+Good. We have created the run and specified all the labware we will use. Next,
+we load the pipette(s) we will be using for our run.
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+         --header "opentrons-version: 2" \
+         -X POST http://OT2CEP20221010R03:31950/runs/300a96d7-ecd1-4f14-8e5e-d5595a963928/commands \
+         -d '{
+      "data": {
+          "commandType": "loadPipette",
+          "params": {
+              "pipetteName": "p20_single_gen2",
+              "mount": "left",
+              "pipetteId": "7806a233-8012-4d99-8887-970935f103e1"
+          },
+          "intent": "setup"
+      }
+  }'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"7a3a7799-c183-491c-8561-4c997cd70e12" | createdAt:"2026-09-15T14:14:45.953737Z" | commandType:"loadPipette" | key:"7a3a7799-c183-491c-8561-4c997cd70e12" | status:"queued" | params:{"pipetteName":"p20_single_gen2" | mount:"left" | pipetteId:"7806a233-8012-4d99-8887-970935f103e1"} | intent:"setup" | commandAnnotationIds:[]}} |
+
+Okay, that seems successful. Let us verify by looking at the current state of
+our run:
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+         --header "opentrons-version: 2" \
+         -X GET http://OT2CEP20221010R03:31950/runs/300a96d7-ecd1-4f14-8e5e-d5595a963928
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"300a96d7-ecd1-4f14-8e5e-d5595a963928" | ok:true | createdAt:"2026-09-15T14:05:50.521097Z" | status:"idle" | current:true | actions:[] | errors:[] | hasEverEnteredErrorRecovery:false | pipettes:[{"id":"7806a233-8012-4d99-8887-970935f103e1" | pipetteName:"p20_single_gen2" | mount:"left"}] | modules:[] | labware:[{"id":"c9c762e1-8205-4ccd-be32-6535fd0e9514" | loadName:"livingcodeslab_graphenea_card_adapter" | definitionUri:"livingcodeslab/livingcodeslab_graphenea_card_adapter/1" | location:{"slotName":"1"}} | {"id":"32dbb5b7-710d-428b-bff0-03e31351e25f" | loadName:"opentrons_96_filtertiprack_20ul" | definitionUri:"opentrons/opentrons_96_filtertiprack_20ul/1" | location:{"slotName":"7"}} | {"id":"fe305793-e2b6-40ce-94d7-2b55549b1b57" | loadName:"nest_12_reservoir_15ml" | definitionUri:"opentrons/nest_12_reservoir_15ml/1" | location:{"slotName":"3"}}] | liquids:[] | liquidClasses:[] | labwareOffsets:[] | runTimeParameters:[] | outputFileIds:[]}} |
+
+Nice, we see the pipette listed under the =pipettes= key in the output. We also
+see the labware we defined listed under the =labware= key in the output.
+
+We should probably load the liquids at this point, but two things lead us to
+skipping this step for now:
+
+- There are technically no liquids we are using during this exploration — we are
+  simulating the use of the robot via the HTTP protocol, so we don't have to
+  actually use any reagents.
+- The =loadLiquid= command does not seem to be flexible enough to allow a
+  different liquid for each well in the reservoir. We are probably missing
+  something at this point, but it's not very critical for the proof-of-concept
+  exploration.
+
+
+At this point, we have the labware and pipette specified. We can now begin
+actually doing things with the robot.
+
+Let us begin by picking up a tip.
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST http://OT2CEP20221010R03:31950/runs/300a96d7-ecd1-4f14-8e5e-d5595a963928/commands \
+       -d '{
+    "data": {
+        "commandType": "pickUpTip",
+        "params": {
+            "pipetteId": "P20SV222022080201",
+            "labwareId": "32dbb5b7-710d-428b-bff0-03e31351e25f",
+            "wellName": "A1"
+        },
+        "intent": "protocol"
+    }
+}'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"ccd9b2d0-064f-41d7-b0c7-d0df60bb1124" | createdAt:"2026-09-15T14:34:35.517002Z" | commandType:"pickUpTip" | key:"7fd55603151ada4f23432e2180ff2194" | status:"queued" | params:{"pipetteId":"P20SV222022080201" | labwareId:"32dbb5b7-710d-428b-bff0-03e31351e25f" | wellName:"A1" | wellLocation:{"origin":"top" | offset:{"x":0.0 | y:0.0 | z:0.0}}} | intent:"protocol" | commandAnnotationIds:[]}} |
+
+Ahh, forgot to actually "play" the run. Let us do that now:
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST http://OT2CEP20221010R03:31950/runs/300a96d7-ecd1-4f14-8e5e-d5595a963928/actions \
+       -d '{
+    "data": {
+        "actionType": "play"
+    }
+}'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"027b1b6d-1c0c-4184-aa5f-ab356d543b16" | createdAt:"2026-09-15T14:36:27.080545Z" | actionType:"play"}} |
+
+Whoops! The robot homes the axes, but does not actually pick up the tip. What
+did we do wrong this time?
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X GET http://OT2CEP20221010R03:31950/runs/300a96d7-ecd1-4f14-8e5e-d5595a963928/commands/ccd9b2d0-064f-41d7-b0c7-d0df60bb1124
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"ccd9b2d0-064f-41d7-b0c7-d0df60bb1124" | createdAt:"2026-09-15T14:34:35.517002Z" | commandType:"pickUpTip" | key:"7fd55603151ada4f23432e2180ff2194" | status:"failed" | params:{"pipetteId":"P20SV222022080201" | labwareId:"32dbb5b7-710d-428b-bff0-03e31351e25f" | wellName:"A1" | wellLocation:{"origin":"top" | offset:{"x":0.0 | y:0.0 | z:0.0}}} | error:{"id":"055c69d6-b4ef-46d1-8f39-7246981c4154" | createdAt:"2026-09-15T14:36:45.342431Z" | isDefined:false | errorType:"PythonException" | errorCode:"4000" | detail:"KeyError: 'P20SV222022080201'" | errorInfo:{"args":"('P20SV222022080201' | )" | traceback:"  File \"/usr/lib/python3.12/site-packages/opentrons/protocol_engine/execution/command_executor.py\" | line 157 | in execute\n    result = await command_impl.execute(\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n  File \"/usr/lib/python3.12/site-packages/opentrons/protocol_engine/commands/pick_up_tip.py\" | line 130 | in execute\n    nozzle_map=self._state_view.pipettes.get_nozzle_configuration(\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\n  File \"/usr/lib/python3.12/site-packages/opentrons/protocol_engine/state/pipettes.py\" | line 768 | in get_nozzle_configuration\n    return self._state.nozzle_configuration_by_id[pipette_id]\n           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^\n" | class:"KeyError"} | wrappedErrors:[]} | startedAt:"2026-09-15T14:36:45.316792Z" | completedAt:"2026-09-15T14:36:45.342431Z" | intent:"protocol" | notes:[{"noteKind":"debugErrorRecovery" | shortMessage:"Handling this command failure with FAIL_RUN." | longMessage:"Handling this command failure with FAIL_RUN." | source:"execution"}] | commandAnnotationIds:[]}} |
+
+Ahh, my bad. Used the wrong =pipetteId= value (again). Try and fix that.
+
+Begin by recovering the run from the failure:
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+         --header "opentrons-version: 2" \
+         -X POST http://OT2CEP20221010R03:31950/runs/300a96d7-ecd1-4f14-8e5e-d5595a963928/actions \
+         -d '{
+      "data": {
+          "actionType": "resume-from-recovery"
+      }
+  }'
+#+end_src
+
+#+RESULTS:
+| {"errors":[{"id":"RunActionNotAllowed" | title:"Run Action Not Allowed" | detail:"The run has already stopped." | meta:{"type":"RunActionNotAllowedError" | code:"3000" | message:"The run has already stopped." | detail:{} | wrapping:[{"type":"RunStoppedError" | code:"4000" | message:"The run has already stopped." | detail:{} | wrapping:[]}]} | errorCode:"3000"}]} |
+
+Okay, so that's not allowed. Well, back to the beginning it is!
+
+Begin by deleting the run:
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+         --header "opentrons-version: 2" \
+         -X DELETE \
+         http://OT2CEP20221010R03:31950/runs/300a96d7-ecd1-4f14-8e5e-d5595a963928
+#+end_src
+
+#+RESULTS:
+: {}
+
+Now we begin a new run:
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+         --header "opentrons-version: 2" \
+         -X POST http://OT2CEP20221010R03:31950/runs \
+         -d '{
+      "data": {
+          "labwareOffsets": [],
+          "runTimeParameterValues": null,
+          "runTimeParameterFiles": null
+      }
+  }'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"271f7544-dae6-4718-89e0-d805a7ab2d8b" | ok:true | createdAt:"2026-09-15T14:46:46.482424Z" | status:"idle" | current:true | actions:[] | errors:[] | hasEverEnteredErrorRecovery:false | pipettes:[] | modules:[] | labware:[] | liquids:[] | liquidClasses:[] | labwareOffsets:[] | runTimeParameters:[] | outputFileIds:[]}} |
+
+Okay, new run with id ~271f7544-dae6-4718-89e0-d805a7ab2d8b~. Good, now go
+through all the same steps as before, i.e. upload custom labware definition,
+load labware and load pipette.
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST http://OT2CEP20221010R03:31950/runs/271f7544-dae6-4718-89e0-d805a7ab2d8b/labware_definitions \
+       -d "{\"data\": $(cat ~/livingcodeslab/projects-tracker/guided-dna-synthesis/reports/OT2_labware_definition_graphenea_card.json)}"
+#+end_src
+
+#+RESULTS:
+: {"data":{"definitionUri":"livingcodeslab/livingcodeslab_graphenea_card_adapter/1"}}
+
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST http://OT2CEP20221010R03:31950/runs/271f7544-dae6-4718-89e0-d805a7ab2d8b/commands \
+       -d '{
+    "data": {
+        "commandType": "loadLabware",
+        "params": {
+            "location": {
+                "slotName": "1"
+            },
+            "loadName": "livingcodeslab_graphenea_card_adapter",
+            "namespace": "livingcodeslab",
+            "version": 1,
+            "labwareId": "c9c762e1-8205-4ccd-be32-6535fd0e9514"
+        },
+        "intent": "setup"
+    }
+}'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"73a00710-bcce-44b6-9c35-be0aec4ad759" | createdAt:"2026-09-15T14:50:27.571598Z" | commandType:"loadLabware" | key:"73a00710-bcce-44b6-9c35-be0aec4ad759" | status:"queued" | params:{"location":{"slotName":"1"} | loadName:"livingcodeslab_graphenea_card_adapter" | namespace:"livingcodeslab" | version:1 | labwareId:"c9c762e1-8205-4ccd-be32-6535fd0e9514"} | intent:"setup" | commandAnnotationIds:[]}} |
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+         --header "opentrons-version: 2" \
+         -X POST \
+         http://OT2CEP20221010R03:31950/runs/271f7544-dae6-4718-89e0-d805a7ab2d8b/commands \
+         -d '{
+      "data": {
+          "commandType": "loadLabware",
+          "params": {
+              "location": {
+                  "slotName": "7"
+              },
+              "loadName": "opentrons_96_filtertiprack_20ul",
+              "namespace": "opentrons",
+              "version": 1,
+              "labwareId": "32dbb5b7-710d-428b-bff0-03e31351e25f"
+          },
+          "intent": "setup"
+      }
+  }'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"17adb09f-fa9f-4c9e-b326-d4bc1e53962c" | createdAt:"2026-09-15T14:52:45.969292Z" | commandType:"loadLabware" | key:"17adb09f-fa9f-4c9e-b326-d4bc1e53962c" | status:"queued" | params:{"location":{"slotName":"7"} | loadName:"opentrons_96_filtertiprack_20ul" | namespace:"opentrons" | version:1 | labwareId:"32dbb5b7-710d-428b-bff0-03e31351e25f"} | intent:"setup" | commandAnnotationIds:[]}} |
+
+#+begin_src shell
+    curl --header "Content-Type: application/json" \
+         --header "opentrons-version: 2" \
+         -X POST \
+         http://OT2CEP20221010R03:31950/runs/271f7544-dae6-4718-89e0-d805a7ab2d8b/commands \
+         -d '{
+      "data": {
+          "commandType": "loadLabware",
+          "params": {
+              "location": {
+                  "slotName": "3"
+              },
+              "loadName": "nest_12_reservoir_15ml",
+              "namespace": "opentrons",
+              "version": 1,
+              "labwareId": "fe305793-e2b6-40ce-94d7-2b55549b1b57"
+          },
+          "intent": "setup"
+      }
+  }'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"eea80094-6133-40d4-84cf-d1e1fd392a47" | createdAt:"2026-09-15T14:52:34.807648Z" | commandType:"loadLabware" | key:"eea80094-6133-40d4-84cf-d1e1fd392a47" | status:"queued" | params:{"location":{"slotName":"3"} | loadName:"nest_12_reservoir_15ml" | namespace:"opentrons" | version:1 | labwareId:"fe305793-e2b6-40ce-94d7-2b55549b1b57"} | intent:"setup" | commandAnnotationIds:[]}} |
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+         --header "opentrons-version: 2" \
+         -X POST http://OT2CEP20221010R03:31950/runs/271f7544-dae6-4718-89e0-d805a7ab2d8b/commands \
+         -d '{
+      "data": {
+          "commandType": "loadPipette",
+          "params": {
+              "pipetteName": "p20_single_gen2",
+              "mount": "left",
+              "pipetteId": "7806a233-8012-4d99-8887-970935f103e1"
+          },
+          "intent": "setup"
+      }
+  }'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"1a9036d2-08fd-4d0c-8e45-1cfe6fd682d1" | createdAt:"2026-09-15T14:53:24.048393Z" | commandType:"loadPipette" | key:"1a9036d2-08fd-4d0c-8e45-1cfe6fd682d1" | status:"queued" | params:{"pipetteName":"p20_single_gen2" | mount:"left" | pipetteId:"7806a233-8012-4d99-8887-970935f103e1"} | intent:"setup" | commandAnnotationIds:[]}} |
+
+Labware and pipettes are loaded. Setup is complete.
+
+Now, "play" the run.
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST \
+       http://OT2CEP20221010R03:31950/runs/271f7544-dae6-4718-89e0-d805a7ab2d8b/actions \
+       -d '{
+      "data": {
+          "actionType": "play"
+      }
+  }'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"61bc03ae-db0d-4985-aee0-fcdd6a0a9da8" | createdAt:"2026-09-15T14:54:51.300914Z" | actionType:"play"}} |
+
+The robot is observed homing the axes. Now, we can attempt to pick up the tip.
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST \
+       http://OT2CEP20221010R03:31950/runs/271f7544-dae6-4718-89e0-d805a7ab2d8b/commands \
+       -d '{
+      "data": {
+          "commandType": "pickUpTip",
+          "params": {
+              "pipetteId": "7806a233-8012-4d99-8887-970935f103e1",
+              "labwareId": "32dbb5b7-710d-428b-bff0-03e31351e25f",
+              "wellName": "A1"
+          },
+          "intent": "protocol"
+      }
+  }'
+#+end_src
+
+#+RESULTS:
+| {"errors":[{"id":"RunStopped" | title:"Run Stopped" | detail:"The run has already stopped." | meta:{"type":"RunStoppedError" | code:"4000" | message:"The run has already stopped." | detail:{} | wrapping:[]} | errorCode:"4000"}]} |
+
+Why? 😭
+
+Turns out that if the protocol execution lifecycle has already transitioned to a
+"stopped" state, then the HTTP API will fail to enqueue any new commands. Since
+we ran =pickUpTip= after we'd already "played" the run, the robot entered a
+"stopped" state before we had even enqueued the =pickUpTip= command.
+
+Looks like what I need to do is use maintenance runs.
+
+Okay, then. Clean up after ourselves first:
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X DELETE \
+       http://OT2CEP20221010R03:31950/runs/271f7544-dae6-4718-89e0-d805a7ab2d8b
+#+end_src
+
+#+RESULTS:
+: {}
+
+Let's try using maintenance runs instead.
+
+*** Maintenance Runs
+
+Set up a maintenance run:
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+         --header "opentrons-version: 2" \
+         -X POST http://OT2CEP20221010R03:31950/maintenance_runs \
+         -d '{
+      "data": {
+          "labwareOffsets": []
+      }
+  }'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"4023a0e2-d70d-4f6e-91f7-9808dd170273" | createdAt:"2026-09-15T15:14:35.049438Z" | status:"idle" | current:true | actions:[] | errors:[] | hasEverEnteredErrorRecovery:false | pipettes:[] | modules:[] | labware:[] | liquids:[] | liquidClasses:[] | labwareOffsets:[]}} |
+
+
+We get a maintenance run with ID ~4023a0e2-d70d-4f6e-91f7-9808dd170273~.
+
+Now, do the usual dance — upload definition, load labware, load pipette, play run, then attempt to pick up a tip:
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST http://OT2CEP20221010R03:31950/maintenance_runs/4023a0e2-d70d-4f6e-91f7-9808dd170273/labware_definitions \
+       -d "{\"data\": $(cat ~/livingcodeslab/projects-tracker/guided-dna-synthesis/reports/OT2_labware_definition_graphenea_card.json)}"
+#+end_src
+
+#+RESULTS:
+: {"data":{"definitionUri":"livingcodeslab/livingcodeslab_graphenea_card_adapter/1"}}
+
+Definition successfully uploaded.
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST http://OT2CEP20221010R03:31950/maintenance_runs/4023a0e2-d70d-4f6e-91f7-9808dd170273/commands \
+       -d '{
+    "data": {
+        "commandType": "loadLabware",
+        "params": {
+            "location": {
+                "slotName": "1"
+            },
+            "loadName": "livingcodeslab_graphenea_card_adapter",
+            "namespace": "livingcodeslab",
+            "version": 1,
+            "labwareId": "c9c762e1-8205-4ccd-be32-6535fd0e9514"
+        },
+        "intent": "setup"
+    }
+}'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"0cf5662a-27b5-4fcf-892c-4476d7d5b66a" | createdAt:"2026-09-15T15:21:10.484691Z" | commandType:"loadLabware" | key:"0cf5662a-27b5-4fcf-892c-4476d7d5b66a" | status:"queued" | params:{"location":{"slotName":"1"} | loadName:"livingcodeslab_graphenea_card_adapter" | namespace:"livingcodeslab" | version:1 | labwareId:"c9c762e1-8205-4ccd-be32-6535fd0e9514"} | intent:"setup" | commandAnnotationIds:[]}} |
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+         --header "opentrons-version: 2" \
+         -X POST \
+         http://OT2CEP20221010R03:31950/maintenance_runs/4023a0e2-d70d-4f6e-91f7-9808dd170273/commands \
+         -d '{
+      "data": {
+          "commandType": "loadLabware",
+          "params": {
+              "location": {
+                  "slotName": "7"
+              },
+              "loadName": "opentrons_96_filtertiprack_20ul",
+              "namespace": "opentrons",
+              "version": 1,
+              "labwareId": "32dbb5b7-710d-428b-bff0-03e31351e25f"
+          },
+          "intent": "setup"
+      }
+  }'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"655e3a69-740b-4a4f-bf20-2726ec69dc10" | createdAt:"2026-09-15T15:21:15.829639Z" | commandType:"loadLabware" | key:"655e3a69-740b-4a4f-bf20-2726ec69dc10" | status:"queued" | params:{"location":{"slotName":"7"} | loadName:"opentrons_96_filtertiprack_20ul" | namespace:"opentrons" | version:1 | labwareId:"32dbb5b7-710d-428b-bff0-03e31351e25f"} | intent:"setup" | commandAnnotationIds:[]}} |
+
+#+begin_src shell
+    curl --header "Content-Type: application/json" \
+         --header "opentrons-version: 2" \
+         -X POST \
+         http://OT2CEP20221010R03:31950/maintenance_runs/4023a0e2-d70d-4f6e-91f7-9808dd170273/commands \
+         -d '{
+      "data": {
+          "commandType": "loadLabware",
+          "params": {
+              "location": {
+                  "slotName": "3"
+              },
+              "loadName": "nest_12_reservoir_15ml",
+              "namespace": "opentrons",
+              "version": 1,
+              "labwareId": "fe305793-e2b6-40ce-94d7-2b55549b1b57"
+          },
+          "intent": "setup"
+      }
+  }'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"1a528351-758b-48de-98a1-9ee3ddd9c1b9" | createdAt:"2026-09-15T15:21:22.731224Z" | commandType:"loadLabware" | key:"1a528351-758b-48de-98a1-9ee3ddd9c1b9" | status:"queued" | params:{"location":{"slotName":"3"} | loadName:"nest_12_reservoir_15ml" | namespace:"opentrons" | version:1 | labwareId:"fe305793-e2b6-40ce-94d7-2b55549b1b57"} | intent:"setup" | commandAnnotationIds:[]}} |
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+         --header "opentrons-version: 2" \
+         -X POST http://OT2CEP20221010R03:31950/maintenance_runs/4023a0e2-d70d-4f6e-91f7-9808dd170273/commands \
+         -d '{
+      "data": {
+          "commandType": "loadPipette",
+          "params": {
+              "pipetteName": "p20_single_gen2",
+              "mount": "left",
+              "pipetteId": "7806a233-8012-4d99-8887-970935f103e1"
+          },
+          "intent": "setup"
+      }
+  }'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"43f5471e-2c63-4f4d-a37a-688676f45652" | createdAt:"2026-09-15T15:21:31.233988Z" | commandType:"loadPipette" | key:"43f5471e-2c63-4f4d-a37a-688676f45652" | status:"queued" | params:{"pipetteName":"p20_single_gen2" | mount:"left" | pipetteId:"7806a233-8012-4d99-8887-970935f103e1"} | intent:"setup" | commandAnnotationIds:[]}} |
+
+Labware and pipette loaded successfully.
+
+Looks like we do not actually have to "play" a maintenance run. Let us see the state of  the run before we attempt to pick up a tip.
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X GET \
+       http://OT2CEP20221010R03:31950/maintenance_runs/4023a0e2-d70d-4f6e-91f7-9808dd170273
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"4023a0e2-d70d-4f6e-91f7-9808dd170273" | createdAt:"2026-09-15T15:14:35.049438Z" | status:"idle" | current:true | actions:[] | errors:[] | hasEverEnteredErrorRecovery:false | pipettes:[{"id":"7806a233-8012-4d99-8887-970935f103e1" | pipetteName:"p20_single_gen2" | mount:"left"}] | modules:[] | labware:[{"id":"c9c762e1-8205-4ccd-be32-6535fd0e9514" | loadName:"livingcodeslab_graphenea_card_adapter" | definitionUri:"livingcodeslab/livingcodeslab_graphenea_card_adapter/1" | location:{"slotName":"1"}} | {"id":"32dbb5b7-710d-428b-bff0-03e31351e25f" | loadName:"opentrons_96_filtertiprack_20ul" | definitionUri:"opentrons/opentrons_96_filtertiprack_20ul/1" | location:{"slotName":"7"}} | {"id":"fe305793-e2b6-40ce-94d7-2b55549b1b57" | loadName:"nest_12_reservoir_15ml" | definitionUri:"opentrons/nest_12_reservoir_15ml/1" | location:{"slotName":"3"}}] | liquids:[] | liquidClasses:[] | labwareOffsets:[]}} |
+
+Looks good. Let us attempt to enqueue the command.
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST \
+       http://OT2CEP20221010R03:31950/maintenance_runs/4023a0e2-d70d-4f6e-91f7-9808dd170273/commands \
+       -d '{
+      "data": {
+          "commandType": "pickUpTip",
+          "params": {
+              "pipetteId": "7806a233-8012-4d99-8887-970935f103e1",
+              "labwareId": "32dbb5b7-710d-428b-bff0-03e31351e25f",
+              "wellName": "A1"
+          },
+          "intent": "protocol"
+      }
+  }'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"1893f588-1eca-4f7d-ae8e-6408d0c6a406" | createdAt:"2026-09-15T15:25:06.260378Z" | commandType:"pickUpTip" | key:"1893f588-1eca-4f7d-ae8e-6408d0c6a406" | status:"queued" | params:{"pipetteId":"7806a233-8012-4d99-8887-970935f103e1" | labwareId:"32dbb5b7-710d-428b-bff0-03e31351e25f" | wellName:"A1" | wellLocation:{"origin":"top" | offset:{"x":0.0 | y:0.0 | z:0.0}}} | intent:"setup" | commandAnnotationIds:[]}} |
+
+Nice! The robot immediately picks up the tip.
+
+Now, let us try putting the tip back in the rack:
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST \
+       http://OT2CEP20221010R03:31950/maintenance_runs/4023a0e2-d70d-4f6e-91f7-9808dd170273/commands \
+       -d '{
+      "data": {
+          "commandType": "dropTip",
+          "params": {
+              "pipetteId": "7806a233-8012-4d99-8887-970935f103e1",
+              "labwareId": "32dbb5b7-710d-428b-bff0-03e31351e25f",
+              "wellName": "A1",
+              "homeAfter": true
+          },
+          "intent": "protocol"
+      }
+  }'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"551865d2-69df-43a4-acd8-220335ccc2d3" | createdAt:"2026-09-15T15:29:55.037686Z" | commandType:"dropTip" | key:"551865d2-69df-43a4-acd8-220335ccc2d3" | status:"queued" | params:{"pipetteId":"7806a233-8012-4d99-8887-970935f103e1" | labwareId:"32dbb5b7-710d-428b-bff0-03e31351e25f" | wellName:"A1" | wellLocation:{"origin":"default" | offset:{"x":0.0 | y:0.0 | z:0.0}} | homeAfter:true | alternateDropLocation:false | scrape_tips:false} | intent:"setup" | commandAnnotationIds:[]}} |
+
+Nice! It drops the tip.
+
+Hmm, the pipette is still extended and the axis is not moved back to home
+position. What does the =homeAfter= key do then? Ahh, should have left this
+unspecified, probably.
+
+Let us see whether we can recover: is there a =retractPipette= command or
+equivalent? Ahh, the =home= command might be sufficient for our requirements.
+Let us try that.
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST \
+       http://OT2CEP20221010R03:31950/maintenance_runs/4023a0e2-d70d-4f6e-91f7-9808dd170273/commands \
+       -d '{
+      "data": {
+          "commandType": "home",
+          "params": {},
+          "intent": "protocol"
+      }
+  }'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"8d6b881d-17eb-4720-b120-8debc81ac37e" | createdAt:"2026-09-15T15:36:32.236069Z" | commandType:"home" | key:"8d6b881d-17eb-4720-b120-8debc81ac37e" | status:"queued" | params:{} | intent:"setup" | commandAnnotationIds:[]}} |
+
+Okay, good. The pipette is retracted and all the axes taken to their respective
+home positions. Now we know =home= is a good bail-out command in case we are
+stuck somewhere.
+
+Let us pick up the tip again, and simulate aspiration:
+
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST \
+       http://OT2CEP20221010R03:31950/maintenance_runs/4023a0e2-d70d-4f6e-91f7-9808dd170273/commands \
+       -d '{
+      "data": {
+          "commandType": "pickUpTip",
+          "params": {
+              "pipetteId": "7806a233-8012-4d99-8887-970935f103e1",
+              "labwareId": "32dbb5b7-710d-428b-bff0-03e31351e25f",
+              "wellName": "A1"
+          },
+          "intent": "protocol"
+      }
+  }'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"502d3b8c-d960-4b62-93fd-c04b556f701d" | createdAt:"2026-09-15T16:38:24.485345Z" | commandType:"pickUpTip" | key:"502d3b8c-d960-4b62-93fd-c04b556f701d" | status:"queued" | params:{"pipetteId":"7806a233-8012-4d99-8887-970935f103e1" | labwareId:"32dbb5b7-710d-428b-bff0-03e31351e25f" | wellName:"A1" | wellLocation:{"origin":"top" | offset:{"x":0.0 | y:0.0 | z:0.0}}} | intent:"setup" | commandAnnotationIds:[]}} |
+
+the tip has been picked. Now, let's simulate aspirating a volume of liquid
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST \
+       http://OT2CEP20221010R03:31950/maintenance_runs/4023a0e2-d70d-4f6e-91f7-9808dd170273/commands \
+       -d '{
+      "data": {
+          "commandType": "aspirate",
+          "params": {
+              "labwareId": "fe305793-e2b6-40ce-94d7-2b55549b1b57",
+              "wellName": "A1",
+              "flowRate": "7.56",
+              "volume": "10",
+              "pipetteId": "7806a233-8012-4d99-8887-970935f103e1"
+          },
+          "intent": "protocol"
+      }
+  }'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"8a7c8d73-4bdf-407a-a467-2363abb85f0c" | createdAt:"2026-09-15T16:46:37.201969Z" | commandType:"aspirate" | key:"8a7c8d73-4bdf-407a-a467-2363abb85f0c" | status:"queued" | params:{"labwareId":"fe305793-e2b6-40ce-94d7-2b55549b1b57" | wellName:"A1" | wellLocation:{"origin":"top" | offset:{"x":0.0 | y:0.0 | z:0.0} | volumeOffset:0.0} | flowRate:7.56 | volume:10.0 | pipetteId:"7806a233-8012-4d99-8887-970935f103e1"} | intent:"setup" | commandAnnotationIds:[]}} |
+
+Nice! The pipette goes over to the reservoir. I cannot tell whether it actually
+does the aspiration, seeing as we don't have any liquids for now.
+
+We can now simulate dispensing onto the chip
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST \
+       http://OT2CEP20221010R03:31950/maintenance_runs/4023a0e2-d70d-4f6e-91f7-9808dd170273/commands \
+       -d '{
+      "data": {
+          "commandType": "dispense",
+          "params": {
+              "labwareId": "c9c762e1-8205-4ccd-be32-6535fd0e9514",
+              "wellName": "A1",
+              "flowRate": "7.56",
+              "volume": "10",
+              "pipetteId": "7806a233-8012-4d99-8887-970935f103e1"
+          },
+          "intent": "protocol"
+      }
+  }'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"9cc8355c-f43b-415e-847c-669110fe4939" | createdAt:"2026-09-15T16:49:49.753308Z" | commandType:"dispense" | key:"9cc8355c-f43b-415e-847c-669110fe4939" | status:"queued" | params:{"labwareId":"c9c762e1-8205-4ccd-be32-6535fd0e9514" | wellName:"A1" | wellLocation:{"origin":"top" | offset:{"x":0.0 | y:0.0 | z:0.0} | volumeOffset:0.0} | flowRate:7.56 | volume:10.0 | pipetteId:"7806a233-8012-4d99-8887-970935f103e1"} | intent:"setup" | commandAnnotationIds:[]}} |
+
+Good, the pipette retracts, moves over to the custom labware then lowers over
+the first "chip" area.
+
+Let's try that again, aspirate then dispense, but this time onto the second chip.
+
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST \
+       http://OT2CEP20221010R03:31950/maintenance_runs/4023a0e2-d70d-4f6e-91f7-9808dd170273/commands \
+       -d '{
+      "data": {
+          "commandType": "aspirate",
+          "params": {
+              "labwareId": "fe305793-e2b6-40ce-94d7-2b55549b1b57",
+              "wellName": "A1",
+              "wellLocation": {
+                  "origin": "center"
+              },
+              "flowRate": "7.56",
+              "volume": "10",
+              "pipetteId": "7806a233-8012-4d99-8887-970935f103e1"
+          },
+          "intent": "protocol"
+      }
+  }'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"9426e343-c3c3-4514-be96-8dcfa57cc182" | createdAt:"2026-09-15T16:58:40.444127Z" | commandType:"aspirate" | key:"9426e343-c3c3-4514-be96-8dcfa57cc182" | status:"queued" | params:{"labwareId":"fe305793-e2b6-40ce-94d7-2b55549b1b57" | wellName:"A1" | wellLocation:{"origin":"center" | offset:{"x":0.0 | y:0.0 | z:0.0} | volumeOffset:0.0} | flowRate:7.56 | volume:10.0 | pipetteId:"7806a233-8012-4d99-8887-970935f103e1"} | intent:"setup" | commandAnnotationIds:[]}} |
+
+Okay, good. This one dips below the very top of the reservoir, so we know it
+will actually touch the liquid and the aspirate step will pull in the reagent.
+
+Now, let us dispense to the second chip
+
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST \
+       http://OT2CEP20221010R03:31950/maintenance_runs/4023a0e2-d70d-4f6e-91f7-9808dd170273/commands \
+       -d '{
+      "data": {
+          "commandType": "dispense",
+          "params": {
+              "labwareId": "c9c762e1-8205-4ccd-be32-6535fd0e9514",
+              "wellName": "B1",
+              "flowRate": "7.56",
+              "volume": "5",
+              "pipetteId": "7806a233-8012-4d99-8887-970935f103e1"
+          },
+          "intent": "protocol"
+      }
+  }'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"850e5269-3eab-490d-8fbe-dfa73f830e2d" | createdAt:"2026-09-15T17:01:49.883038Z" | commandType:"dispense" | key:"850e5269-3eab-490d-8fbe-dfa73f830e2d" | status:"queued" | params:{"labwareId":"c9c762e1-8205-4ccd-be32-6535fd0e9514" | wellName:"B1" | wellLocation:{"origin":"top" | offset:{"x":0.0 | y:0.0 | z:0.0} | volumeOffset:0.0} | flowRate:7.56 | volume:5.0 | pipetteId:"7806a233-8012-4d99-8887-970935f103e1"} | intent:"setup" | commandAnnotationIds:[]}} |
+
+Nice, the pipette retracts and moves over to the second chip. Now, let's
+dispense the remaining volume onto the first chip.
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST \
+       http://OT2CEP20221010R03:31950/maintenance_runs/4023a0e2-d70d-4f6e-91f7-9808dd170273/commands \
+       -d '{
+      "data": {
+          "commandType": "dispense",
+          "params": {
+              "labwareId": "c9c762e1-8205-4ccd-be32-6535fd0e9514",
+              "wellName": "A1",
+              "flowRate": "7.56",
+              "volume": "5",
+              "pipetteId": "7806a233-8012-4d99-8887-970935f103e1"
+          },
+          "intent": "protocol"
+      }
+  }'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"8da3b2a5-067c-45b6-ba37-1b4aacd97503" | createdAt:"2026-09-15T17:03:16.991609Z" | commandType:"dispense" | key:"8da3b2a5-067c-45b6-ba37-1b4aacd97503" | status:"queued" | params:{"labwareId":"c9c762e1-8205-4ccd-be32-6535fd0e9514" | wellName:"A1" | wellLocation:{"origin":"top" | offset:{"x":0.0 | y:0.0 | z:0.0} | volumeOffset:0.0} | flowRate:7.56 | volume:5.0 | pipetteId:"7806a233-8012-4d99-8887-970935f103e1"} | intent:"setup" | commandAnnotationIds:[]}} |
+
+The pipette retracts and moves over to the first chip.
+
+Good. The basic movements/actions are verified to be possible.
+
+Now, looking up the =loadLiquid= command, it looks like using the =volumeByWell= key, we can specify the volume of the specified liquid in each of the mentioned wells; something like:
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST \
+         http://OT2CEP20221010R03:31950/maintenance_runs/4023a0e2-d70d-4f6e-91f7-9808dd170273/commands \
+         -d '{
+      "data": {
+          "params": {
+              "liquidId": "water-id",
+              "labwareId": "reservoir-id",
+              "volumeByWell": {
+                  "A1": 10000,
+                  "A3": 10000,
+                  "A5": 5000
+              }
+          }
+      }
+  }'
+#+end_src
+
+The problem with this is the =liquidId= field. We have not previously defined
+the liquid, and therefore do not have known IDs for the liquids we'll be using.
+
+We have 2 options:
+
+- Create a run from an uploaded protocol which defines the liquids that will be used.
+  This could work for our purposes. We'd need to read the results though, in
+  order to track the =liquidId= values.
+- Work without registered liquid definitions.
+  This also works. We'd simply need to know which wells contain what liquid and
+  track usage manually during the HTTP runs.
+
+
+Now, let us clean up after ourselves.
+
+Let us drop the tip in the trash:
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST \
+       http://OT2CEP20221010R03:31950/maintenance_runs/4023a0e2-d70d-4f6e-91f7-9808dd170273/commands \
+       -d '{
+      "data": {
+          "commandType": "moveToAddressableAreaForDropTip",
+          "params": {
+              "pipetteId": "7806a233-8012-4d99-8887-970935f103e1",
+              "addressableAreaName": "fixedTrash"
+          },
+          "intent": "protocol"
+      }
+  }'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"2095cc77-c0d9-40d5-a0b4-780f29d04482" | createdAt:"2026-09-15T18:21:17.621218Z" | commandType:"moveToAddressableAreaForDropTip" | key:"2095cc77-c0d9-40d5-a0b4-780f29d04482" | status:"queued" | params:{"forceDirect":false | pipetteId:"7806a233-8012-4d99-8887-970935f103e1" | addressableAreaName:"fixedTrash" | offset:{"x":0.0 | y:0.0 | z:0.0} | alternateDropLocation:false | ignoreTipConfiguration:true} | intent:"setup" | commandAnnotationIds:[]}} |
+
+Now we can drop the tip in place
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST \
+       http://OT2CEP20221010R03:31950/maintenance_runs/4023a0e2-d70d-4f6e-91f7-9808dd170273/commands \
+       -d '{
+      "data": {
+          "commandType": "dropTipInPlace",
+          "params": {
+              "pipetteId": "7806a233-8012-4d99-8887-970935f103e1"
+          },
+          "intent": "protocol"
+      }
+  }'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"37377a75-9acf-4a42-89ed-6381033d6f95" | createdAt:"2026-09-15T18:22:51.623155Z" | commandType:"dropTipInPlace" | key:"37377a75-9acf-4a42-89ed-6381033d6f95" | status:"queued" | params:{"pipetteId":"7806a233-8012-4d99-8887-970935f103e1"} | intent:"setup" | commandAnnotationIds:[]}} |
+
+Okay, the pipette was dropped successfully.
+
+Now home everything.
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X POST \
+       http://OT2CEP20221010R03:31950/maintenance_runs/4023a0e2-d70d-4f6e-91f7-9808dd170273/commands \
+       -d '{
+      "data": {
+          "commandType": "home",
+          "params": {},
+          "intent": "protocol"
+      }
+  }'
+#+end_src
+
+#+RESULTS:
+| {"data":{"id":"ed43db4f-d030-41ac-9783-329ce4841228" | createdAt:"2026-09-15T18:23:52.247542Z" | commandType:"home" | key:"ed43db4f-d030-41ac-9783-329ce4841228" | status:"queued" | params:{} | intent:"setup" | commandAnnotationIds:[]}} |
+
+Okay, we have a mostly usable API that we can use to orchestrate the liquid
+handling with the SMU readings.
+
+*** Power Off
+
+We have verified the HTTP API is usable for our purposes. We need to clean up
+after ourselves.
+
+Delete the maintenance run.
+
+#+begin_src shell
+  curl --header "Content-Type: application/json" \
+       --header "opentrons-version: 2" \
+       -X DELETE \
+       http://OT2CEP20221010R03:31950/maintenance_runs/4023a0e2-d70d-4f6e-91f7-9808dd170273
+#+end_src
+
+#+RESULTS:
+: {}
+
+Now power off and disconnect the robot
+
+- [X] power off
+- [X] Flip switch on robot to the off position
+- [X] disconnect robot from power brick
+- [X] disconnect power brick from socket
