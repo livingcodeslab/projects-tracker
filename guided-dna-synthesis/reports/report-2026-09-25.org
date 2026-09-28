@@ -1,0 +1,64 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2026-09-25
+#+AUTHOR: Frederick Muriuki Muriithi
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+#+AUTO_TANGLE: t
+#+OPTIONS: ^:{}
+
+* Integrations
+
+** Measurement Schemes
+
+There are 2 main sensing schemes used with Graphene Field-Effect Transistors
+(GFETs):
+
+- *ΔI_{sd}*: Change in Source-Drain current mode
+  - *Source-Drain voltage* is held constant, gate voltage is swept, and shift(s)
+    in Dirac point is/are tracked.
+  - This scheme has been in use since the beginning of this project
+- *ΔV_{D}*: Change in drain-voltage mode
+  - *Source-Drain voltage* is held constant, and gate voltage is fixed. Binding
+    events change carrier density or carrier mobility causing an increase or
+    decrease in I_{sd}
+  - This is more dynamic, and might have been better suited for the
+    microfluidics flow (assuming everything was working right - we are not clear
+    on this).
+
+There are 2 other sensing schemes that were discovered today while refreshing on
+the schemes, these are:
+
+- Resistance / Conductance Change (ΔR or ΔG)
+- Transconductance Change (Δg_{m})
+
+For the new paradigm, using the OT-2R robot for liquid handling, we will keep
+using the *ΔI_{sd}* mode.
+
+** 1 channel vs. 3 Channel GFET Comparison
+
+We know, from the datasheet, that the chip has 7 single channel GFETs and 7
+three-channel GFETs. We also know, from the same datasheet, that pins 1 to 7 on
+the chip correspond to the 7 single-channel devices and pins 10 to 16 to the 7
+three-channel devices.
+
+That information enables us to compare the behaviour of the devices simply by
+flipping the right switches on the Graphenea cart to connect/disconnect the
+appropriate pins.
+
+That's the hypothesis, at least. This needs to be confirmed with the card.
+
+*** DONE Confirm switches on card connect/disconnect appropriate pins
+
+The painstaking identification of the switches to the 3-channel, and to the
+1-channel devices was done using a multimeter, and the switches labelled for
+future use.
+
+The labelling of the LCC pads, in the datasheet, in relation to the sources on
+the chip is not entirely accurate, and thus cannot be relied upon.
+
+Now that we know how to select either a 1-channel on a 3 channel device, we can
+do a number of tests using both types of devices and compare the results.
