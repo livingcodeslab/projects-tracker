@@ -1,5 +1,5 @@
 #+STARTUP: content
-#+TITLE: Progress Report and Updates: 2026-10-30
+#+TITLE: Progress Report and Updates: 2026-11-02
 #+AUTHOR: Frederick Muriuki Muriithi
 #+PROPERTY: header-args:shell
 #+LATEX_HEADER_EXTRA: \usepackage{svg}
