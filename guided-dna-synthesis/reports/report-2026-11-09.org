@@ -1,0 +1,28 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2026-11-09
+#+AUTHOR: Frederick Muriuki Muriithi
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+#+AUTO_TANGLE: t
+#+OPTIONS: ^:{}
+
+* Integration
+
+** Multiple Readings per Chip
+
+We began the day by writing a [new script](https://github.com/livingcodeslab/gfet-microfluidics-experiments/blob/a478cd249766f0c6db09fdca1ccbbfe325cded78/workflow_gfet_smu_dilutions_readings.py)
+to run the orchestrated protocol for multiple (3) readings per chip.
+
+An attempt was made to run this on the remote lab computer we setup for this
+kind of work: we had to troubleshoot and fix a myriad of issues.
+Finally, we got the script to run, but it was very late by then, and the entire
+workflow did not complete.
+
+** Chip Cleanup
+
+- Rinse the chips soaked in acetone on Friday with IPA
+- Soak chips left on device in acetone
