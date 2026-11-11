@@ -1,0 +1,26 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2026-11-10
+#+AUTHOR: Frederick Muriuki Muriithi
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+#+AUTO_TANGLE: t
+#+OPTIONS: ^:{}
+
+* Integration
+
+** Chip Cleaning
+
+Began the day by rinsing out the two chips left soaking in acetone yesterday.
+
+** Multiple Readings per Chip
+
+Getting back to the work left over from yesterday, the focus is to run the
+script, collect the data and analyse it.
+
+As the robot ran, we worked on code to:
+- add checks for some of the issues we encountered
+- make the code  distributable
