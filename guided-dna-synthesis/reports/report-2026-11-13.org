@@ -1,0 +1,314 @@
+#+STARTUP: content
+#+TITLE: Progress Report and Updates: 2026-11-13
+#+AUTHOR: Frederick Muriuki Muriithi
+#+PROPERTY: header-args:shell
+#+LATEX_HEADER_EXTRA: \usepackage{svg}
+#+BIBLIOGRAPHY: references.bib
+#+CITE_EXPORT: natbib kluwer
+#+LATEX_HEADER_EXTRA: \usepackage{fontspec}
+#+LATEX: \setmainfont{Liberation Serif}
+#+AUTO_TANGLE: t
+#+OPTIONS: ^:{}
+
+* Integration
+
+We begin the day with processing the data from 2026-11-10, and analysing the
+results.
+
+The readings were taken in 3 rounds per chip, with each round cycling through
+the reagents, from water, to 0.0005X PBS and 0.001X PBS, for a total of 18
+expected results.
+
+** Data Processing
+
+Define relevant environment variables
+
+#+begin_src shell :tangle 20261110envvars.env
+  # paths
+  GDNASYNTH_REPO="${HOME}/livingcodeslab/guided-dna-synthesis-project/experiments/gfet-microfluidics-experiments"
+  PYTHONPATH="${GDNASYNTH_REPO}${PYTHONPATH:+:}${PYTHONPATH}"
+
+  # file variables
+  DATE="20261110"
+  RANDSTR="91mvtg"
+  CHIPS=( "1" "2" )
+  READINGS=( "000" "001" "002" )
+  declare -A REAGENTS=( ["water"]="Distilled Water" ["0p0005PBS"]="0.0005X PBS" ["0p001PBS"]="0.001X PBS" )
+#+end_src
+
+then process the files:
+
+- separate positive Drain-Source voltage readings from negative Drain-Source voltage readings
+- use positive Drain-Source voltages readings to generate plots
+
+#+begin_src shell :tangle 20261110-process-files.sh
+  #!/bin/bash
+  source "$(pwd)/20261110envvars.env"
+
+  for chip in "${CHIPS[@]}";
+  do
+      for reading in "${READINGS[@]}";
+      do
+          for rkey in "${!REAGENTS[@]}";
+          do
+              python3 "${GDNASYNTH_REPO}/isswisafre.py" process-data \
+                      "$(pwd)/static/${DATE}-chip-${chip}-${rkey}-reading${reading}-${RANDSTR}.csv" \
+                      "$(pwd)/static/" &&
+                  gnuplot << EOF && sed -i 's/replaceAll("]]>", "")/replaceAll("]]\\>", "")/g' "./static/${DATE}-chip-${chip}-${rkey}-reading${reading}-${RANDSTR}.svg"
+  load "./20260220-plotting-styles.gp"
+
+  set output "./static/${DATE}-chip-${chip}-${rkey}-reading${reading}-${RANDSTR}.svg"
+
+  set title "Sweep in ${REAGENTS[$rkey]} Environment on OT-2R Robot with Orchestration (chip ${chip} -- many channels)"
+  set xlabel "Gate Voltage (V)"
+  set ylabel "Drain Current (A)"
+  set datafile separator ","
+  plot \
+      "./static/${DATE}-chip-${chip}-${rkey}-reading${reading}-${RANDSTR}-positive.csv" \
+      using "measured_gate_voltage":"drain_current" \
+      title "${REAGENTS[$rkey]} Characteristics" \
+      with lines
+  EOF
+          done
+      done
+  done
+#+end_src
+
+then define an entry-point script to run the entire analysis pipeline
+
+#+begin_src shell :tangle 20261110-run-analysis.sh
+  #!/bin/bash
+  source "$(pwd)/20261110envvars.env"
+
+  guix shell --load-path="${GDNASYNTH_REPO}/.guix" \
+       --container --network --development \
+       --file="${GDNASYNTH_REPO}/guix.scm" \
+       --expose="${GDNASYNTH_REPO}" bash gnuplot -- bash "$(pwd)/20261110-process-files.sh"
+#+end_src
+
+*** Improvements
+
+After the analysis had been done, @erikg suggested plotting multiple readings in
+the same diagram, which makes sense, and makes the results easier to compare
+visually.
+
+#+begin_src shell :tangle 20261101-multi-plots.sh
+  source "$(pwd)/20261110envvars.env"
+
+  for rkey in "${!REAGENTS[@]}";
+  do
+      for chip in "${CHIPS[@]}";
+      do
+          gnuplot << EOF && sed -i 's/replaceAll("]]>", "")/replaceAll("]]\\>", "")/g' "./static/${DATE}-chip-${chip}-${rkey}-${RANDSTR}-multiplot.svg"
+  load "./20260220-plotting-styles.gp"
+
+  set output "./static/${DATE}-chip-${chip}-${rkey}-${RANDSTR}-multiplot.svg"
+
+  set title "Sweep in ${REAGENTS[$rkey]} Environment on OT-2R Robot with Orchestration (chip ${chip} -- many channels)"
+  set xlabel "Gate Voltage (V)"
+  set ylabel "Drain Current (A)"
+  set datafile separator ","
+  plot \
+      "./static/${DATE}-chip-${chip}-${rkey}-reading000-${RANDSTR}-positive.csv" \
+      using "measured_gate_voltage":"drain_current" \
+      title "Reading 000" \
+      with lines, \
+      "./static/${DATE}-chip-${chip}-${rkey}-reading001-${RANDSTR}-positive.csv" \
+      using "measured_gate_voltage":"drain_current" \
+      title "Reading 001" \
+      with lines, \
+      "./static/${DATE}-chip-${chip}-${rkey}-reading002-${RANDSTR}-positive.csv" \
+      using "measured_gate_voltage":"drain_current" \
+      title "Reading 002" \
+      with lines
+  EOF
+      done
+  done
+#+end_src
+
+and we can run that with
+
+#+begin_src shell :tangle 20261110-generate-multiplots.sh
+  #!/bin/bash
+  source "$(pwd)/20261110envvars.env"
+
+  guix shell --load-path="${GDNASYNTH_REPO}/.guix" \
+       --container --network --development \
+       --file="${GDNASYNTH_REPO}/guix.scm" \
+       --expose="${GDNASYNTH_REPO}" bash gnuplot -- bash "$(pwd)/20261101-multi-plots.sh"
+#+end_src
+
+** Analysis
+
+With the files processed and the plots generated, we are able to now have a look
+at the data and draw conclusions.
+
+We will compare the dirac voltages for the different readings for each reagent
+on each chip.
+
+*** Water: Chip 01
+
+The plots for the three readings for distilled water on chip 1 are as follows:
+
+[[file:static/20261110-chip-1-water-91mvtg-multiplot.svg]]
+
+The individual plots are as below
+
+[[file:static/20261110-chip-1-water-reading000-91mvtg.svg]]
+
+[[file:static/20261110-chip-1-water-reading001-91mvtg.svg]]
+
+[[file:static/20261110-chip-1-water-reading002-91mvtg.svg]]
+
+The details for the dirac voltage are as follows:
+
+| Reading | Dirac Voltage | Drain current at Dirac Voltage |
+|---------+---------------+--------------------------------|
+|     000 | approx 1.1V   | around 50µA                    |
+|     001 | approx 1.0V   | around 35µA                    |
+|     002 | approx 1.1V   | around 25µA                    |
+
+The first reading was taken with a clean chip taken from vacuum after being
+cleaned with acetone and rinsed with IPA. The second reading was taken after the
+first cycle through distilled water, 0.0005X PBS and 0.001XPBS. The third
+reading for water was taken after yet another cycle through the three reagents.
+
+The conclusion we can draw from the readings, is that each cycle affects the
+chip, causing a change in the amount of current that is passed through the
+Drain-Source channel. The dirac voltage, however, was found to not vary much
+for the 3 readings.
+
+*** Water: Chip 02
+
+The plots for the three readings on chip 2 are as follows:
+
+[[file:static/20261110-chip-2-water-91mvtg-multiplot.svg]]
+
+The individual plots for water on chip2 are below:
+
+[[file:static/20261110-chip-2-water-reading000-91mvtg.svg]]
+
+[[file:static/20261110-chip-2-water-reading001-91mvtg.svg]]
+
+[[file:static/20261110-chip-2-water-reading002-91mvtg.svg]]
+
+The details for the dirac voltage are as follows:
+
+| Reading | Dirac Voltage | Drain current at Dirac Voltage |
+|---------+---------------+--------------------------------|
+|     000 | approx 1.25V  | around 14µA                    |
+|     001 | approx 1.4V   | around 6.5µA                   |
+|     002 | approx 1.4V   | around 5.5µA                   |
+
+As in Chip-1, the first reading was taken on a clean chip and we see a drop in
+current across readings, with a mostly stable dirac point voltage.
+
+The differences in the actual values can be ascribed, to the number of individual
+GFET devices on each chip that are good and  the configuration of each GFET
+device (i.e. whether it is a single-channel device or 3-channel device).
+
+*** 0.0005X PBS: Chip 01
+
+The plots for the three readings for 0.0005X PBS on chip 1 are as follows:
+
+[[file:static/20261110-chip-1-0p0005PBS-91mvtg-multiplot.svg]]
+
+The individual plots for 0.0005X PBS  on chip 1 are below:
+
+[[file:static/20261110-chip-1-0p0005PBS-reading000-91mvtg.svg]]
+
+[[file:static/20261110-chip-1-0p0005PBS-reading001-91mvtg.svg]]
+
+[[file:static/20261110-chip-1-0p0005PBS-reading002-91mvtg.svg]]
+
+The details for the dirac voltage are as follows:
+
+| Reading | Dirac Voltage | Drain current at Dirac Voltage |
+|---------+---------------+--------------------------------|
+|     000 | approx 0.75V  | around 30µA                    |
+|     001 | approx 0.70V  | around 25µA                    |
+|     002 | approx 0.95V  | around 20µA                    |
+
+A somewhat similar reduction in currents across the readings is observed, as in
+the water readings.
+
+Here, however, we note that the third dirac voltage has drifted much more to the
+right than with the previous two readings.
+
+*** 0.0005X PBS: Chip 02
+
+The plots for the three readings for 0.0005X PBS on chip 2 are as follows:
+
+[[file:static/20261110-chip-2-0p0005PBS-91mvtg-multiplot.svg]]
+
+The individual plots for 0.0005X PBS  on chip 2 are below:
+
+[[file:static/20261110-chip-2-0p0005PBS-reading000-91mvtg.svg]]
+
+[[file:static/20261110-chip-2-0p0005PBS-reading001-91mvtg.svg]]
+
+[[file:static/20261110-chip-2-0p0005PBS-reading002-91mvtg.svg]]
+
+The details for the dirac voltage are as follows:
+
+| Reading | Dirac Voltage | Drain current at Dirac Voltage |
+|---------+---------------+--------------------------------|
+|     000 | approx 1.0V   | around 6µA                     |
+|     001 | approx 1.1V   | around 4µA                     |
+|     002 | approx 1.2V   | around 3.5µA                   |
+
+Same general reduction in currents across the readings is observed.
+
+The drift of the dirac voltage towards the right is visible, albeit gradual.
+
+*** 0.001X PBS: Chip 01
+
+The plots for the three readings for 0.001X PBS on chip 1 are as follows:
+
+[[file:static/20261110-chip-1-0p001PBS-91mvtg-multiplot.svg]]
+
+The individual plots for 0.001X PBS  on chip 1 are below:
+
+[[file:static/20261110-chip-1-0p001PBS-reading000-91mvtg.svg]]
+
+[[file:static/20261110-chip-1-0p001PBS-reading001-91mvtg.svg]]
+
+[[file:static/20261110-chip-1-0p001PBS-reading002-91mvtg.svg]]
+
+The details for the dirac voltage are as follows:
+
+| Reading | Dirac Voltage | Drain current at Dirac Voltage |
+|---------+---------------+--------------------------------|
+|     000 | approx 0.75V  | around 24µA                    |
+|     001 | approx 0.95V  | around 25µA                    |
+|     002 | approx 1.05V  | around 15µA                    |
+
+The current rises slightly from reading 000 to reading 001 then drops for
+reading 002.
+
+There is a right-ward drift (more like a jump) of the dirac-point voltage.
+
+*** 0.001X PBS: Chip 02
+
+The plots for the three readings for 0.001X PBS on chip 2 are as follows:
+
+[[file:static/20261110-chip-2-0p001PBS-91mvtg-multiplot.svg]]
+
+The individual plots for 0.001X PBS  on chip 2 are below:
+
+[[file:static/20261110-chip-2-0p001PBS-reading000-91mvtg.svg]]
+
+[[file:static/20261110-chip-2-0p001PBS-reading001-91mvtg.svg]]
+
+[[file:static/20261110-chip-2-0p001PBS-reading002-91mvtg.svg]]
+
+The details for the dirac voltage are as follows:
+
+| Reading | Dirac Voltage | Drain current at Dirac Voltage |
+|---------+---------------+--------------------------------|
+|     000 | approx 1.2V   | around 4.0µA                   |
+|     001 | approx 1.1V   | around 3.5µA                   |
+|     002 | approx 1.25V  | around 3.0µA                   |
+
+Same general reduction in current, and gradual right-ward drift of the
+dirac-point voltage.
