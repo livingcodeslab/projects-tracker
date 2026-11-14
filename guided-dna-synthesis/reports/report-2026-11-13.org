@@ -312,3 +312,57 @@ The details for the dirac voltage are as follows:
 
 Same general reduction in current, and gradual right-ward drift of the
 dirac-point voltage.
+
+
+** Chip Identification
+
+We could use "Drain-Source continuity" tests on the GFETs on a chip to uniquely
+fingerprint chips by looking at the pattern/sequence of working and broken GFETs.
+
+Some things to look out for:
+
+- use a *binary open/short threshold* e.g.
+  - intact channel: < (50 to 100)kΩ
+  - torn/missing graphene > 10MΩ
+- keep voltages low (recommendation -10mv to 10mv) for the fingerprinting
+  sweep(s)
+- set the *current compliance* limit on SMU (typically 10µA to 100µA) to
+  instantly cap power if any GFET is shorted (hmm, this  add's a dimension to
+  the fingerprinting (working, broken/open, shorted)
+- with check for shorting, we can do a *ternary* threshold rather that *binary*,
+  e.g. (treating gaps as open-circuit)
+  - shorted; < 50Ω
+  - gap: >50Ω to <300Ω
+  - intact: 300Ω to 50kΩ
+  - gap: >100kΩ to <10MΩ
+  - open: > 10MΩ
+
+
+** Multiplexing
+
+To save on components, the selection of the active chip and the active channel
+on the selected chip will need to be independent.
+
+This way, the selection of the chip connects power to said chip (disconnecting
+power from all others), ensuring that even though all the chips share the same
+channel conductors, the channel selection applies only to the selected chip,
+since it's the only chip where both the positive VCC and negative/ground are
+connected. All others wil have those terminals open-circuit.
+
+*Hard Requirement*: Allow selection of only one chip at a time.
+
+The channels are a little different, you can select one channel, a number of
+them, or all channels. The circuit design here will be interesting, to say the
+least.
+
+There are a number of issues with this, among them leakage currents and
+parasitic capacitances, to take care of.
+
+Look up:
+- solid-state analog multiplexer ICs
+- dual-supply CMOS analog multiplexers, e.g.
+  - ADG1606
+  - ADG732
+  - ADG1404
+  - TMUX1104
+  - ADG1609
